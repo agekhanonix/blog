@@ -1,0 +1,273 @@
+/* =================================================== **
+**             CASCADING STYLES SHEET                  **
+** =================================================== */
+/* Author    : Thierry CHARPENTIER                      *
+*  Date      : 16.09.2018                               *
+*  Version   : V2R0                                     *
+* ==================================================== */
+html, body {
+    font-size:      16px;
+}
+body {
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 70px;
+}
+#header {
+    height:         200px;
+    width:          100%;
+    top: 0;
+    z-index:        100;
+    visibility:     hidden;
+}
+/* ---                                             --- **
+**          LAUNCHING OF AN ANIMATION DURING           **
+**          LOADING OF THE CARROUSEL IMAGES            **
+** ---                                             --- */
+div#loading {
+    top: 20px;
+    left: 30px;
+    position: absolute;
+    z-index: 1000;
+    cursor: wait; 
+}
+div#loading img {
+    vertical-align: middle;
+}
+/* ---                                             --- **
+**                          SLOGAN                     **
+** ---                                             --- */
+#slogan {
+    position:       absolute;
+    top:            55px;
+    left:           350px;
+    z-index:        120;
+    visibility:     hidden;
+}                                     
+#slogan h1 {
+    text-align:     center;
+    color:          #cacbcc;
+    font-family:    'Mr Dafoe', cursive;
+    font-size:      2.5rem;
+    margin-top:     5px;
+    margin-bottom:  1px;
+    text-shadow: -1px 0 0 rgba(158, 20, 13, 0.8), 
+        1px 0 0 rgba(158, 20, 13, 0.8),
+        0 -1px 0 rgba(158, 20, 13, 0.8),
+        0 1px 0 rgba(158, 20, 13, 0.8);
+}
+#slogan h2 {
+    color:          #8D26B5; 
+    text-align:     center;
+    font-family:    'Shadows Into Light', cursive;
+    font-size:      2.5rem;
+    margin-top:     0px;
+    margin-bottom:  5px;
+    text-shadow: 1px 2px 0 rgba(0,0,0,0.4),
+        -1px -2px 0 rgba(255,255,255,1);   
+}
+/* ---                                             --- **
+**                     CARROUSEL                       **
+** ---                                             --- */
+#slideshow {
+    width: 99%;
+    position: absolute;
+    left: 5px;
+    top: 52px;
+    right: 5px;
+    height: auto;
+    padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #00007f;
+    background: #ffffff;
+    background: linear-gradient(#fff, #fff 20%, #eee 80%, #ddd);
+    border-radius: 2px 2px 2px 2px;
+    box-shadow: 0 0 3px rgba(0,0,0, 0.2);
+    visibility: hidden;
+}
+#slideshow img {
+    width: 100%;
+    height: auto;
+}
+.navbar {
+    font-family: 'Oswald';
+    vertical-align: middle;
+}
+.navbar-brand {
+    padding: 10px 5px;
+}
+.navbar-brand img {
+    top: 0;
+    left: 0;
+    height: 30px;
+    height: 30px;   
+}
+.navbar-fixed-top {
+    width: 99%;
+    margin-left: auto;
+    margin-right: auto;
+}
+header h3 {
+    font-display: 'Oswald', 'Verdana', sans-serif;
+    color: #97007a;
+}
+header h3 small {
+    font-display: 'Oswald', 'Verdana', sans-serif;
+    color: #1795cc;
+}
+.panel-content {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+footer {
+    width: 99%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+}
+.page-footer {
+    background-color: #ffd5f7;
+    border: 1px solid #97007a;
+    border-radius: 0px 0px 20px 20px;
+    padding-bottom: 5px;
+    font-family: 'Oswald';
+}
+.footer-copyright {
+    background-color: #ff88e8;
+    color: #97007a;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-color: 1px solid #ff88e8;
+    border-radius: 3px 3px 3px 3px;
+}
+.footer-copyright a {
+    color: #97007a;    
+}
+.breadcrumb {
+    font-family: 'Oswald';
+    font-size: 1rem;
+    font-weight: bold; 
+}
+.btn-custom {
+    background-color: #ff88e8;
+    color: #97007a;
+}
+.polities {
+    font-family: 'Oswald';
+    font-size: 0.6rem;
+}
+.polities h3 {
+    font-size: 1rem;
+}
+.polities h4 {
+    font-size: 0.8rem;
+}
+.polities h5 {
+    font-size: 0.7rem;
+}
+.polities h4 {
+    font-size: 0.6rem;
+}
+fieldset {
+    border: 1px solid #fd67df;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+legend {
+    font-family: 'Oswald';
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-left: 10px;
+    width: 20%;
+}
+legend.w-auto.red {
+    color: #ff0000;
+    font-size: 0.7rem;
+}
+legend.w-auto.green {
+    color: #13f80b;
+    font-size: 0.7rem;
+}
+.red-glyph {
+    color: #ff0000;
+    font-size: 0.9rem;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.pager li a {
+    background-color: #ffffff;
+    color: #337ab7;
+    font-weight: bold;
+}
+.pager li a:hover {
+    background-color: #337ab7;
+    color: #ffffff;
+    transition: 0.2s;
+    transform: rotate(360deg);
+}
+/* ---                                             --- **
+**                     CONTACT FORM                    **
+** ---                                             --- */
+form.contact {
+    border: 1px solid #cacbcc;
+    border-radius: 5px 5px 5px 5px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px; 
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+form span.contact {
+    background: #cedce7;
+    background: -moz-linear-gradient(top, #cedce7 6%, #93748d 65%);
+    background: -webkit-linear-gradient(top, #cedce7 6%,#93748d 65%);
+    background: linear-gradient(to bottom, #cedce7 6%,#93748d 65%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cedce7', endColorstr='#93748d',GradientType=0 );
+    font-family: 'Oswald', 'Verdana', sans-serif;
+    color: #97007a;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    border: 2px solid #cacbcc;
+    border-radius: 5px 5px 5px 5px;
+}
+form button.contact {
+    margin-top: 5px;
+    background: #bfd255;
+    background: -moz-linear-gradient(top, #bfd255 0%, #8eb92a 64%, #72aa00 80%, #72aa00 80%, #9ecb2d 100%);
+    background: -webkit-linear-gradient(top, #bfd255 0%,#8eb92a 64%,#72aa00 80%,#72aa00 80%,#9ecb2d 100%);
+    background: linear-gradient(to bottom, #bfd255 0%,#8eb92a 64%,#72aa00 80%,#72aa00 80%,#9ecb2d 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfd255', endColorstr='#9ecb2d',GradientType=0 );
+    font-family: 'Oswald', 'Verdana', sans-serif;
+    color: #97007a;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+}
+li.contact {
+    line-height: 10px;
+}
+span.contact {
+    font-family: 'Oswald', 'Verdana', sans-serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;  
+}
+.errMsg {
+    margin-left: 20px;
+    font-family: 'Oswald', 'Verdana', sans-serif;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    padding-top: 12px;  
+}
+.no-error {
+    border-color: 1px solid #13f80b;
+}
+.error {
+    border-color: 1px solid #ff0000;
+}

@@ -1,0 +1,63 @@
+.blog a {
+    color:          #ffffff;
+    background:     #b54d96;
+    border-radius:  4px;
+    text-align:     center;
+    text-decoration: none;
+    position:       relative;
+    display:        inline-block;
+    width:          30px;
+    height:         15px;
+    padding:        3px 2px 5px 3px;
+    margin:         0 2px;
+    -o-transition:all .5s;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    transition: all .5s;
+    -webkit-font-smoothing: antialiased;
+    font-size:      15px;
+  }
+.blog a:hover {
+    background:     #d496c0;
+  }
+.blog a span {
+    color:          #7f8183;
+    position:       absolute;
+    display:        inline-block;
+    font-family:    'Shadows Into Light', cursive;
+    bottom:         0;
+    left:           -25px;
+    right:          -25px;
+    width:          130px;
+    font-size:      12px;
+    padding:        3px 2px 5px 3px;
+    z-index:        -1;
+    border-radius:  20px;
+    border:         1px solid #b54d96;
+    background:     #ffffff;
+    visibility:     hidden;
+    opacity:        0;
+    -o-transition:  all .5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    -webkit-transition: all .5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    -moz-transition: all .5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition:     all .5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.blog a span:before {
+    content:        '';
+    width:          0; 
+    height:         0; 
+    border-left:    5px solid transparent;
+    border-right:   5px solid transparent;
+    border-top:     5px solid #fff;
+    position:       absolute;
+    bottom:         -5px;
+    left:           40px;
+    border-left:         1px solid #b54d96;
+    border-right:         1px solid #b54d96;
+    border-bottom:         1px solid #b54d96;
+  }
+  .blog a:hover span {
+    bottom:         30px;
+    visibility:     visible;
+    opacity:        1;
+  }

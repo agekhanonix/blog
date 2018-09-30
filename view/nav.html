@@ -1,0 +1,87 @@
+<!--
+*/ =================================================== **
+**            NAVIGATION BAR                           **
+** =================================================== */
+/* Author    : Thierry CHARPENTIER                      *
+*  Date      : 16.09.2018                               *
+*  Version   : V2R0                                     *
+* ==================================================== */
+-->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toogle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <img src="public/images/logo-thcharpentier.png" alt="logo" title="Mon logo"/>
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="index.php?action=home">Accueil <span class="sr-only">(current)</span></a></li>
+                    <li><a href="index.php?action=listPosts">Blog</a></li>
+                    <li><a href="index.php?action=about">A mon propos</a></li>
+                    <li><a href="index.php?action=contact">Contact</a></li>
+<?php if($lvl > 3) { ?>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Articles <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown">
+                                <li><a href="index.php?action=addPost">Création</a></li>
+                                <li><a href="index.php?action=updPost">Modification</a></li>
+                                <li><a href="index.php?action=pubPosts">Publication</a></li>
+                                <li><a href="index.php?action=delPost">Suppression</a></li>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="divider" role="separator"></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Commentaires <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown">
+                                <li><a href="index.php?action=pubComments">Validation</a></li>
+                            </li>
+                        </ul>
+                    </li>
+<?php } ?>
+                    <li class="divider" role="separator"></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Membres <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown">
+                                <li><a href="index.php?action=addMember">Enregistrement</a></li>
+<?php if($lvl > 3) { ?>
+                                <li><a href="index.php?action=delMember">Révocation</a></li>
+<?php } ?>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+<?php if($userId == 0) { ?>
+                <form class="navbar-form navbar-right" action="index.php?action=connexion" method="post" id="form-blog">
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-sm" placeholder="Pseudo" name='pseudo' id="pseudo">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control form-control-sm" placeholder="Mot de passe" name="pwd" id="pwd">
+                    </div>
+                    <button type="submit" class="btn btn-success">
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp;Se connecter
+                    </button>
+                </form>
+<?php } else { ?>
+                <p class="navbar-text navbar-right">Bienvenue <?= $firstName ?> <?= $lastName ?> 
+                    <a href="index.php?action=deconnexion" class="navbar-link"><span class="glyphicon glyphicon-scissors red-glyph" aria-hidden="true"></span></a>
+                </p>
+<?php } ?>
+            </div><!-- END .nav-collapse -->
+    </div><!-- END (.container-fluid) -->
+</nav>
