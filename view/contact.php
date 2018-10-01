@@ -19,13 +19,13 @@
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <span class="input-group-addon contact">Nom</span>
-                                    <input type="text" id="input-name" name="name" class="form-control contact" placeholder="John DOE">
+                                    <input type="text" id="input-name" name="name" class="form-control contact" placeholder="John DOE" required>
                                 </div>
                             </div><!-- END (col) -->
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <span class="input-group-addon contact">Courriel</span>
-                                    <input type="email" id="input-email" name="email" class="form-control contact" placeholder="john.doe@ltd.com">
+                                    <input type="email" id="input-email" name="email" class="form-control contact" placeholder="john.doe@ltd.com" required>
                                 </div>
                             </div><!-- END (col) -->
                         </div><!-- END (row) -->
@@ -33,7 +33,7 @@
                             <div class="col-md-12">
                                 <div class="input-group">
                                     <span  class="input-group-addon contact">Sujet</span>
-                                    <input type="text" id="input-subject" name="sujet" class="form-control contact">
+                                    <input type="text" id="input-subject" name="sujet" class="form-control contact" required>
                                 </div>
                             </div><!-- END (col) -->
                         </div><!-- END (col) -->
@@ -41,7 +41,7 @@
                             <div class="col-md-12">
                                 <div class="input-group">
                                     <span class="input-group-addon contact">Votre message</span>
-                                    <textarea id="input-message" name="message" row="2" class="form-control contact"></textarea>
+                                    <textarea id="input-message" name="message" row="2" class="form-control contact" required></textarea>
                                 </div>
                             </div><!-- END (col) -->
                         </div><!-- END (row) -->
@@ -50,9 +50,6 @@
                                 <button type="submit" id="submit" class="btn btn-sm contact" aria-label="Left Align">
                                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp;Envoyer
                                 </button>
-                            </div>
-                            <div class="col-sm-10">
-                                <span class="errMsg" id="errMsg"></span>
                             </div>
                         </div>
                     </form>
@@ -66,7 +63,7 @@
                             + 33 651 143 924</span>
                         </li>
                         <li class="contact"><span class="row contact"><i class="fa fa-envelope mt-4 fa-w"></i>
-                            thierry.charpentier.ct@gmail.com<span>
+                            jean.foutreroche.jf@gmail.com<span>
                         </li>
                     </ul>
                 </div><!-- END (col) -->

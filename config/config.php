@@ -9,7 +9,7 @@
 
     /* ===             WEB SITE PARAMETERS            === */
     define('BLOGTITLE', 'Je BLOG donc je suis !');
-    define('SL_MAIN', 'Th.Charpentier');
+    define('SL_MAIN', 'Jean Foutreroche');
     define('SL_DETAIL', "écrivain, j'écris de tout sur tous, et surtout dis le contraire");
 
     /* ===               MEMBERS ACCESS               === */

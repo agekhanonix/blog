@@ -18,8 +18,8 @@
         <div class="panel-content">
             <form action="index.php?action=addCommentQry&amp;id=<?= $post['id'] ?>" method="post" id="form-blog">
                 <div>
-                    <label for="editable">Commentaire :</label>
-                    <textarea id="editable" class="form-control" name="comment"></textarea>
+                    <label for="comment">Commentaire :</label>
+                    <textarea id="comment" class="form-control" name="comment"></textarea>
                 </div>
                 <button type="submit" class="btn btn-success btn-sm" aria-label="Left Align">
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp;Enregister

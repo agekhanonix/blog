@@ -258,16 +258,3 @@ span.contact {
     font-size: 0.8rem;
     text-transform: uppercase;  
 }
-.errMsg {
-    margin-left: 20px;
-    font-family: 'Oswald', 'Verdana', sans-serif;
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    padding-top: 12px;  
-}
-.no-error {
-    border-color: 1px solid #13f80b;
-}
-.error {
-    border-color: 1px solid #ff0000;
-}

@@ -46,7 +46,15 @@
             ** === ------------------------------------ === */
             } elseif($_GET['action'] == 'contact') {
                 contact();
-            
+            } elseif($_GET['action'] == 'mail') {
+                if(!empty($_POST['name']) 
+                    && !empty($_POST['email']) 
+                    && !empty($_POST['sujet']) 
+                    && !empty($_POST['message'])) {
+                    mailSend($_POST['name'], $_POST['email'], $_POST['sujet'], $_POST['message']);
+                } else {
+                    throw new Exception('APL013');
+                }
             /* === ------------------------------------ === **
             **                   POST MENU                  **
             ** === ------------------------------------ === **
@@ -162,5 +170,4 @@
     } catch(Exception $e) {
         $errorMessage = $e->getMessage();
         getError($errorMessage);
-        /*require('view/errorView.php');*/
     }

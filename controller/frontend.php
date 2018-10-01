@@ -4,6 +4,7 @@
     require_once('model/CommentManager.php');
     require_once('model/MemberManager.php');
     require_once('model/ErrorManager.php');
+    require_once('libs/OCFram/Cmail.php');
 
     function listPosts($publish) {
         $postManager = new \OCFram\Blog\Model\PostManager();
@@ -179,4 +180,17 @@
         $errorManager = new \OCFram\Blog\Model\ErrorManager();
         $error = $errorManager->getError($errorId);
         require('view/errorView.php');
+    }
+    function mailSend($name, $email, $sujet, $message) {
+        $courriel = new Cmail();
+        $courriel->fromName = $name;
+        $courriel->from = $email;
+        $courriel->to = "thierry.charpentier.ct@gmail.com";
+        $courriel->cc = $email;
+        $courriel->subject = $sujet;
+        $courriel->message = $message;
+        $courriel->charset = "iso-8859-2";
+        $courriel->mime = "text/html";
+        $courriel->send();
+        require('view/home.php');
     }
