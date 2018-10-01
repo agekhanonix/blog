@@ -190,7 +190,7 @@
         $courriel->subject = $sujet;
         $courriel->message = $message;
         $courriel->charset = "iso-8859-2";
-        $courriel->mime = "text/html";/* test pour GIT */
+        $courriel->mime = "text/html";
         $courriel->send();
         require('view/home.php');
     }
