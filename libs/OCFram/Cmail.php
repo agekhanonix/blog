@@ -1,64 +1,120 @@
 <?php
-/* *** ---------------------------------------- *** **
-** ENVOI DES EMAILS AVEC GESTION DES PIECES JOINTES **
-** *** ---------------------------------------- *** **/
-define("BOUNDARY", "--".md5(rand()));
+/* *** -------------------------------------------- *** **
+**              MAIL SENDER WITH ATTACHMENTS            **
+** *** -------------------------------------------- *** **/
+/*
+    $from = "john.doe@ltd.com";
+    $fromName = "John DOE";
+    $cc = "alex.terieur@gmail.com";
+    $to = array("alain.terieur@gmail.com");
+    $subject = "ENVOI DE MAIL AVEC PJ";
+    $message = "<strong>Un message</strong>  avec une piece jointe";
+    $attachment = array('README.txt', 'image.jpeg', '2018171442362.pdf');
+
+    $courriel = new Cmail();
+    $courriel->to = $to;
+    $courriel->cc = $cc;
+    $courriel->from = $from;
+    $courriel->fromName = $fromName;
+    $courriel->subject = $subject;
+    $courriel->message = $message;
+    $courriel->attachment = $attachment;
+
+    $courriel->send();
+*/
+define("BOUNDARY", md5(uniqid(microtime(), true)));
 class CMail {
-    public $from;                                   // Votre email
-    public $fromName;                               // Votre nom
-    public $to;                                     // Destinataire
-    public $cc;                                     // Copie à
-    public $bcc;                                    // Copie cachée à
-    public $subject;                                // L'objet du mail
-    public $priority;                               // La priorité du courriel 1-5
-    public $returnPath;                             // Courriel utilisé pour la réponse;
-    public $notify;                                 // Courriel utilisé pour la notification
-    public $message;                                // Le corps du mail
-    public $charset;                                // Le jeu de caractère
-    public $mime;                                   // Le type mime, text/plain par défaut
-    public $debug;                                  // Affichage ou non des erreurs
-    public $debug_txt;                              // Les messages d'erreurs
+    /* ===                     PARAMS               === */
+    public $to;                                     // Recipient
+    public $subject;                                // Mail subject
+    public $message;                                // Your message
+    public $from;                                   // Your email
+    public $fromName;                               // Your name
+    public $bcc = array();                          // Blind carbon copy
+    public $cc = array();                           // Carbon copy
+    public $attachment = array();                   // Attachments
 
-    public $header;
-    public $body;
-    protected $attachments = Array();               // Les pièces jointes
-    protected $priorities = Array(                  // Le tableau des priorités
-        '1 (Highest)',
-        '2 (High)',
-        '3 (Normal)',
-        '4 (Low)',
-        '5 (Lowest)'
-    );
+    /* ===                    CONSTANTS            === */ 
+    const HEADER_BCC                    = "Bcc";
+    const HEADER_CC                     = "Cc";
+    const HEADER_FROM                   = "From";
+    const HEADER_MIME_VERSION           = "MIME-Version";
+    const HEADER_CONTENT_TYPE           = "Content-Type";
+    const HEADER_CONTENT_TRANSFER_ENCODING = "Content-Transfer-Encoding";
+    const HEADER_SEPARATOR_CRLF         = "\r\n";
 
-    /* ---               CONSTRUCTEUR               *** */
+    /* ***               CONSTRUCTOR                *** */
     public function __construct() {
-        $this->clear();
     }
+    /* ***        PREPARE MAIL BEFORE SENDING       *** */
+    public function send() {
+        $recipients = (!is_array($this->to)) ? explode(";", $this->to) : $this->to; 
+        $bccs = (!is_array($this->bcc)) ? explode(";", $this->bcc) : $this->bcc;
+        $ccs = (!is_array($this->cc)) ? explode(";", $this->cc) : $this->cc;
+        $attachments = (!is_array($this->attachment)) ? explode(";", $this->attachment) : $this->attachment;
 
-    /* ---  INITIALISATION DES VALEURS PAR DEFAUT   *** */
-    public function clear() {
-        $this->mime     = "text/plain";
-        $this->message  = "";
-        $this->charset  = "iso-8859-1";
-        $this->from     = "";
-        $this->fromName = "";
-        $this->to       = "";
-        $this->cc       = "";
-        $this->bcc      = "";
-        $this->subject  = "";
-        $this->returnPath = "";
-        $this->notify   = "";
-        $this->priority = 0;
-        $this->debug    = false;
-        $this->clearAttachments();
+        $headers = "";
+        $body = "";
+        foreach($recipients as $recipient) {
+            /* --- Mail origin                      --- */
+            /* HEADERS      */
+            $headers .= self::HEADER_FROM . ":" . $this->fromName . "<" . $this->from .">" . self::HEADER_SEPARATOR_CRLF;
+            $headers .= self::HEADER_MIME_VERSION . ": 1.0" . self::HEADER_SEPARATOR_CRLF;
+            $headers .= self::HEADER_CONTENT_TYPE . ": multipart/mixed; boundary=" . BOUNDARY . self::HEADER_SEPARATOR_CRLF;
+            /*$headers .= self::HEADER_SEPARATOR_CRLF;*/
+            /* BODY         */
+            $body .= "This is a multipart/mixed message." . self::HEADER_SEPARATOR_CRLF;
+            $body .= "--" . BOUNDARY . self::HEADER_SEPARATOR_CRLF;
+            $body .= self::HEADER_CONTENT_TYPE . ": text/html; charset=utf-8" . self::HEADER_SEPARATOR_CRLF; 
+            $body .= self::HEADER_CONTENT_TRANSFER_ENCODING . ":8bit" . self::HEADER_SEPARATOR_CRLF;
+            $body .= $this->message . self::HEADER_SEPARATOR_CRLF;
+            /* ATTACHMENTS  */ 
+            foreach($attachments as $attachment) {
+                if(file_exists($attachment) && !is_dir($attachment)) {
+                    if (function_exists('finfo_open') && $finfo = finfo_open(FILEINFO_MIME_TYPE)) {
+                        $contentType = finfo_file($finfo, $attachment);
+                        finfo_close($finfo);
+                    } elseif(function_exists('mime_content_type')) {
+                        $contentType = mime_content_type($attachment);
+                    } else {
+                        $contentType = $this->getMimeType($attachment);
+                    }
+                    $fileContent = chunk_split(base64_encode(file_get_contents($attachment, false)));
+                    $body .= '--' . BOUNDARY . self::HEADER_SEPARATOR_CRLF;
+                    $body .= self::HEADER_CONTENT_TYPE . ":" . $contentType . "; name=" . $attachment . self::HEADER_SEPARATOR_CRLF;
+                    $body .= self::HEADER_CONTENT_TRANSFER_ENCODING . ":base64" . self::HEADER_SEPARATOR_CRLF;
+                    $body .= $fileContent . self::HEADER_SEPARATOR_CRLF;
+                }
+                $body .= '--' . BOUNDARY . self::HEADER_SEPARATOR_CRLF;
+            }
+            /* --- Blind carbon copy recipients     --- */
+            foreach($bccs as $bcc) {
+                if(self::checkAddress(trim($bcc))) $headers .= self::HEADER_BCC . ":" . null . "<" . trim($bcc) . "> ";
+            }
+            $headers .= self::HEADER_SEPARATOR_CRLF;
+            /* --- Carbon copy recipients           --- */ 
+            foreach($ccs as $cc) {
+                if(self::checkAddress(trim($cc))) $headers .= self::HEADER_CC . ":" . null . "<" . trim($cc) . "> ";
+                $headers .= self::HEADER_SEPARATOR_CRLF;
+            }
+            $headers .= self::HEADER_SEPARATOR_CRLF;
+            if(self::checkAddress(trim($recipient))) $this->sendTo(trim($recipient), $this->subject, $body, $headers );
+        }
     }
-
-    /* ---    VERIF. SYNTAXE D'UNE ADRESSE MAIL     *** */
-    public static function checkAddress($email) {
-        return filter_var($email, FILTER_VALIDATE_EMAIL);
+    /* ***           MAIL BEFORE SEND               *** */
+    private function sendTo($to, $subject, $message, $headers) {
+        @mail($to, $subject, $message, $headers);
     }
-
-    /* ---   RETOURNE LE TYPE MIME D'UN FICHIER     *** */
+    /* *** SYNTAX CHECKING FOR AN ADDRESS E-MAIL    *** */
+    protected static function checkAddress($email) {
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) return false;
+        if(function_exists('checkdnsrr')) {
+            $host = substr($email, strpos($email, '@') + 1);
+            return checkdnsrr($host, 'MX');
+        }
+        return true;
+    }
+    /* ***          GET MIME TYPE FOR FILE          *** */
     public static function getMimeType($file) {
         static $mimeTypes = Array(
             '.aac'  => 'audio/aac',
@@ -131,126 +187,7 @@ class CMail {
             '.3g2'  => 'video/3gpp2',
             '.7z'   => 'application/x-7z-compressed'
         );
-        $att = strrchr(StrToLower($file), '.');
+        $att = strrchr(strtolower($file), '.');
         return (!isset($mimeType[$att])) ? "application/octet-stream" : $mimeTypes[$att];
-    }
-
-    /* ---        SUPPRIME LES PIECES JOINTES       *** */
-    public function clearAttachments() {
-        $this->attachments = Array();
-    }
-
-    /* ---   AJOUT D'UNE P.J. ENCODEE EN BASE64     *** */
-    /* @param $filename     : nom du fichier            **
-    ** @param $innerName    : nom du fichier attaché    **
-    ** @param $mime         : type mime                 */
-    public function addAttachment($filename, $innerName='', $mime='') {
-        if(!file_exists($filename)) $this->debug_txt .= "Fichier " . $filename . " non trouvé";
-        if(!is_readable($filename)) $this->debug_txt .= "Fichier " . $filename . " innacessible";
-
-        $fp = @fopen($filename, "r");
-        if(!$fp) $this->debug_txt .= "Impossible d'ouvrir le fichier " . $filename;
-        if($innerName == "") $innerName = basename($filename);
-        if($mime == "") $mime = $this->getMimeType($innerName);
-
-        $attachment = "";
-        $attachment .= "\r\n\r\n--".BOUNDARY."\r\n";
-        $attachment .= "Content-Transfer-Encoding: base64\r\n";
-        $attachment .= "Content-Type: " . $mime . "; name=\"" . $innerName . "\"; charset=\"us-ascii\"\r\n";
-        $attachment .= "Content-Disposition: attachment; filename=\"" . $innerName . "\"\r\n\r\n";
-        $attachment .= chunk_split(base64_encode(@fread($fp, @filesize($filename))));
-
-        array_push($this->attachments, $attachment);
-        @fclose($fp);
-    }
-
-    /* ---          ENVOI DU COURRIEL               *** */
-    /* @param $emailfile    : le mail est envoye en PJ  */
-    public function send($emailfile="") {
-        $this->body = "";
-        $this->header = "";
-        /* --- Construction du HEADER --- */
-        if(strlen($this->from)) {
-            if(!$this->checkAddress($this->from)) $this->debug_txt .= "From:" . $this->from . " n'est une adresse courriel valide";
-        }
-        if(strlen($this->returnPath)) {
-            if(!$this->checkAddress($this->returnPath)) $this->debug_txt .= "From:" . $this->returnPath . " n'est une adresse courriel valide";
-            $this->header .= "Return-path: <" . $this->returnPath .">\r\n";
-        }
-        if(strlen($this->from)) $this->header .= "From: " . $this->fromName . " <" . $this->from . ">\r\n";
-        $ok = true;
-        if(is_array($this->to)) {
-            foreach($this->to as $addr) {
-                if($ok && $this->checkAddress($addr)) { $ok = true;}
-                else { $ok = false; }
-            }
-        } else {
-            if($ok && $this->checkAddress($this->to)) { $ok = true;}
-            else { $ok = false;}
-        }
-        if(!$ok) $this->debug_txt .= "Email To: " . (is_array($this->to)) ? implode(', ', $this->to) : $this->to . " n'est pas une addesse courriel valide";
-        if(!empty($this->cc)) {
-            $ok = $this->checkAddress($this->cc);
-            if(!$ok) $this->debug_txt .= "Email Cc: " . $this->cc . " n'est pas une adresse courriel valide";
-            $this->header .= "Cc:";
-            $this->header .= $this->cc;
-            $this->header .= "\r\n";
-        }
-        if(!empty($this->bcc)) {
-            $ok = $this->checkAddress($this->bcc);
-            if(!$ok) $this->debug_txt .= "Email Bcc: " . $this->bcc . " n'est pas une adresse courriel valide";
-            $this->header .= "Bcc: ";
-            $this->header .= is_array($this->bcc) ? implode(", ", $this->bcc) : $this->bcc;
-            $this->header .= "\r\n";
-        }
-        $this->header .= "Mime-Version: 1.0\r\n";
-        if(intval($this->notify) == 1) {
-            $this->header .= "Disposition-Notification-To: <" . $this->from .">\r\n";
-        } else if(strlen($this->notify)) {
-            $this->header .= "Disposition-Notification-To: <" . $this->notify . ">\r\n";
-        }
-        if(!empty($this->attachments)) { /* HEADER avec PJ */
-            $this->header .= "Content-Type: multipart/mixed; boundary=\"" . BOUNDARY . "\"\r\n";
-            $this->header .= "Content-Transfer-Encoding: 7bit\r\n";
-            $this->body .= "This is a multi-part message in MIME format.\r\n\r\n";
-        } else { /* HEADER sans PJ */
-            $this->header .= "Content-Transfer-Encoding: 8bit\r\n";
-            $this->header .= "Content-Type: " . $this->mime . "; charset=\"" . $this->charset . "\"" .
-                (empty($emailfile) ? "" : " name=\"" . $emailfile ."\"") . "\r\n";
-            $this->body .= $this->message;   
-        }
-        if($this->priority) $this->header .= "X-Priority: " . $this->priorities[$this->priority] . "\r\n";
-        if(!empty($this->attachments)) {
-            $this->body .= "\r\n\r\n--" . BOUNDARY . "\r\n";
-            $this->body .= "Content-Transfer-Encoding: 8bit\r\n";
-            $this->body .= "Content-Type: " . $this->mime . "; charset=\"" . (empty($emailfile) ? "" : " name=\"" . $emailfile . "\"\r\n");
-            $this->body .= "Mime-Version: 1.0\r\n\r\n";
-            $this->body .= $this->message . "\r\n\r\n";
-            reset($this->attachments);
-            while(list($key, $attachment) = each ($this->attachments)) {
-                $this->body .= $attachment;
-            }
-            $this->body .= "\r\n\r\n--" . BOUNDARY . "--"; 
-        }
-        if($this->debug) { /* texte pour le deboguage */
-            echo "<pre>";
-            echo "\r\nTO\r\n" . HTMLSpecialChars($this->to);
-            echo "\r\nSUBJECT\r\n" . HTMLSpecialChars($this->subject);
-            echo "\r\nBODY\r\n" . HTMLSpecialChars($this->body);
-            echo "\r\nHEADER\r\n" . HTMLSpecialChars($this->header);
-            echo "</pre>";
-        }
-        if(is_array($this->to)) {
-            reset($this->to);
-            while(list($key, $val) = each($this->to)) {
-                $this->sendTo($val);
-            }
-        } else {
-            $this->sendTo($this->to);
-        }
-    }
-
-    protected function sendTo($to) {
-        if(!@mail($to, $this->subject, $this->body )) $this->debug_txt .= "PHP::Mail() erreur d'envoi du mail " . $to;
     }
 }

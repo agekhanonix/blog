@@ -182,15 +182,27 @@
         require('view/errorView.php');
     }
     function mailSend($name, $email, $sujet, $message) {
+        $patterns = array('{NOM}', '{MESSAGE}', '{SUBJECT}');
+        $replaces = array($name, $message, $sujet);
+        $mail = str_replace($patterns, $replaces,file_get_contents("divers/corps.html"));
+
+        $from = "agekhanokc@cluster026.hosting.ovh.net";
+        $fromName = "Webmaster";
+        $cc = "corinne.charpentier.cc@gmail.com";
+        $to = "thierry.charpentier.ct@gmail.com";
+        $bcc =  "thierry.charpentier.ct@gmail.com";
+        $subject = $name . " VOUS A ENVOYE UN COURRIEL A " . date("H:i:s");
+        $message = "<strong>Un message</strong>  avec une piece jointe";
+        $attachment = array('README.txt', 'image.jpeg', '2018171442362.pdf');
+    
         $courriel = new Cmail();
-        $courriel->fromName = $name;
-        $courriel->from = $email;
         $courriel->to = "thierry.charpentier.ct@gmail.com";
-        $courriel->cc = $email;
-        $courriel->subject = $sujet;
-        $courriel->message = $message;
-        $courriel->charset = "iso-8859-2";
-        $courriel->mime = "text/html";
+        $courriel->cc = $cc;
+        $courriel->bcc = $bcc;
+        $courriel->from = "agekhanokc@cluster026.hosting.ovh.net";
+        $courriel->fromName = $fromName;
+        $courriel->subject = $subject;
+        $courriel->message = $mail;
         $courriel->send();
-        require('view/home.php');
+        header('Location: index.php?action=home');
     }
