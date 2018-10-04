@@ -152,6 +152,7 @@
             $_SESSION['pseudo'] = $member['members_pseudo'];
             $_SESSION['lastName'] = $member['members_lastName'];
             $_SESSION['firstName'] = $member['members_firstName'];
+            $_SESSION['email'] = $member['members_email'];
             header('Location: index.php?action=home');
         } else {
             throw new Exception("QRY007");

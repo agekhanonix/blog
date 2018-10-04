@@ -5,6 +5,7 @@
     $pseudo = (isset($_SESSION['pseudo'])) ? $_SESSION['pseudo'] : '';
     $lastName = (isset($_SESSION['lastName'])) ? $_SESSION['lastName'] : 'MATE';
     $firstName = (isset($_SESSION['firstName'])) ? $_SESSION['firstName'] : 'Otto';
+    $email = (isset($_SESSION['email'])) ? $_SESSION['email'] : "";
     $postId = (isset($_GET['id'])) ? (int) $_GET['id'] : '';
     include 'view/nav.html';
     $search = array('{LEVEL1}');

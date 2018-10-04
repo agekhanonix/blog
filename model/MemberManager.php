@@ -20,7 +20,7 @@ class MemberManager extends Manager {
     }
     public function getMember($pseudo, $pwd) {
         $db = $this->dbConnect();
-        $q = $db->prepare("SELECT members_id, members_pseudo, members_pwd, members_lastName, members_firstName, members_level FROM bl_members WHERE members_pseudo = :pseudo AND members_registred = 0  LIMIT 0,1");
+        $q = $db->prepare("SELECT members_id, members_pseudo, members_pwd, members_lastName, members_firstName, members_level, members_email FROM bl_members WHERE members_pseudo = :pseudo AND members_registred = 0  LIMIT 0,1");
         $q->bindValue(':pseudo', $pseudo);
         $q->execute();
         $data = $q->fetch();
