@@ -76,7 +76,7 @@
 
     function addCommentQry($postId, $author, $comment) {
         $commentManager = new \OCFram\Blog\Model\CommentManager();
-        $affectedLines = $commentManager->postComment($postId, $author, $comment);
+        $affectedLines = $commentManager->postComment($postId, $author, strip_tags($comment));
         if($affectedLines === false) {
             throw new Exception("QRY004");
         } else {
