@@ -18,40 +18,44 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <span class="input-group-addon contact">Nom</span>
-                                    <input type="text" id="input-name" name="name" class="form-control contact" placeholder="John DOE" required>
+                                    <span id="sname" class="input-group-addon contact">Nom</span>
+                                    <input type="text" id="input-name" name="name" class="form-control contact" 
+                                        placeholder="John DOE" 
+<?php if(isset($_SESSION['lastName'])) { ?>
+    value=" <?= $_SESSION['firstName'] ?> <?= $_SESSION['lastName'] ?>"
+<?php } ?>>
                                 </div>
                             </div><!-- END (col) -->
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <span class="input-group-addon contact">Courriel</span>
-                                    <input type="email" id="input-email" name="email" class="form-control contact" placeholder="john.doe@ltd.com" required>
+                                    <span id="input-email" class="input-group-addon contact">Courriel</span>
+                                    <input type="email" id="input-email" name="email" class="form-control contact" placeholder="john.doe@ltd.com"
+<?php if(isset($_SESSION['email'])) { ?>
+    value=" <?= $_SESSION['email'] ?>"
+<?php } ?>>
                                 </div>
                             </div><!-- END (col) -->
                         </div><!-- END (row) -->
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="input-group">
-                                    <span  class="input-group-addon contact">Sujet</span>
-                                    <input type="text" id="input-subject" name="sujet" class="form-control contact" required>
+                                    <span id="input-subject" class="input-group-addon contact">Sujet</span>
+                                    <input type="text" id="input-subject" name="sujet" class="form-control contact">
                                 </div>
                             </div><!-- END (col) -->
                         </div><!-- END (col) -->
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="input-group">
-                                    <span class="input-group-addon contact">Votre message</span>
-                                    <textarea id="input-message" name="message" row="2" class="form-control contact" required></textarea>
+                                    <span id="input-message" class="input-group-addon contact">Votre message</span>
+                                    <textarea id="input-message" name="message" row="2" class="form-control contact"></textarea>
                                 </div>
                             </div><!-- END (col) -->
                         </div><!-- END (row) -->
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <button type="submit" id="submit" class="btn btn-sm contact" aria-label="Left Align">
-                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp;Envoyer
-                                </button>
-                            </div>
-                        </div>
+                        <button type="submit" id="submit" class="btn btn-sm contact" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp;Envoyer
+                        </button>
+                        <span class="errMsg" id="errMsg"></span>
                     </form>
                 </div><!-- END (col) -->
                 <div class="col-md-3 text-left contact">
@@ -63,7 +67,7 @@
                             + 33 651 143 924</span>
                         </li>
                         <li class="contact"><span class="row contact"><i class="fa fa-envelope mt-4 fa-w"></i>
-                            jean.foutreroche.jf@gmail.com<span>
+                            thierry.charpentier.ct@gmail.com<span>
                         </li>
                     </ul>
                 </div><!-- END (col) -->
