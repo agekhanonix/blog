@@ -3,18 +3,16 @@ namespace OCFram\Blog\Model;
 require_once('model/Manager.php');
 
 class MemberManager extends Manager {
-    public function addMember($pseudo, $firstName, $lastName, $pwd, $email, $msn, $avatar, $url) {
+    public function addMember($pseudo, $firstName, $lastName, $pwd, $email, $avatar) {
         $db = $this->dbConnect();
-        $q = $db->prepare("INSERT INTO bl_members (members_pseudo, members_firstName, members_lastName, members_pwd, members_email, members_msn, members_avatar, members_url, members_creationDate) 
-            VALUES (:pseudo, :firstName, :lastName, :pwd, :email, :msn, :avatar, :web, NOW())");
+        $q = $db->prepare("INSERT INTO bl_members (members_pseudo, members_firstName, members_lastName, members_pwd, members_email, members_avatar, members_creationDate) 
+            VALUES (:pseudo, :firstName, :lastName, :pwd, :email, :avatar, NOW())");
         $q->bindValue(':pseudo', $pseudo);
         $q->bindValue(':lastName', $lastName);
         $q->bindValue(':firstName', $firstName);
         $q->bindValue(':pwd', $this->encrypt($pwd, $pseudo));
         $q->bindValue(':email', $email);
-        $q->bindValue(':msn', $msn);
         $q->bindValue(':avatar', $avatar);
-        $q->bindValue(':web', $url);
         $affectedLines = $q->execute();
         return $affectedLines;
     }

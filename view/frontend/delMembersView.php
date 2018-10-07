@@ -1,5 +1,4 @@
 <?php ob_start(); ?>
-    <div class="container">
         <ol class="breadcrumb row">
             <li><a href="index.php?action=home">Accueil</a></li>
             <li><a href="#">Membres</a></li>
@@ -44,7 +43,6 @@ $members->closeCursor();
                 </ol>
             </div><!-- END (.panel-content) -->
         </div><!-- END (.panel-default) --> 
-    </div><!-- END (.container ) -->
 <?php $content = ob_get_clean(); ?>
 
 <?php require('template/template.php'); ?>

@@ -41,17 +41,12 @@
             } elseif($_GET['action'] == 'about') {
                 about();
             
-            /* === ------------------------------------ === **
-            **                   CONTACT MENU               **
-            ** === ------------------------------------ === */
-            } elseif($_GET['action'] == 'contact') {
-                contact();
             } elseif($_GET['action'] == 'mail') {
                 if(!empty($_POST['name']) 
                     && !empty($_POST['email']) 
                     && !empty($_POST['sujet']) 
                     && !empty($_POST['message'])) {
-                    mailSend($_POST['name'], $_POST['email'], $_POST['sujet'], $_POST['message']);
+                    mailSend($_POST['name'], $_POST['email'], $_POST['sujet'], $_POST['message'], $_POST['origin']);
                 } else {
                     throw new Exception('APL013');
                 }
@@ -135,17 +130,12 @@
                 } else {
                     throw new Exception('APL012');
                 }
-            /* === ------------------------------------ === **
-            **                 CONNEXION MENU               **
-            ** === ------------------------------------ === */     
             } elseif($_GET['action'] == 'addMember') {
-                addMember();
-            } elseif($_GET['action'] == 'addMemberQry') {
                 if(!empty($_POST['pseudo']) && !empty($_POST['firstname']) && !empty($_POST['lastname'])
                     && !empty($_POST['pwd']) && !empty($_POST['confirm'])) {
                         if($_POST['pwd'] == $_POST['confirm']) {
-                            addMemberQry($_POST['pseudo'], $_POST['firstname'], $_POST['lastname'], $_POST['pwd'],
-                                $_POST['email'], $_POST['msn'], $_POST['avatar'], $_POST['url']);
+                            addMember($_POST['pseudo'], $_POST['firstname'], $_POST['lastname'], $_POST['pwd'],
+                                $_POST['email'], $_POST['avatar']);
                         } else {
                             throw new Exception('APL009'); 
                         }

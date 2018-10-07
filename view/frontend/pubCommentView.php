@@ -1,5 +1,4 @@
 <?php ob_start(); ?>
-<div class="container">
     <ol class="breadcrumb row">
         <li><a href="index.php?action=home">Accueil</a></li>
         <li><a href="#">Commentaires</a></li>
@@ -45,8 +44,6 @@
     </section>
 <?php } ?>
 
-</div><!-- END (.container )-->
-<!--<script src='public/js/validComment.js' type="text/javascript"></script>-->
 <?php $content = ob_get_clean(); ?>
 <?php require('template/template.php');
     

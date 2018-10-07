@@ -115,13 +115,9 @@
             header('Location: index.php?action=pubComments');
         }
     }
-    function addMember() {
-        require('view/frontend/addMemberView.php');
-    }
-    
-    function addMemberQry($pseudo, $firstName, $lastName, $pwd, $email, $msn, $avatar, $url) {
+    function addMember($pseudo, $firstName, $lastName, $pwd, $email, $avatar) {
         $memberManager = new \OCFram\Blog\Model\MemberManager();
-        $affectedLines = $memberManager->addMember($pseudo, $firstName, $lastName, $pwd, $email, $msn, $avatar, $url);
+        $affectedLines = $memberManager->addMember($pseudo, $firstName, $lastName, $pwd, $email, $avatar);
         if($affectedLines === false) {
             throw new Exception("QRY005");
         } else {
@@ -182,9 +178,20 @@
         $error = $errorManager->getError($errorId);
         require('view/errorView.php');
     }
-    function mailSend($name, $email, $sujet, $message) {
-        $patterns = array('{NOM}', '{MESSAGE}', '{SUBJECT}','{EMAIL}');
-        $replaces = array($name, $message, $sujet, $email);
+    function mailSend($name, $email, $sujet, $message, $origine) {
+        $patterns = array('{NOM}', '{MESSAGE}', '{SUBJECT}','{EMAIL}', '{ORIGINE}');
+        if(is_null($origine) || $origine == 5) {
+            $origine = 'un autre moyen.';
+        } elseif($origine == 1) {
+            $origine = 'un ami.';
+        } elseif($origine == 2) {
+            $origine = 'la radio.';
+        } elseif($origine == 3) {
+            $origine = 'la télévision.';
+        } elseif($origine == 4) {
+            $origine = 'le web.';
+        }
+        $replaces = array($name, $message, $sujet, $email, $origine);
         $mail = str_replace($patterns, $replaces,file_get_contents("divers/corps.html"));
 
         $from = "agekhanokc@cluster026.hosting.ovh.net";

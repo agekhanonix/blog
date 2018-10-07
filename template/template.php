@@ -13,6 +13,22 @@
     $null = array('');
     $content = ($lvl >= 2) ? str_replace($search, $replace, $content ) : str_replace($search, $null, $content );
 ?>
-    <?= $content ?>
+    <div class="container-fluid">
+        <div class="row">
+            <section class="col-md-9 col-sm-12 col-xs-12">
+                <?= $content ?>
+            </section>
+            <section class="col-md-3 col-sm-6 col-xs-12"><!-- Enregistrement -->
+<?php
+    include 'view/registering.php';
+?>
+            </section>
+            <section class="col-md-3 col-sm-6 col-xs-12"><!-- Contact -->
+<?php
+    include 'view/contact.php';
+?>
+            </section>
+        </div><!-- END (row) -->
+    </div><!-- END (container-fluid)
 <?php
     include 'view/footer.html';

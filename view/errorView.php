@@ -1,6 +1,5 @@
 <?php $title = 'Mon blog'; ?>
 <?php ob_start(); ?>
-<div class="container">
     <div class="panel panel-danger">
         <div class="panel-heading">
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -17,11 +16,10 @@
         <div class="panel-footer">
             <div class="alert alert-info" role="alert">
                 &nbsp;<span class="glyphicon glyphicon-circle-arrow-left" title="Retour vers le blog"  aria-hidden="true"></span>&nbsp;
-                <a href="index.php?action=listPosts" class="alert-link">Retour vers le blog ...</a>
+                <a href="index.php?action=home" class="alert-link">Retour à l'accueil ...</a>
             </div>
         </div>
     </div>
-</div>
 
 <?php $content = ob_get_clean(); ?>
 <?php require('template/template.php');

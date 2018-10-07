@@ -1,5 +1,4 @@
 <?php ob_start(); ?>
-    <div class="container">
         <ol class="breadcrumb row">
             <li><a href="index.php?action=home">Accueil</a></li>
             <li class="active">Blog</li>
@@ -30,7 +29,6 @@ while($post = $posts->fetch()) {
 }
 $posts->closeCursor();
 ?>
-    </div><!-- END (.container )-->
 <?php $content = ob_get_clean(); ?>
 
 <?php require('template/template.php'); ?>

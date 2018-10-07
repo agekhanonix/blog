@@ -1,80 +1,82 @@
-<?php ob_start(); ?>
-    <div class="container">
-        <ol class="breadcrumb row">
-            <li><a href="index.php?action=home">Accueil</a></li>
-            <li class="active">Contact</li>
-        </ol>
-        <header class="page-header">
-            <h3>Me contacter</h3>
-        </header>
-        <section class="section">
-            <h6 class="text-center contact">
-                Vous vous posez des questions ? N'hésitez pas à me contacter directement. 
-                Je reviendrai vers vous aussi vite que possible pour y répondre.
-            </h6>
-            <div class="row">
-                <div class="col-md-9 mb-5">
-                    <form class="contact" id="contact-form" name="contact-form" action="index.php?action=mail" method="post">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <span id="sname" class="input-group-addon contact">Nom</span>
-                                    <input type="text" id="input-name" name="name" class="form-control contact" 
-                                        placeholder="John DOE" 
+<form class="form form-horizontal" action="index.php?action=mail" method="post">
+    <h3 class="form">Si vous voulez me laisser un message</h3>
+    <h4 class="form">Où avez-vous entendu parler de moi ?</h4>
+    <fieldset class="form">
+        <ul class="list-group">
+            <li class="list-group-item form">
+                <label for="friend" class="radio">
+                    <input type="radio" name="origin" value="1" id="friend"><span class="form">Par un ami</span>
+                </label>
+            </li>
+            <li class="list-group-item form">
+                <label for="radio" class="radio">
+                    <input type="radio" name="origin" value="2" id="radio"><span class="form">A la radio.</span>
+                </label>
+            </li>
+            <li class="list-group-item form">
+                <label for="television" class="radio">
+                    <input type="radio" name="origin" value="3" id="television"><span class="form">A la télévision.</span>
+                </label>
+            </li>
+            <li class="list-group-item form">
+                <label for="web" class="radio">
+                    <input type="radio" name="origin" value="4" id="web"><span class="form">Sur le web.</span>
+                </label>
+            </li>
+            <li class="list-group-item form">
+                <label for="other" class="radio">
+                    <input type="radio" name="origin" value="5" id="other"><span class="form">Autre ...</span>
+                </label>
+            </li>
+        </ul>
+        <div class="row">
+            <div class="form-group has-error has-feedback">
+                <label for="name" class="col-md-3 col-sm-3 control-label">Nom : </label>
+                <div class="col-md-8 col-sm-8 col-xs-8">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Jean Foutreroche" 
 <?php if(isset($_SESSION['lastName'])) { ?>
     value=" <?= $_SESSION['firstName'] ?> <?= $_SESSION['lastName'] ?>"
 <?php } ?>>
-                                </div>
-                            </div><!-- END (col) -->
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <span id="input-email" class="input-group-addon contact">Courriel</span>
-                                    <input type="email" id="input-email" name="email" class="form-control contact" placeholder="john.doe@ltd.com"
+                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group has-error has-feedback">
+                <label for="email" class="col-md-3 col-sm-3 control-label">Courriel : </label>
+                <div class="col-md-8 col-sm-8 col-xs-8">
+                    <input type="text" class="form-control has-error has-feedback" id="email" name="email" placeholder="jfoutreroche@gmail.com" 
 <?php if(isset($_SESSION['email'])) { ?>
     value=" <?= $_SESSION['email'] ?>"
 <?php } ?>>
-                                </div>
-                            </div><!-- END (col) -->
-                        </div><!-- END (row) -->
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <span id="input-subject" class="input-group-addon contact">Sujet</span>
-                                    <input type="text" id="input-subject" name="sujet" class="form-control contact">
-                                </div>
-                            </div><!-- END (col) -->
-                        </div><!-- END (col) -->
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <span id="input-message" class="input-group-addon contact">Votre message</span>
-                                    <textarea id="input-message" name="message" row="2" class="form-control contact"></textarea>
-                                </div>
-                            </div><!-- END (col) -->
-                        </div><!-- END (row) -->
-                        <button type="submit" id="submit" class="btn btn-sm contact" aria-label="Left Align">
-                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp;Envoyer
-                        </button>
-                        <span class="errMsg" id="errMsg"></span>
-                    </form>
-                </div><!-- END (col) -->
-                <div class="col-md-3 text-left contact">
-                    <ul class="list-unstyled mb-0">
-                        <li class="contact"><span class="row contact"><i class="fa fa-map-marker fa-w"></i>
-                            Sainte-Savine, FR 10300, FRANCE</span>
-                        </li>
-                        <li class="contact"><span class="row contact"><i class="fa fa-phone mt-4 fa-w"></i>
-                            + 33 651 143 924</span>
-                        </li>
-                        <li class="contact"><span class="row contact"><i class="fa fa-envelope mt-4 fa-w"></i>
-                            thierry.charpentier.ct@gmail.com<span>
-                        </li>
-                    </ul>
-                </div><!-- END (col) -->
-            </div><!-- END (row) -->
-                            
-        </section>
-    </div><!-- END (.container )-->
-<?php $content = ob_get_clean(); ?>
-
-<?php require('template/template.php'); ?>
+                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group has-error has-feedback">
+                <label for="subject" class="col-md-3 col-sm-3 control-label">Objet : </label>
+                <div class="col-md-8 col-sm-8 col-xs-8">
+                    <input type="text" class="form-control has-error has-feedback" id="subject" name="sujet">
+                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group has-error has-feedback">
+                <label for="message" class="col-md-3 col-sm-3 control-label">Message : </label>
+                <div class="col-md-8 col-sm-8 col-xs-8">
+                    <textarea class="form-control has-error has-feedback" id="message" name="message" row="4"></textarea>
+                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <div class="row">
+        <div class="form-group">
+            <button type="submit" id="submit" class="btn btn-sm btn-default">
+                <span class="glyphicon glyphicon-ok btn-icon" aria-hidden="true"></span>Envoyer
+            </button>
+        </div>
+    </div>
+</form>

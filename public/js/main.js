@@ -16,7 +16,7 @@ function preloader(){
     document.getElementById("loading").style.display = "none";
     document.getElementById("slideshow").style.visibility = "visible";
     document.getElementById("slogan").style.visibility = "visible";
-    document.getElementById("header").style.visibility = "visible";
+    document.getElementById("preload").style.visibility = "visible";
     initCarrousel();
     validComment();
 }
