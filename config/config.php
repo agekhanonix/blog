@@ -4,7 +4,7 @@
     /*define('DBHOST', '127.0.0.1');*/
     define('DBPORT', '3306');
     define('DBUSER', 'agekhanokcroot');
-    define('DBPASS', '******');
+    define('DBPASS', 'CZpvNAP3');
     define('DBNAME', 'agekhanokcroot');
 
     /* ===             WEB SITE PARAMETERS            === */

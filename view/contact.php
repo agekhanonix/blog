@@ -33,7 +33,7 @@
 <?php if(isset($_SESSION['email'])) { ?>
     value=" <?= $_SESSION['email'] ?>"
 <?php } ?>>
-                                </div>xxx
+                                </div>
                             </div><!-- END (col) -->
                         </div><!-- END (row) -->
                         <div class="row">
