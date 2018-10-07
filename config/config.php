@@ -1,11 +1,10 @@
 <?php
     /* ===              DATABASE ACCESS               === */
-    define('DBHOST', 'agekhanokcroot.mysql.db');
-    /*define('DBHOST', '127.0.0.1');*/
+    define('DBHOST', '****');
     define('DBPORT', '3306');
-    define('DBUSER', 'agekhanokcroot');
-    define('DBPASS', 'CZpvNAP3');
-    define('DBNAME', 'agekhanokcroot');
+    define('DBUSER', '****');
+    define('DBPASS', '****');
+    define('DBNAME', '****');
 
     /* ===             WEB SITE PARAMETERS            === */
     define('BLOGTITLE', 'Je BLOG donc je suis !');
