@@ -8,21 +8,21 @@ class CommentManager extends Manager {
         $db = $this->dbConnect();
         if($publish == 'yes') {
             $q = $db->prepare("SELECT id, author, comment, DATE_FORMAT(comment_date, '%d/%m/%Y à %Hh%imin%ss') AS comment_date_fr, publish
-                FROM bl_comments ORDER BY Comment_date
+                FROM bl_comments
                 WHERE post_id = :id AND publish = 1
                 ORDER BY comment_date");
         }
         if($publish == 'no') {
             $q = $db->prepare("SELECT id, author, comment, DATE_FORMAT(comment_date, '%d/%m/%Y à %Hh%imin%ss') AS comment_date_fr, publish
-                FROM bl_comments ORDER BY Comment_Date
+                FROM bl_comments 
                 WHERE post_id = :id AND publish = 0
                 ORDER BY comment_date");
         }
         if($publish == 'all') {
             $q = $db->prepare("SELECT id,author, comment, DATE_FORMAT(comment_date, '%d/%m/%Y à %Hh%imin%ss') AS comment_date_fr, publish
-                FROM bl_comments ORDER BY publish DESC, Comment_date
+                FROM bl_comments
                 WHERE post_id = :id 
-                ORDER BY comment_date");
+                ORDER BY publish ASC, comment_date DESC");
         }
         $q->bindValue(':id', $postId);
         $q->execute();
