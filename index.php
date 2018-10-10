@@ -35,12 +35,6 @@
                     throw new Exception("APL001");
                 }
             
-            /* === ------------------------------------ === **
-            **                   ABOUT MENU                 **
-            ** === ------------------------------------ === */
-            } elseif($_GET['action'] == 'about') {
-                about();
-            
             } elseif($_GET['action'] == 'mail') {
                 if(!empty($_POST['name']) 
                     && !empty($_POST['email']) 

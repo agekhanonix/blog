@@ -12,23 +12,23 @@
     $replace = array('<i class="fas fa-pencil-alt" title="Ajouter un commentaire"></i><a href="index.php?action=addComment&amp;id=' . $postId . '" class="alert-link">&nbsp;un commentaire ...</a>');       
     $null = array('');
     $content = ($lvl >= 2) ? str_replace($search, $replace, $content ) : str_replace($search, $null, $content );
+
 ?>
-    <div class="container-fluid">
-        <div class="row">
-            <section class="col-md-9 col-sm-12 col-xs-12">
-                <?= $content ?>
-            </section>
-            <section class="col-md-3 col-sm-6 col-xs-12"><!-- Enregistrement -->
+    </header>
+    <div class="row">
+        <section class="col-md-9 col-sm-12 col-xs-12">
+            <?= $content ?>
+        </section>
+        <section class="col-md-3 col-sm-6 col-xs-12"><!-- Enregistrement -->
 <?php
     include 'view/registering.php';
 ?>
-            </section>
-            <section class="col-md-3 col-sm-6 col-xs-12"><!-- Contact -->
+        </section>
+        <section class="col-md-3 col-sm-6 col-xs-12"><!-- Contact -->
 <?php
     include 'view/contact.php';
 ?>
-            </section>
-        </div><!-- END (row) -->
-    </div><!-- END (container-fluid)
+        </section>
+    </div><!-- END (row) -->
 <?php
     include 'view/footer.html';

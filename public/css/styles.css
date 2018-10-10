@@ -6,13 +6,23 @@
 *  Version   : V2R0                                     *
 * ==================================================== */
 html, body {
-    font-size:      16px;
+    font-size:      14px;
+    font-family: 'Oswald', 'Verdana', sans-serif;
+    width: 99%;
 }
 body {
     margin-left: 0;
     margin-right: 0;
-    padding-top: 70px;
+    padding-top: 55px;
 }
+.container-fluid {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+/* ---                                             --- **
+**          LAUNCHING OF AN ANIMATION DURING           **
+**          LOADING OF THE CARROUSEL IMAGES            **
+** ---                                             --- */
 #preload {
     height:         200px;
     width:          100%;
@@ -20,10 +30,6 @@ body {
     z-index:        100;
     visibility:     hidden;
 }
-/* ---                                             --- **
-**          LAUNCHING OF AN ANIMATION DURING           **
-**          LOADING OF THE CARROUSEL IMAGES            **
-** ---                                             --- */
 div#loading {
     top: 20px;
     left: 30px;
@@ -35,25 +41,35 @@ div#loading img {
     vertical-align: middle;
 }
 /* ---                                             --- **
-**                          SLOGAN                     **
+**                    NAVIGATION MENU                  **
 ** ---                                             --- */
-#slogan {
-    position:       absolute;
-    top:            55px;
-    left:           350px;
-    z-index:        120;
-    visibility:     hidden;
-}                                     
-
-#slogan h2 {
-    color:          #8D26B5; 
+.navbar {
+    vertical-align: middle;
+}
+.navbar-brand {
+    padding: 0.1px 15px;
+}
+.navbar-brand h1 {
     text-align:     center;
-    font-family:    'Shadows Into Light', cursive;
-    font-size:      2.5rem;
-    margin-top:     0px;
-    margin-bottom:  5px;
-    text-shadow: 1px 2px 0 rgba(0,0,0,0.4),
-        -1px -2px 0 rgba(255,255,255,1);   
+    color:          #cacbcc;
+    font-family:    'Mr Dafoe', cursive;
+    font-size:      1.1rem;
+    text-shadow: -1px 0 0 rgba(158, 20, 13, 0.8), 
+        1px 0 0 rgba(158, 20, 13, 0.8),
+        0 -1px 0 rgba(158, 20, 13, 0.8),
+        0 1px 0 rgba(158, 20, 13, 0.8);
+}
+.navbar-fixed-top {
+    width: 99%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.inline-form input {
+    display: inline-block;
+    width: 100px;
+}
+.navbar-right {
+    margin-right: 10px;
 }
 /* ---                                             --- **
 **                     CARROUSEL                       **
@@ -79,118 +95,34 @@ div#loading img {
     width: 100%;
     height: auto;
 }
-.navbar {
-    font-family: 'Oswald';
-    vertical-align: middle;
-}
-.navbar-brand {
-    padding: 0.1px 15px;
-}
-.navbar-brand h1 {
-    text-align:     center;
-    color:          #cacbcc;
-    font-family:    'Mr Dafoe', cursive;
-    font-size:      1.1rem;
-    text-shadow: -1px 0 0 rgba(158, 20, 13, 0.8), 
-        1px 0 0 rgba(158, 20, 13, 0.8),
-        0 -1px 0 rgba(158, 20, 13, 0.8),
-        0 1px 0 rgba(158, 20, 13, 0.8);
-}
-.navbar-fixed-top {
-    width: 99%;
-    margin-left: auto;
-    margin-right: auto;
-}
-header h3 {
-    font-display: 'Oswald', 'Verdana', sans-serif;
-    color: #97007a;
-}
-header h3 small {
-    font-display: 'Oswald', 'Verdana', sans-serif;
-    color: #1795cc;
-}
-.panel-content {
-    padding-top: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
-}
+/* ---                                             --- **
+**                       FOOTER                        **
+** ---                                             --- */
 footer {
-    width: 99%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 .page-footer {
     background-color: #ffd5f7;
     border: 1px solid #97007a;
     border-radius: 0px 0px 20px 20px;
     padding-bottom: 5px;
-    font-family: 'Oswald';
 }
 .footer-copyright {
-    background-color: #ff88e8;
     color: #97007a;
-    margin-left: 20px;
-    margin-right: 20px;
-    border-color: 1px solid #ff88e8;
     border-radius: 3px 3px 3px 3px;
 }
 .footer-copyright a {
     color: #97007a;    
 }
-.breadcrumb {
-    font-family: 'Oswald';
-    font-size: 1rem;
-    font-weight: bold; 
-}
-.btn-custom {
-    background-color: #ff88e8;
-    color: #97007a;
-}
-.polities {
-    font-family: 'Oswald';
-    font-size: 0.6rem;
-}
-.polities h3 {
-    font-size: 1rem;
-}
-.polities h4 {
-    font-size: 0.8rem;
-}
-.polities h5 {
-    font-size: 0.7rem;
-}
-.polities h4 {
-    font-size: 0.6rem;
-}
-
-legend.w-auto.red {
-    color: #ff0000;
-    font-size: 0.7rem;
-}
-legend.w-auto.green {
-    color: #13f80b;
-    font-size: 0.7rem;
-}
-.red-glyph {
-    color: #ff0000;
-    font-size: 0.9rem;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-.pager li a {
-    background-color: #ffffff;
-    color: #337ab7;
+.copyright {
+    color: #44ff44;
     font-weight: bold;
 }
-.pager li a:hover {
-    background-color: #337ab7;
-    color: #ffffff;
-    transition: 0.2s;
-    transform: rotate(360deg);
-}
-
 /* ---                                             --- **
 **                     CONTACT FORM                    **
 ** ---                                             --- */
@@ -200,14 +132,12 @@ legend.w-auto.green {
     margin-bottom:2px;
 }
 h3.form {
-    font-family: 'Oswald', 'Verdana', sans-serif;
     font-size: 0.8rem;
     text-transform: uppercase;
     font-weight: bold;  
 }
 h4.form,
 span.form {
-    font-family: 'Oswald', 'Verdana', sans-serif;
     font-size: 0.6rem;
 }
 h4.form {
@@ -229,14 +159,12 @@ li.form {
     margin-bottom:2px;
 }
 h3.register {
-    font-family: 'Oswald', 'Verdana', sans-serif;
     font-size: 0.8rem;
     text-transform: uppercase;
     font-weight: bold;  
 }
 h4.register,
 span.register {
-    font-family: 'Oswald', 'Verdana', sans-serif;
     font-size: 0.6rem;
 }
 h4.register {
@@ -250,39 +178,6 @@ li.register {
     padding-bottom: 1px;
 }
 img.register { width: 32px;}
-input[type=text],
-input[type=email],
-input[type=password],
-textarea {
-    font-family: 'Oswald', 'Verdana', sans-serif;
-    font-size: 0.6rem; 
-}
-input[type=text],
-input[type=email],
-input[type=password] {
-    padding-top: 2px;
-    padding-bottom: 2px;
-    height: 30px;
-}
-.form-control-feedback { font-size: 0.8rem;}
-.control-label {
-    font-family: 'Oswald', 'Verdana', sans-serif;
-    font-size: 0.6rem;
-}
-.btn-default {
-    margin-top: 5px;
-    margin-left: 30px;
-    background: #bfd255;
-    background: -moz-linear-gradient(top, #bfd255 0%, #8eb92a 64%, #72aa00 80%, #72aa00 80%, #9ecb2d 100%);
-    background: -webkit-linear-gradient(top, #bfd255 0%,#8eb92a 64%,#72aa00 80%,#72aa00 80%,#9ecb2d 100%);
-    background: linear-gradient(to bottom, #bfd255 0%,#8eb92a 64%,#72aa00 80%,#72aa00 80%,#9ecb2d 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfd255', endColorstr='#9ecb2d',GradientType=0 );
-    font-family: 'Oswald', 'Verdana', sans-serif;
-    color: #ffffff;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-}
-.btn-icon { color: #44ff44; margin-right: 5px;}
 fieldset.form,
 fieldset.register {
     border: 1px solid #fd67df;
@@ -294,20 +189,131 @@ fieldset.register {
     box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7),
             -1px 2px 20px rgba(255, 255, 255, 0.6) inset; 
 }
-fieldset {
-    border: 1px solid #fd67df;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin-bottom: 5px; 
+/* ---                                             --- **
+**                    HOME PAGE                        **
+** ---                                             --- */
+.biography p::first-letter,
+.biography li::first-letter {
+    color: #fd67df;
+    font-family: 'Oswald-stencyl', 'Verdana', sans-serif;
+    font-size: 115%;
+    text-transform: uppercase;
 }
-legend {
-    font-family: 'Oswald';
+.biography p::first-letter {
+    margin-left: 20px;
+}
+.biography li::first-letter {
+    margin-left: 3px;
+}
+@media only screen and (min-width: 320px) and (max-width: 1279px) {
+    #photo {display: none;}
+    .biography .badge {display: none;}
+}
+.filmography .panel-heading {
+    background-color: #a7d6ab;
+    padding-top:    5px;
+    padding-bottom: 5px;
+}
+.filmography .panel-heading h3 {
+    color: #000000;
+    margin-top: 3px;
+}
+/* ---                                             --- **
+**                       POLITIES                      **
+** ---                                             --- */
+.polities {
+    font-size: 0.6rem;
+}
+.polities h3 {
+    font-size: 1rem;
+}
+.polities h4 {
     font-size: 0.8rem;
-    font-weight: bold;
+}
+.polities h5 {
+    font-size: 0.7rem;
+}
+/* ---                                             --- **
+**                       VARIOUS                       **
+** ---                                             --- */
+.btn-default {
+    margin-top: 5px;
+    margin-left: 30px;
+    background: #bfd255;
+    background: -moz-linear-gradient(top, #bfd255 0%, #8eb92a 64%, #72aa00 80%, #72aa00 80%, #9ecb2d 100%);
+    background: -webkit-linear-gradient(top, #bfd255 0%,#8eb92a 64%,#72aa00 80%,#72aa00 80%,#9ecb2d 100%);
+    background: linear-gradient(to bottom, #bfd255 0%,#8eb92a 64%,#72aa00 80%,#72aa00 80%,#9ecb2d 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfd255', endColorstr='#9ecb2d',GradientType=0 );
+    color: #ffffff;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+}
+.btn-icon { color: #44ff44; margin-right: 5px; margin-left: 5px;}
+.img-thumbnail {
+    padding:        5px;
+    margin:         0 auto 2em;
+    border:         1px solid #C1C1C1;
+    background:     #ffffff;
+    /* CSS3 effects */
+    background:     -webkit-linear-gradient(#ffffff, #ffffff 20%, #d8d8d8 80%, #C1C1C1);
+    background:     -moz-linear-gradient(#ffffff, #ffffff 20%, #d8d8d8 80%, #C1C1C1);
+    background:     -ms-linear-gradient(#ffffff, #ffffff 20%, #d8d8d8 80%, #C1C1C1);
+    background:     -o-linear-gradient(#ffffff, #ffffff 20%, #d8d8d8 80%, #C1C1C1);
+    background:     linear-gradient(#ffffff, #ffffff 20%, #d8d8d8 80%, #C1C1C1);
+    -webkit-border-radius:  2px 2px 2px 2px;
+    -moz-border-radius:  2px 2px 2px 2px;
+    -ms-border-radius:  2px 2px 2px 2px;
+    -o-border-radius:  2px 2px 2px 2px;
+    border-radius:  2px 2px 2px 2px;
+    -webkit-box-shadow:     0 0 3px rgba(0,0,0, 0.2);
+    -moz-box-shadow:     0 0 3px rgba(0,0,0, 0.2);
+    -ms-box-shadow:     0 0 3px rgba(0,0,0, 0.2);
+    -o-box-shadow:     0 0 3px rgba(0,0,0, 0.2);
+    box-shadow:     0 0 3px rgba(0,0,0, 0.2);
+}
+input[type=text],
+input[type=email],
+input[type=password],
+textarea {
+    font-size: 0.6rem; 
+}
+input[type=text],
+input[type=email],
+input[type=password] {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    height: 30px;
+}
+.form-control-feedback { font-size: 0.8rem;}
+.control-label {
+    font-size: 0.7rem;
+}
+.content {
     margin-left: 10px;
     margin-right: 10px;
+}
+.page-header {
+    padding-bottom: 1px;
+    margin: 0 5px 0 5px;
+}
+.breadcrumb {
+    padding: 0px 5px 0px 20px;
+    margin-bottom: 3px;
+}
+.red-glyph {
+    color: #ff0000;
+    font-size: 0.9rem;
     padding-left: 10px;
-    width: 50%;
+    padding-right: 10px;
+}
+.pager li a {
+    background-color: #ffffff;
+    color: #337ab7;
+    font-weight: bold;
+}
+.pager li a:hover {
+    background-color: #337ab7;
+    color: #ffffff;
+    transition: 0.2s;
+    transform: rotate(360deg);
 }

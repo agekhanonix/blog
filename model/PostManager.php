@@ -8,15 +8,15 @@ class PostManager extends Manager {
         // On récupère les 5 derniers billets
         if($publish == 'yes') {
             $q = $db->query("SELECT id, title, content, DATE_FORMAT(creation_date, '%d/%m/%Y à %Hh%imin%ss') AS creation_date_fr, 
-             published FROM bl_posts WHERE published = 1 ORDER BY creation_date DESC LIMIT 0,5");
+             published FROM bl_posts WHERE published = 1 ORDER BY creation_date DESC");
         }
         if($publish == 'no') {
             $q = $db->query("SELECT id, title, content, DATE_FORMAT(creation_date, '%d/%m/%Y à %Hh%imin%ss') AS creation_date_fr, 
-            published FROM bl_posts WHERE published = 0 ORDER BY creation_date DESC LIMIT 0,5");
+            published FROM bl_posts WHERE published = 0 ORDER BY creation_date DESC");
         }
         if($publish == 'all') {
             $q = $db->query("SELECT id, title, content, DATE_FORMAT(creation_date, '%d/%m/%Y à %Hh%imin%ss') AS creation_date_fr, 
-            published FROM bl_posts ORDER BY creation_date DESC LIMIT 0,5");
+            published FROM bl_posts ORDER BY creation_date DESC");
         }
         return $q;
     }

@@ -3,32 +3,35 @@ namespace OCFram\Blog\Model;
 
 class Manager  {
     private static $instance = null;                    // Hold the class instance
-    private $dbConn;
 
-    private $dbHost = DBHOST;
-    private $dbPort = DBPORT;
-    private $dbUser = DBUSER;
-    private $dbPass = DBPASS;
-    private $dbName = DBNAME;
+    private $dbType = "mysql";                          // SGBD type
+    private $dbHost = DBHOST;                           // HostName
+    private $dbPort = DBPORT;                           // N° Port
+    private $dbUser = DBUSER;                           // SQL User
+    private $dbPass = DBPASS;                           // SQL Password
+    private $dbName = DBNAME;                           // Database Name
+    private $dbConn;
 
     // The db connection is established in the private contructor
     public function __construct() {
-        $this->dbConn = new \PDO("mysql:host={$this->dbHost};port={$this->dbPort};dbname={$this->dbName};charset=utf8", 
-            $this->dbUser, $this->dbPass, array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
+        $this->dbConn = new \PDO(
+            $this->dbType.":host=".$this->dbHost."; port=".$this->dbPort."; dbname=".$this->dbName."; charset=utf8",
+            $this->dbUser,
+            $this->dbPass,
+            array(\PDO::ATTR_PERSISTENT => true, \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
     }
 
     public static function getInstance() {
-        if(!self::$instance) {
-            self::$instance = new Manager();
+        if(!self::$instance instanceof self) {
+            self::$instance = new self;
         }
         return self::$instance;
     }
-    public function getConnection() {
+    public function getConnexion() {
         return $this->dbConn;
     }
-    protected function dbConnect() {
-        $instance = Manager::getInstance();
-        $db = $instance->getConnection();
-        return $db;
+    public function dbConnect() {
+        $conn = Manager::getInstance();
+        return $conn->getConnexion(); 
     }
 }

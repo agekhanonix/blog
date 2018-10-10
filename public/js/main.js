@@ -4,18 +4,45 @@
 /* Author    : Thierry CHARPENTIER                              *
 *  Date      : 05.09.2018                                       *
 *  Version   : V1R0                                             *
-*
-* JCD key    : 4b79668fa4a9e9f38c23f98a1a79d20d527a623c         *
-*            : 7f305f4a66773eaaf355b25eb583029d707b8585         *
-* Google key : AIzaSyCXB6yLq41R_CSfl2saDa1pqqOutPwVNnI          *
-* TinyMCE    : 732xqa5s3ytb1ije9kwlfubjipvhexfw4fqwfgvoy05ckpee *
 * ============================================================ */
 window.onload = preloader;
-
+var show_per_page = 3;
+var current_page = 0;
+function set_display(first, last) {
+    $('#voltaire').children().css('display', 'none');
+    $('#voltaire').children().slice(first, last).css('display', 'block');
+}
+function previous() {
+    if($('.active').prev('.page_link').length) go_to_page(current_page - 1);
+}
+function next() {
+    if($('.active').next('.page_link').length) go_to_page(current_page + 1);
+}
+function go_to_page(page_num) {
+    current_page = page_num;
+    start_from = current_page + show_per_page;
+    end_on = start_from + show_per_page;
+    set_display(start_from, end_on);
+    $('.active').removeClass('active');
+    $('#id' + page_num).addClass('active');
+}
+$(document).ready(function(){
+    var number_of_pages = Math.ceil($('#voltaire').children().length / show_per_page);
+    var nav = '<ul class="pagination pagination-sm"><li><a href="javascript:previous();"><span class="glyphicon glyphicon-backward btn-icon"></span>Precedent</a>';
+    var i = -1;
+    while(number_of_pages > ++i) {
+        nav += '<li class="page_link'
+        if(!i) nav += ' active';
+        nav += '" id="id' + i + '">';
+        nav += '<a href="javascript:go_to_page(' + i + ')">' + (i+1) + '</a>';
+    }
+    nav += '<li><a href="javascript:next();">Suivant<span class="glyphicon glyphicon-forward btn-icon"></span></a></li></ul>';
+    $('#page_navigation').html(nav);
+    set_display(0, show_per_page);
+});
 function preloader(){
     document.getElementById("loading").style.display = "none";
     document.getElementById("slideshow").style.visibility = "visible";
-    document.getElementById("slogan").style.visibility = "visible";
     document.getElementById("preload").style.visibility = "visible";
     initCarrousel();
     validComment();
@@ -29,7 +56,7 @@ function initCarrousel(auto=true) {
     (auto === false) ? slider.next() : slider.next(interval); // Carrousel initialisation
 }
 function validComment() {
-    tabs = document.querySelectorAll('.tabs-content');
+    tabs = document.querySelectorAll('.tabs-voltaire');
     for(var i=0; i<tabs.length; i++){
         tabs[i].style.display = (i>0) ? 'none' : 'block';
         elMt = document.getElementById('tab-container' + (i+1));

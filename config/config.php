@@ -8,8 +8,7 @@
 
     /* ===             WEB SITE PARAMETERS            === */
     define('BLOGTITLE', 'Je BLOG donc je suis !');
-    define('SL_MAIN', 'Jean Foutreroche');
-    define('SL_DETAIL', "écrivain - acteur, je dis tout sur tous, et surtout fais le contraire");
+    define('SL_MAIN', 'Jean Forteroche');
 
     /* ===               MEMBERS ACCESS               === */
     define('GUEST', 1);

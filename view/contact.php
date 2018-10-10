@@ -30,10 +30,10 @@
             </li>
         </ul>
         <div class="row">
-            <div class="form-group has-error has-feedback">
-                <label for="name" class="col-md-3 col-sm-3 control-label">Nom : </label>
-                <div class="col-md-8 col-sm-8 col-xs-8">
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Jean Foutreroche" 
+            <div class="form-group has-error has-feedback col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label for="name" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label">Nom</label>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Jean Forteroche" 
 <?php if(isset($_SESSION['lastName'])) { ?>
     value=" <?= $_SESSION['firstName'] ?> <?= $_SESSION['lastName'] ?>"
 <?php } ?>>
@@ -42,10 +42,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="form-group has-error has-feedback">
-                <label for="email" class="col-md-3 col-sm-3 control-label">Courriel : </label>
-                <div class="col-md-8 col-sm-8 col-xs-8">
-                    <input type="text" class="form-control has-error has-feedback" id="email" name="email" placeholder="jfoutreroche@gmail.com" 
+            <div class="form-group has-error has-feedback col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label for="email" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label">Courriel</label>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                    <input type="text" class="form-control has-error has-feedback" id="email" name="email" placeholder="jean.forteroche.jf@gmail.com" 
 <?php if(isset($_SESSION['email'])) { ?>
     value=" <?= $_SESSION['email'] ?>"
 <?php } ?>>
@@ -54,18 +54,18 @@
             </div>
         </div>
         <div class="row">
-            <div class="form-group has-error has-feedback">
-                <label for="subject" class="col-md-3 col-sm-3 control-label">Objet : </label>
-                <div class="col-md-8 col-sm-8 col-xs-8">
+            <div class="form-group has-error has-feedback col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label for="subject" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label">Objet</label>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                     <input type="text" class="form-control has-error has-feedback" id="subject" name="sujet">
                     <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="form-group has-error has-feedback">
-                <label for="message" class="col-md-3 col-sm-3 control-label">Message : </label>
-                <div class="col-md-8 col-sm-8 col-xs-8">
+            <div class="form-group has-error has-feedback col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label for="message" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label">Message</label>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                     <textarea class="form-control has-error has-feedback" id="message" name="message" row="4"></textarea>
                     <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
                 </div>
