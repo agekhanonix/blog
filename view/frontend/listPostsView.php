@@ -4,19 +4,22 @@
         <li class="active">Les chapitres du livre</li>
     </ol>
     <div class="content">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <nav aria-label="Page navigation">
-                    <ul class="pager pagination-sm">
-<?php $p=1; foreach($posts as $post) { ?>
-    <li><a href="#"><span id="chapter<?php echo $p; ?>"><?= $p++ ?></span></a></li>
+        <div id="tabs-chapter"></div>
+        <div id="chapter" class="row">
+
+<?php foreach($posts as $post) { ?>
+    <section class="chapter col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <dl>
+            <dt><?= $post['title'] ?> <small>publi&eacute; le <?= $post['creation_date_fr'] ?></small></dt>
+            <dd><?= $post['content'] ?></dd>
+        </dl>
+    </section>  
 <?php } ?>
-                    </ul>
-                </nav>    
+<?php $posts->closeCursor(); ?>   
             </div>
         </div>
-<?php $posts->closeCursor(); ?>
+
+        <script src="public/js/gestShowChapters.js" type="text/javascript"></script>
 <?php $content = ob_get_clean(); ?>
     </div><!-- END (content) -->
-
 <?php require('template/template.php'); ?>

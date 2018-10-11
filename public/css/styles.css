@@ -234,6 +234,34 @@ fieldset.register {
     font-size: 0.7rem;
 }
 /* ---                                             --- **
+**                       CHAPTERS                      **
+** ---                                             --- */
+.chapter dt {
+    color: #97007a;
+    background-color: #ffcdf5;
+    font-size: 1.2rem;
+    border: 1px dotted #97007a;
+    border-radius: 5px 5px 0px 0px;
+    padding: 2px 5px 3px 5px;
+    margin-bottom: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-weight: bold;
+}
+.chapter dt small {
+    color: #6db25a;
+    font-size: 0.8rem;
+    font-weight: normal;
+    margin-left: 15px;
+}
+.chapter dd::first-letter {
+    font-family: 'Tangerine', cursive;
+    font-size: 2rem;
+    margin-left: 20px;
+    text-transform: uppercase;
+    color: #97007a;
+}
+/* ---                                             --- **
 **                       VARIOUS                       **
 ** ---                                             --- */
 .btn-default {
@@ -314,6 +342,6 @@ input[type=password] {
 .pager li a:hover {
     background-color: #337ab7;
     color: #ffffff;
-    transition: 0.2s;
+    transition: 0.5s;
     transform: rotate(360deg);
 }

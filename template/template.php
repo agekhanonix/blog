@@ -19,11 +19,13 @@
         <section class="col-md-9 col-sm-12 col-xs-12">
             <?= $content ?>
         </section>
+<?php if(!isset($_SESSION['userId'])) { ?>
         <section class="col-md-3 col-sm-6 col-xs-12"><!-- Enregistrement -->
 <?php
     include 'view/registering.php';
 ?>
         </section>
+<?php } ?>
         <section class="col-md-3 col-sm-6 col-xs-12"><!-- Contact -->
 <?php
     include 'view/contact.php';
