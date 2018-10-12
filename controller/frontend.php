@@ -20,7 +20,11 @@
         $comments = $commentManager->getComments($_GET['id'], $publish);
         require('view/frontend/postView.php');
     }
-
+    function getComments($postId, $publish) {
+        $commentManager = new \OCFram\Blog\Model\CommentManager();
+        $comments = $commentManager->getComments($postId, $publish);
+        return $comments;
+    }
     function addPost() {
         require('view/frontend/addPostView.php');
     }

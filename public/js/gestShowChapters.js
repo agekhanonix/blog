@@ -28,7 +28,7 @@ function showChapter(pageNum) {
 }
 $(document).ready(function(){
     numberOfPages = Math.ceil($('#chapter').children().length / showPerPage);
-    var nav = '<ul class="pager"><li><a href="javascript:showPrevious();"><span class="glyphicon glyphicon-backward btn-icon"></span>Precedent</a></li>';
+    var nav = '<ul class="pager pagination-sm"><li><a href="javascript:showPrevious();"><span class="glyphicon glyphicon-backward btn-icon"></span>Precedent</a></li>';
     var i = -1;
     while(numberOfPages > ++i) {
         nav += '<li class="page_link'

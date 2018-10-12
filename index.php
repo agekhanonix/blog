@@ -23,6 +23,17 @@
                     $publish = $_GET['publish'];
                 }
                 listPosts($publish);
+            } elseif($_GET['action'] == 'getComments') {
+                if(isset($_GET['id']) && $_GET['id'] > 0) {
+                    if((!isset($_GET['publish'])) or (!in_array($_GET['publish'], array('all', 'yes', 'no')))) {
+                        $publish = 'yes';
+                    } else {
+                        $publish = $_GET['publish'];
+                    } 
+                }
+                echo 'getComments';
+                die();
+                getComments($_GET['id'], $publish);
             } elseif($_GET['action'] == 'post') {
                 if(isset($_GET['id']) && $_GET['id'] > 0) {
                     if((!isset($_GET['publish'])) or (!in_array($_GET['publish'], array('all', 'yes', 'no')))) {

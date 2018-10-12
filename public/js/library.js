@@ -5,21 +5,33 @@
 *  Date      : 29.07.2018                               *
 *  Version   : V1R0                                     *
 *
-* JCD key    : 4b79668fa4a9e9f38c23f98a1a79d20d527a623c *
-*            : 7f305f4a66773eaaf355b25eb583029d707b8585 *
-* Google key : AIzaSyCXB6yLq41R_CSfl2saDa1pqqOutPwVNnI  *
-* ==================================================== */
-
 /* --- =========================================== --- **
 **     EXTERNAL RESSOURCE DONWNLOADING                 **
 ** --- =========================================== --- */
+//function downloadUrl(url, callback) {
+//    var xhr = getXMLHttpRequest();
+//    xhr.onreadystatechange = function() {
+        /* 
+        0: Object XHR was created, but not initialized yet (the open method was not called yet)
+        1: Object XHR was created, but not sent yet (with the method send)
+        2: The method send has just been called
+        3: The waiter processes the data and started to return data
+        4: The waiter finished its work, and all the data are delivered
+        */
+//       if(xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+//            callback(xhr.responseXML);
+//        }
+//    }
+//    xhr.open("GET", url, true);
+//    xhr.send(null);
+//}
 function downloadUrl(url, callback) {
     var request = new XMLHttpRequest();
     if(!request) return false;
     request.open('GET', url);
     request.addEventListener('load', function(){
         if(request.status >= 200 && request.status < 400) {
-            callback(request.responseText);
+            callback(request.responseXML);
         } else {
             console.error(request.status + " " + request.statusText + " " + url);
         }
@@ -29,49 +41,33 @@ function downloadUrl(url, callback) {
     });
     request.send(null);
 };
-/* --- =========================================== --- **
-**     INTERROGATION OF THE OPEN STATIONS DEPENDENT    **
-**     WITH A CONTRACT                                 **
-** --- =========================================== --- */
-function affStationsOpen(idMap,contrat) {
-    /*var url = 'public/php/getStation.php?contract=' + contrat;*/
-    var contract = contrat;
-    var JCDKey = '7f305f4a66773eaaf355b25eb583029d707b8585'; // La clé d'API JCDecaux utilisée
-    var url = 'https://api.jcdecaux.com/vls/v1/stations?contract=' + contract + '&apiKey=' + JCDKey;
-    downloadUrl(url, function(data){
-        var jsonObject = eval('(' + data + ')');
-        var stations = jsonObject;
-        var m = [];
-        for(var i=0; i<stations.length; i++) {
-            var station = stations[i];
-            var name = station.name;
-            var address = station.address;
-            var lat = parseFloat(station.position.lat);
-            var lng = parseFloat(station.position.lng);
-
-            var status = (station.status != 'CLOSED' && station.status != 'OPEN') ? 'NC' : station.status;
-
-            var bikes = (Number.isInteger(station.available_bikes)) ? 
-                station.available_bikes : parseInt(station.available_bikes);
-
-            var stands = (Number.isInteger(station.available_bike_stands)) ?
-                station.available_bike_stands :
-                parseInt(station.available_bike_stands);
-            var type = 99;
-            if(status == 'OPEN' && bikes > 0) {
-                if(bikes > 0 && bikes <= 2) {
-                    type=7;
-                } else if(bikes > 2 && bikes <= 5) {
-                    type=6;
-                }else if(bikes > 5 && bikes <= 10) {
-                    type=5;
-                } else if(bikes > 10) {
-                    type=4;
-                }
-                m = new StationMark(idMap, name, address, lat, lng, bikes, stands, type);
+function getXMLHttpRequest() {
+    var xhr = null;
+    if(window.XMLHttpRequest || window.AciveXOject) {
+        if(window.ActiveXOject) {
+            try {
+                xhr = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch(e) {
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
             }
-        };
-    });
+        } else {
+            xhr = new XMLHttpRequest();
+        }
+    } else {
+        alert("Votre navigateur ne support pas l'objet XMLHTTPRequest");
+        return null;
+    }
+    return xhr;
+}
+function xmlParse(str) {
+    if(typeof ActiveXObject != 'undefined' && typeof GetObject != 'undefined') {
+        var doc = new ActiveXObject('Microsoft.XMLDOM');
+        doc.loadXML(str);
+        return doc;
+    }
+    if(typeof DOMParser != 'undefined') {
+        return (new DOMParser()).parseFromString(str, 'text/xml');
+    }
 }
 /* --- =========================================== --- **
 **    TO OBTAIN THE PUNCTUAL COORDINATES FLIES OVER    **
@@ -162,28 +158,4 @@ Date.prototype.toStringDate = function() {
 ** --- =========================================== --- */
 function capitalize(str) {
     return str.substr(0,1).toUpperCase() + str.substr(1);
-}
-/* --- =========================================== --- **
-**                    OBJECT DELETE                    **
-** --- =========================================== --- */
-var delObject = function(obj) {
-    while(obj.childNodes.length > 0 ) {
-        if(obj.firstChild.childNodes.length > 0) {
-            this.delObject(obj.firstChild);
-        } else {
-            var tempo = obj.firstChild ;
-			var a = tempo.attributes, i, l, n;
-			if (a) {
-			    l = a.length;
-			    for (i = 0; i < l; i += 1) {
-			        n = a[i].name;
-			        if (typeof tempo[n] === 'function') {
-			            tempo[n] = null;
-			        }
-			    }
-			}
-			tempo = null;
-			obj.removeChild(obj.firstChild);
-        }
-    }
 }

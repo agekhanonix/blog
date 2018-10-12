@@ -26,7 +26,13 @@ class CommentManager extends Manager {
         }
         $q->bindValue(':id', $postId);
         $q->execute();
-        return $q;
+        $datas = array();
+        while($line = $q->fetch()) {
+            $datas[] = $line;
+        }
+        $return = xmlrpc_encode($datas);
+        die(var_dump($return));
+        return $return;
     }
 
     public function postComment($postId, $author, $comment) {
