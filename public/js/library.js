@@ -8,9 +8,9 @@
 /* --- =========================================== --- **
 **     EXTERNAL RESSOURCE DONWNLOADING                 **
 ** --- =========================================== --- */
-//function downloadUrl(url, callback) {
-//    var xhr = getXMLHttpRequest();
-//    xhr.onreadystatechange = function() {
+function downloadUrl(url, callback) {
+    var xhr = getXMLHttpRequest();
+    xhr.onreadystatechange = function() {
         /* 
         0: Object XHR was created, but not initialized yet (the open method was not called yet)
         1: Object XHR was created, but not sent yet (with the method send)
@@ -18,29 +18,13 @@
         3: The waiter processes the data and started to return data
         4: The waiter finished its work, and all the data are delivered
         */
-//       if(xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-//            callback(xhr.responseXML);
-//        }
-//    }
-//    xhr.open("GET", url, true);
-//    xhr.send(null);
-//}
-function downloadUrl(url, callback) {
-    var request = new XMLHttpRequest();
-    if(!request) return false;
-    request.open('GET', url);
-    request.addEventListener('load', function(){
-        if(request.status >= 200 && request.status < 400) {
-            callback(request.responseXML);
-        } else {
-            console.error(request.status + " " + request.statusText + " " + url);
+        if(xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+            callback(xhr.responseText);
         }
-    });
-    request.addEventListener('error', function(){
-        console.error("Network error with URL : " + url);
-    });
-    request.send(null);
-};
+    }
+    xhr.open("GET", url, true);
+    xhr.send(null);
+}
 function getXMLHttpRequest() {
     var xhr = null;
     if(window.XMLHttpRequest || window.AciveXOject) {

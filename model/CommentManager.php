@@ -4,7 +4,7 @@ require_once('model/Manager.php');
 
 class CommentManager extends Manager {
 
-    public function getComments($postId, $publish) {
+    public function getComments($postId, $publish,$json='y') {
         $db = $this->dbConnect();
         if($publish == 'yes') {
             $q = $db->prepare("SELECT id, author, comment, DATE_FORMAT(comment_date, '%d/%m/%Y à %Hh%imin%ss') AS comment_date_fr, publish
@@ -26,13 +26,17 @@ class CommentManager extends Manager {
         }
         $q->bindValue(':id', $postId);
         $q->execute();
-        $datas = array();
         while($line = $q->fetch()) {
             $datas[] = $line;
         }
-        $return = xmlrpc_encode($datas);
-        die(var_dump($return));
-        return $return;
+        $return = json_encode($datas);
+        if($json == 'y') {
+            $fp = fopen('tmp/getComments_' . RANDOM_ID . '.json', 'w+') ;
+            fwrite($fp, $return);
+            fclose($fp);
+        } else {
+            return $return;
+        }
     }
 
     public function postComment($postId, $author, $comment) {

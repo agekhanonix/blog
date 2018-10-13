@@ -31,8 +31,6 @@
                         $publish = $_GET['publish'];
                     } 
                 }
-                echo 'getComments';
-                die();
                 getComments($_GET['id'], $publish);
             } elseif($_GET['action'] == 'post') {
                 if(isset($_GET['id']) && $_GET['id'] > 0) {

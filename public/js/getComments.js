@@ -10,8 +10,8 @@
 ** --- =================================================== --- */
 function getComments(chapterNum) {
     var postId = chapterNum;
-    var url = 'http://www.agekhanonix.fr/blog/index.php?action=getComments&id=' + postId + '&publish=yes';
+    var url = 'index.php?action=getComments&id=' + postId + '&publish=yes';
     downloadUrl(url, function(data) {
-
+        alert(data);
     });
 }

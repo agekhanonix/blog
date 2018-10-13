@@ -16,12 +16,15 @@
 #        |>bootstrap    Le CMS
 #        |>css          le/les css de l'application
 #        |>images       le/les images de l'application
+#               |>articles
+#               |>avatars
+#               |>covers
 #               |>ico
 #               |>slider
-#               |>articles
 #        |>js           les scripts javascript du site 
 #        |>tinymce      L'outil "tinymce"
 #        |>objects      Les objets JS au sens POO
 # |>template            Le template d'affichage du site
+# |>tmp                 Répertoire de stockage pour la génération des fichiers .json
 # |>view                Les # vues d'affichage
 #      |>frontend       Les # vues du "front office"
