@@ -7,35 +7,38 @@ class CommentManager extends Manager {
     public function getComments($postId, $publish,$json='y') {
         $db = $this->dbConnect();
         if($publish == 'yes') {
-            $q = $db->prepare("SELECT id, author, comment, DATE_FORMAT(comment_date, '%d/%m/%Y à %Hh%imin%ss') AS comment_date_fr, publish
+            $q = $db->prepare("SELECT id, author, comment, DATE_FORMAT(comment_date, '%d/%m/%Y à %Hh%imin%ss') AS comment_date_fr, publish, avatar
                 FROM bl_comments
                 WHERE post_id = :id AND publish = 1
                 ORDER BY comment_date");
         }
         if($publish == 'no') {
-            $q = $db->prepare("SELECT id, author, comment, DATE_FORMAT(comment_date, '%d/%m/%Y à %Hh%imin%ss') AS comment_date_fr, publish
+            $q = $db->prepare("SELECT id, author, comment, DATE_FORMAT(comment_date, '%d/%m/%Y à %Hh%imin%ss') AS comment_date_fr, publish, avatar
                 FROM bl_comments 
                 WHERE post_id = :id AND publish = 0
                 ORDER BY comment_date");
         }
         if($publish == 'all') {
-            $q = $db->prepare("SELECT id,author, comment, DATE_FORMAT(comment_date, '%d/%m/%Y à %Hh%imin%ss') AS comment_date_fr, publish
+            $q = $db->prepare("SELECT id,author, comment, DATE_FORMAT(comment_date, '%d/%m/%Y à %Hh%imin%ss') AS comment_date_fr, publish, avatar
                 FROM bl_comments
                 WHERE post_id = :id 
                 ORDER BY publish ASC, comment_date DESC");
         }
         $q->bindValue(':id', $postId);
-        $q->execute();
-        while($line = $q->fetch()) {
-            $datas[] = $line;
+        $datas = $q->execute();
+        if(count($datas) > 0) {
+            $jsonCode = json_encode($q->fetchAll(\PDO::FETCH_ASSOC));
         }
-        $return = json_encode($datas);
         if($json == 'y') {
-            $fp = fopen('tmp/getComments_' . RANDOM_ID . '.json', 'w+') ;
-            fwrite($fp, $return);
-            fclose($fp);
+            $jsonFilename = 'tmp/getComments_' . UNIQID . '.json';
+            if(file_exists($jsonFilename)) unlink($jsonFilename);
+            if(count($datas) > 0) {
+                $fp = fopen($jsonFilename, 'w+') ;
+                fwrite($fp, $jsonCode);
+                fclose($fp);
+            }
         } else {
-            return $return;
+            return $jsonCode;
         }
     }
 

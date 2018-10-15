@@ -1,10 +1,10 @@
 <?php
     /* ===              DATABASE ACCESS               === */
-    define('DBHOST', '****');
+    define('DBHOST', '*****');
     define('DBPORT', '3306');
-    define('DBUSER', '****');
-    define('DBPASS', '****');
-    define('DBNAME', '****');
+    define('DBUSER', '*****');
+    define('DBPASS', '*****');
+    define('DBNAME', 'agekhanokcroot');
 
     /* ===             WEB SITE PARAMETERS            === */
     define('BLOGTITLE', 'Je BLOG donc je suis !');
@@ -18,7 +18,7 @@
     define('LEVEL', 1);
 
     /* === GENERATION OF A RANDOM NUMBER FOR  FILE .JSON CREATION === */ 
-    define('RANDOM_ID', dechex(str_replace('.', '', $_SERVER['REMOTE_ADDR'])));
+    define('UNIQID', dechex(str_replace('.', '', $_SERVER['REMOTE_ADDR'])));
 
     /* === FILE REMOVAL FOR OLDEST .JSON FILES        === */
     $folder = new DirectoryIterator('tmp/');

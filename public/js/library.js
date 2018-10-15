@@ -8,7 +8,7 @@
 /* --- =========================================== --- **
 **     EXTERNAL RESSOURCE DONWNLOADING                 **
 ** --- =========================================== --- */
-function downloadUrl(url, callback) {
+function downloadUrl(url) {
     var xhr = getXMLHttpRequest();
     xhr.onreadystatechange = function() {
         /* 
@@ -19,7 +19,7 @@ function downloadUrl(url, callback) {
         4: The waiter finished its work, and all the data are delivered
         */
         if(xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-            callback(xhr.responseText);
+            //alert(xhr.responseText);
         }
     }
     xhr.open("GET", url, true);

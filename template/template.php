@@ -6,6 +6,7 @@
     $lastName = (isset($_SESSION['lastName'])) ? $_SESSION['lastName'] : 'MATE';
     $firstName = (isset($_SESSION['firstName'])) ? $_SESSION['firstName'] : 'Otto';
     $email = (isset($_SESSION['email'])) ? $_SESSION['email'] : "";
+    $avatar = (isset($_SESSION['avatar'])) ? (int) $_SESSION['avatar'] : 1;
     $postId = (isset($_GET['id'])) ? (int) $_GET['id'] : '';
     include 'view/nav.html';
     $search = array('{LEVEL1}');

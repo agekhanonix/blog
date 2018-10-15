@@ -261,6 +261,9 @@ fieldset.register {
     text-transform: uppercase;
     color: #97007a;
 }
+dd[id^="divComment"] {
+    display: none;
+}
 /* ---                                             --- **
 **                       VARIOUS                       **
 ** ---                                             --- */
@@ -328,16 +331,16 @@ input[type=password] {
     padding: 0px 5px 0px 20px;
     margin-bottom: 3px;
 }
-.red-glyph {
-    color: #ff0000;
+.glyph {
     font-size: 0.9rem;
     padding-left: 10px;
     padding-right: 10px;
 }
-.orange-glyph {
+.red {
+    color: #ff0000;
+}
+.orange {
     color: #ff9900;
-    font-size: 1.3rem;
-    margin-left: 35px;
 }
 .pager li a {
     background-color: #ffcdf5;
