@@ -4,6 +4,7 @@
     session_start();
     require('config/config.php');
     require('controller/frontend.php');
+    include('libs/OCFram/library.php');
    
     try {
         if(isset($_GET['action'])) {
@@ -107,23 +108,22 @@
             
             /* ===                                      === **
             **               ADDING COMMENT                 **
-            ** ===                                      === */
-            } elseif($_GET['action'] == 'addComment') {
-                if(isset($_GET['id']) && $_GET['id'] > 0) {
-                    addComment($_GET['id']);
-                } else {
-                    throw new Exception('APL006');
-                }
-              
-            } elseif($_GET['action'] == 'addCommentQry') { 
-                if(isset($_GET['id']) && $_GET['id'] > 0) {
-                    if(!empty($_POST['comment'])) {
-                        addCommentQry($_GET['id'], $_SESSION['pseudo'], $_POST['comment']);
+            ** ===                                      === */  
+            } elseif($_GET['action'] == 'addComment') { 
+                if(isset($_GET['id']) && $_GET['id'] > 0 && isset($_GET['avatar'])) {
+                    if(!empty($_POST['comment'.$_GET['id']])) {
+                        addComment($_GET['id'],$_GET['avatar'], $_POST['pseudo'.$_GET['id']], $_POST['comment'.$_GET['id']]);
                     } else {
                         throw new Exception('APL007');
                     }
                 } else {
                     throw new Exception('APL008');
+                }
+            } elseif($_GET['action'] == 'askComment') {
+                if(isset($_GET['post']) && $_GET['post'] > 0 && isset($_GET['com']) & $_GET['com'] > 0 && $_GET['val'] == 1) {
+                    askComment($_GET['post'], $_GET['com'], $_GET['val']);
+                } else {
+                    throw new Exception('APL013');
                 }
             } elseif($_GET['action'] == 'pubComments') {
                 pubComments();

@@ -20,10 +20,10 @@
         $comments = $commentManager->getComments($_GET['id'], $publish);
         require('view/frontend/postView.php');
     }
-    function getComments($postId, $publish) {
+    function getComments($postId, $publish, $js=true) {
         $commentManager = new \OCFram\Blog\Model\CommentManager();
         $comments = $commentManager->getComments($postId, $publish);
-        return $comments;
+        if($js == true) {echo $comments;} else {return $comments;}
     }
     function addPost() {
         require('view/frontend/addPostView.php');
@@ -72,19 +72,23 @@
     }
 
 
-    function addComment($postId) {
-        $postManager = new \OCFram\Blog\Model\PostManager();
-        $post = $postManager->getPost($_GET['id']);
-        require('view/frontend/addCommentView.php');
-    }
-
-    function addCommentQry($postId, $author, $comment) {
+    function addComment($postId, $avatar, $author, $comment) {
         $commentManager = new \OCFram\Blog\Model\CommentManager();
-        $affectedLines = $commentManager->postComment($postId, $author, strip_tags($comment));
+        $affectedLines = $commentManager->addComment($postId, $avatar, $author, strip_tags($comment));
         if($affectedLines === false) {
             throw new Exception("QRY004");
         } else {
-            header('Location: index.php?action=post&id=' . $postId);
+            header('Location: index.php?action=listPosts');
+        }
+    }
+
+    function askComment($postId, $comId, $val) {
+        $commentManager = new \OCFram\Blog\Model\CommentManager();
+        $affectedLines = $commentManager->askComment($postId, $comId, $val);
+        if($affectedLines === false) {
+            throw new Exception("QRY013");
+        } else {
+            header('Location: index.php?action=listPosts');
         }
     }
     function pubComments() {

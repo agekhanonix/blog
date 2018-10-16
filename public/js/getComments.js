@@ -8,31 +8,34 @@
 /* --- =================================================== --- **
 **     comments listing for a chapter                          **
 ** --- =================================================== --- */
-function getComments(chapterNum, uniqid) {
+function getComments(chapterNum) {
     var postId = chapterNum;
     var url = 'index.php?action=getComments&id=' + postId + '&publish=yes';
-    downloadUrl(url);
-    readFile(uniqid,chapterNum);
-}
-function readFile(id, chapter) {
-    var file = getXMLHttpRequest();
     var outHtml = '';
-    file.open('GET', 'tmp/getComments_' + id + '.json', false);
-    file.onreadystatechange = function() {
-        if(file.readyState == 4)  {
-            try {status = file.status; } catch(e) {}
-            if (status == 200) {
-                var jsonObj = JSON.parse(file.responseText);
-                for(var i=0; i<jsonObj.length; i++) {
-                    outHtml += jsonObj[i]['author'] + ' à écrit le ' + jsonObj[i]['comment_date_fr'] + "<br/>" + jsonObj[i]['comment'];
+    downloadUrl(url, function(data) {
+        var jsonObj = JSON.parse(data);
+        if(jsonObj.length > 0) {
+            for(var i=0; i<jsonObj.length; i++) {
+                outHtml += '<div class="row">';
+                outHtml += '<div class="col-md-12 col-sm-12 col-xs-12">';
+                outHtml += '<img src="public/images/avatars/ico0' + jsonObj[i]['avatar'] + '.png" width="15px">&nbsp;' + jsonObj[i]['author'] + ' à écrit le ' + jsonObj[i]['comment_date_fr'];
+                if(jsonObj[i]['moderated'] == 0) {
+                    outHtml += '<a href="index.php?action=modComment&post=' + jsonObj[i]['post_id'];
+                    outHtml += '&com=' + jsonObj[i]['id'] + '&val=1" title="Demander que cet article soit modéré"><span class="glyphicon glyphicon-thumbs-up register-comment-glyph blue"></span></a>';
+                } else {
+                    outHtml += '<span class="glyphicon glyphicon-thumbs-down register-comment-glyph red"></span>';
                 }
+                outHtml += '</div>';
+                outHtml += '<div class="col-md-12 col-sm-12 col-xs-12">' + jsonObj[i]['comment'] + '</div>';
+                outHtml += '</div>';
             }
         } else {
-            outHtml += 'Il n\'y a pas de commentaires pour ce chapitre';
+            outHtml += '<div class="row">';
+            outHtml += '<div class="col-md-12 col-sm-12 col-xs-12">';
+            outHtml += 'Il n&apos;y a pas de commentaires pour ce chapitre';
+            outHtml += '</div>';
+            outHtml += '</div>';
         }
-    }
-    //$('#shComment').html(outHtml);
-    file.send(null);
-    $('#shComments' + chapter).html(outHtml);
-    $('#divComment' + chapter).css('display', 'block');
+        $('#rComment' + postId).html(outHtml);
+    });   
 }

@@ -153,19 +153,27 @@ li.form {
 /* ---                                             --- **
 **                    REGISTER FORM                    **
 ** ---                                             --- */
-.register {
+.register,
+.register-comment {
     background-color: #dfffe1;
     padding: 5px;
     margin-bottom:2px;
 }
-h3.register {
+h3.register,
+h3.register-comment {
     font-size: 0.8rem;
     text-transform: uppercase;
     font-weight: bold;  
 }
 h4.register,
-span.register {
+span.register,
+span.register-comment {
     font-size: 0.6rem;
+}
+span.register-comment-glyph {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 0.9rem;
 }
 h4.register {
     text-transform: uppercase;  
@@ -179,7 +187,8 @@ li.register {
 }
 img.register { width: 32px;}
 fieldset.form,
-fieldset.register {
+fieldset.register,
+fieldset.register-comment {
     border: 1px solid #fd67df;
     padding-left: 5px;
     padding-right: 5px;
@@ -261,9 +270,6 @@ fieldset.register {
     text-transform: uppercase;
     color: #97007a;
 }
-dd[id^="divComment"] {
-    display: none;
-}
 /* ---                                             --- **
 **                       VARIOUS                       **
 ** ---                                             --- */
@@ -341,6 +347,12 @@ input[type=password] {
 }
 .orange {
     color: #ff9900;
+}
+.green {
+    color: #44ff44
+}
+.blue {
+    color: #337ab7;
 }
 .pager li a {
     background-color: #ffcdf5;

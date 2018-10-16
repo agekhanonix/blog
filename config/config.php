@@ -1,9 +1,9 @@
 <?php
     /* ===              DATABASE ACCESS               === */
-    define('DBHOST', '*****');
+    define('DBHOST', 'agekhanokcroot.mysql.db');
     define('DBPORT', '3306');
-    define('DBUSER', '*****');
-    define('DBPASS', '*****');
+    define('DBUSER', 'agekhanokcroot');
+    define('DBPASS', 'CZpvNAP3');
     define('DBNAME', 'agekhanokcroot');
 
     /* ===             WEB SITE PARAMETERS            === */
@@ -16,15 +16,3 @@
     define('REGULATOR', 3);
     define('ADMIN', 4);
     define('LEVEL', 1);
-
-    /* === GENERATION OF A RANDOM NUMBER FOR  FILE .JSON CREATION === */ 
-    define('UNIQID', dechex(str_replace('.', '', $_SERVER['REMOTE_ADDR'])));
-
-    /* === FILE REMOVAL FOR OLDEST .JSON FILES        === */
-    $folder = new DirectoryIterator('tmp/');
-    foreach($folder as $file) {
-        if($file->isFile() && !$file->isDot() && (time() - $file->getMTime() > 86400)) {
-            unlink($file->getPathname());
-        }
-    }
-            
