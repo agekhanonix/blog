@@ -66,9 +66,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-info" data-dismiss="modal" id="btn-modal">Fermer</button>
-                            </div>
                         </div>
                     </div>
                 </div>

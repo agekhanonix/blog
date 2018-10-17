@@ -9,7 +9,7 @@
     try {
         if(isset($_GET['action'])) {
             /* === ------------------------------------ === **
-            **                   HOME MENU                  **
+            **                   HOME PAGE                  **
             ** === ------------------------------------ === */
             if($_GET['action'] == 'home') {
                 home();
@@ -61,9 +61,9 @@
             
             } elseif($_GET['action'] == 'addPost') {
                 addPost();
-            } elseif($_GET['action'] == 'addPostQry') {
+            } elseif($_GET['action'] == 'insPost') {
                 if(!empty($_POST['title']) && !empty($_POST['content'])) {
-                    addPostQry($_POST['title'], $_POST['content']);
+                    insPost($_POST['title'], $_POST['content']);
                 } else {
                     throw new Exception('APL002');
                 }
@@ -75,20 +75,20 @@
             /*               POST PUBLISHING                */
             } elseif($_GET['action'] == 'pubPosts') {
                 pubPosts();
-            } elseif($_GET['action'] == 'pubPostQry') {
+            } elseif($_GET['action'] == 'pubPost') {
                 if(isset($_GET['id']) && $_GET['id'] > 0 && isset($_GET['p']) && in_array($_GET['p'], array(0,1))) {
-                    pubPostQry($_GET['id'], $_GET['p']);
+                    pubPost($_GET['id'], $_GET['p']);
                 } else {
                     throw new Exception('APL003');
                 }
             
             /* ---                                      --- **    
             /*                  POST DELETING               */
-            } elseif($_GET['action'] == 'delPost') {
+            } elseif($_GET['action'] == 'delPosts') {
                 delPosts();
-            } elseif($_GET['action'] == 'delPostQry') {
+            } elseif($_GET['action'] == 'delPost') {
                 if(isset($_GET['id']) && $_GET['id'] > 0) {
-                    delPostQry($_GET['id']);
+                    delPost($_GET['id']);
                 } else {
                     throw new Exception('APL004');
                 }      
@@ -97,11 +97,11 @@
             **                 MEMBERS MENU                 **
             ** === ------------------------------------ === */
             /*                  MEMBER SUPPRESS             */
-            } elseif($_GET['action'] == 'delMember') {
-                delMember();
+            } elseif($_GET['action'] == 'delMembers') {
+                delMembers();
             } elseif($_GET['action'] == 'delMemberQry') {
                 if(isset($_GET['id']) && $_GET['id'] > 0 && isset($_GET['p']) && in_array($_GET['p'], array(0,1))) {
-                    delMemberQry($_GET['id'], $_GET['p']);
+                    delMember($_GET['id'], $_GET['p']);
                 } else {
                     throw new Exception("APL005");
                 }

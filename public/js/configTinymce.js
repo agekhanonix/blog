@@ -7,7 +7,7 @@
 * ============================================================ */
 tinymce.init({
   selector: 'textarea#editable',
-  height: 170,
+  height: 380,
   theme: 'modern',
   // Liste des plugins
   plugins : "advlist, anchor, image, imagetools, code, colorpicker, emoticons, table, hr, insertdatetime, textcolor, lists, media, wordcount ",

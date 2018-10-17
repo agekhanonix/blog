@@ -6,72 +6,6 @@
     require_once('model/ErrorManager.php');
     require_once('libs/OCFram/Cmail.php');
 
-    function listPosts($publish) {
-        $postManager = new \OCFram\Blog\Model\PostManager();
-        $posts = $postManager->getPosts($publish);
-        require('view/frontend/listPostsView.php');
-    }
-
-    function post($publish) {
-        $postManager = new \OCFram\Blog\Model\PostManager();
-        $commentManager = new \OCFram\Blog\Model\CommentManager();
-
-        $post = $postManager->getPost($_GET['id']);
-        $comments = $commentManager->getComments($_GET['id'], $publish);
-        require('view/frontend/postView.php');
-    }
-    function getComments($postId, $publish, $js=true) {
-        $commentManager = new \OCFram\Blog\Model\CommentManager();
-        $comments = $commentManager->getComments($postId, $publish);
-        if($js == true) {echo $comments;} else {return $comments;}
-    }
-    function addPost() {
-        require('view/frontend/addPostView.php');
-    }
-
-    function addPostQry($title, $content) {
-        $postManager =  new \OCFram\Blog\Model\PostManager();
-        $affectedLines = $postManager->addPost($title, $content);
-        if($affectedLines === false) {
-            throw new Exception("QRY001");
-        } else {
-            header('Location: index.php?action=listPosts');
-        }
-    }
-
-    function pubPosts() {
-        $postManager = new \OCFram\Blog\Model\PostManager();
-        $posts = $postManager->getPosts('all');
-        require('view/frontend/pubPostsView.php');
-    }
-
-    function pubPostQry($id, $p) {
-        $postManager =  new \OCFram\Blog\Model\PostManager();
-        $affectedLines = $postManager->pubPost($id, $p);
-        if($affectedLines === false) {
-            throw new Exception("QRY002");
-        } else {
-            header('Location: index.php?action=pubPosts');
-        }
-    }
-
-    function delPosts() {
-        $postManager = new \OCFram\Blog\Model\PostManager();
-        $posts = $postManager->getPosts('all');
-        require('view/frontend/delPostsView.php');
-    }
-
-    function delPostQry($id) {
-        $postManager =  new \OCFram\Blog\Model\PostManager();
-        $affectedLines = $postManager->delPost($id);
-        if($affectedLines === false) {
-            throw new Exception("QRY003");
-        } else {
-            header('Location: index.php?action=delPost');
-        }
-    }
-
-
     function addComment($postId, $avatar, $author, $comment) {
         $commentManager = new \OCFram\Blog\Model\CommentManager();
         $affectedLines = $commentManager->addComment($postId, $avatar, $author, strip_tags($comment));
@@ -81,12 +15,98 @@
             header('Location: index.php?action=listPosts');
         }
     }
-
+    function addPost() {
+        require('view/frontend/addPost.php');
+    }
+    
+    function addMember($pseudo, $firstName, $lastName, $pwd, $email, $avatar) {
+        $memberManager = new \OCFram\Blog\Model\MemberManager();
+        $affectedLines = $memberManager->addMember($pseudo, $firstName, $lastName, $pwd, $email, $avatar);
+        if($affectedLines === false) {
+            throw new Exception("QRY005");
+        } else {
+            header('Location: index.php?action=home');
+        }
+    }
     function askComment($postId, $comId, $val) {
         $commentManager = new \OCFram\Blog\Model\CommentManager();
         $affectedLines = $commentManager->askComment($postId, $comId, $val);
         if($affectedLines === false) {
             throw new Exception("QRY013");
+        } else {
+            header('Location: index.php?action=listPosts');
+        }
+    }
+    function contact() {
+        require('view/frontend/contact.php');
+    }
+    function deconnexion() {
+        session_destroy();
+        require('view/frontend/home.php');
+    }
+    function delMembers() {
+        $memberManager = new \OCFram\Blog\Model\MemberManager();
+        $members = $memberManager->getMembers();
+        require('view/frontend/delMembers.php');
+    }
+    function delMember($id, $p) {
+        $memberManager =  new \OCFram\Blog\Model\MemberManager();
+        $affectedLines = $memberManager->delMember($id, $p);
+        if($affectedLines === false) {
+            throw new Exception("QRY006");
+        } else {
+            header('Location: index.php?action=delMembers');
+        }
+    }
+    function delPosts() {
+        $postManager = new \OCFram\Blog\Model\PostManager();
+        $posts = $postManager->getPosts('all');
+        require('view/frontend/delPosts.php');
+    }
+
+    function delPost($id) {
+        $postManager =  new \OCFram\Blog\Model\PostManager();
+        $affectedLines = $postManager->delPost($id);
+        if($affectedLines === false) {
+            throw new Exception("QRY003");
+        } else {
+            header('Location: index.php?action=delPost');
+        }
+    }
+    function getComments($postId, $publish, $js=true) {
+        $commentManager = new \OCFram\Blog\Model\CommentManager();
+        $comments = $commentManager->getComments($postId, $publish);
+        if($js == true) {echo $comments;} else {return $comments;}
+    }
+    function getError($errorId) {
+        $errorManager = new \OCFram\Blog\Model\ErrorManager();
+        $error = $errorManager->getError($errorId);
+        require('view/errorView.php');
+    }
+    function getMember($pseudo, $password) {
+        $memberManager =  new \OCFram\Blog\Model\MemberManager();
+        $member = $memberManager->getMember($pseudo, $password);
+        if($member !== null) {
+            $_SESSION['level'] = $member['members_level'];
+            $_SESSION['userId'] = $member['members_id'];
+            $_SESSION['pseudo'] = $member['members_pseudo'];
+            $_SESSION['lastName'] = $member['members_lastName'];
+            $_SESSION['firstName'] = $member['members_firstName'];
+            $_SESSION['email'] = $member['members_email'];
+            $_SESSION['avatar'] = $member['members_avatar'];
+            header('Location: index.php?action=home');
+        } else {
+            throw new Exception("QRY007");
+        }
+    }
+    function home() {
+        require('view/frontend/home.php');
+    }
+    function insPost($title, $content) {
+        $postManager =  new \OCFram\Blog\Model\PostManager();
+        $affectedLines = $postManager->addPost($title, $content);
+        if($affectedLines === false) {
+            throw new Exception("QRY001");
         } else {
             header('Location: index.php?action=listPosts');
         }
@@ -115,7 +135,36 @@
         }
         require('view/frontend/listComments.php');
     }
+    function listPosts($publish) {
+        $postManager = new \OCFram\Blog\Model\PostManager();
+        $posts = $postManager->getPosts($publish);
+        require('view/frontend/listPosts.php');
+    }
+    function polities() {
+        require('view/frontend/polities.php');
+    }
+    function post($publish) {
+        $postManager = new \OCFram\Blog\Model\PostManager();
+        $commentManager = new \OCFram\Blog\Model\CommentManager();
 
+        $post = $postManager->getPost($_GET['id']);
+        $comments = $commentManager->getComments($_GET['id'], $publish);
+        require('view/frontend/post.php');
+    }
+    function pubPosts() {
+        $postManager = new \OCFram\Blog\Model\PostManager();
+        $posts = $postManager->getPosts('all');
+        require('view/frontend/pubPosts.php');
+    }
+    function pubPost($id, $p) {
+        $postManager =  new \OCFram\Blog\Model\PostManager();
+        $affectedLines = $postManager->pubPost($id, $p);
+        if($affectedLines === false) {
+            throw new Exception("QRY002");
+        } else {
+            header('Location: index.php?action=pubPosts');
+        }
+    }
     function updComment($postId, $commentId, $traitement) {
         $commentManager = new \OCFram\Blog\Model\CommentManager();
         $affectedLines = $commentManager->updComment($postId, $commentId, $traitement);
@@ -124,70 +173,6 @@
         } else {
             header('Location: index.php?action=listComments');
         }
-    }
-    function addMember($pseudo, $firstName, $lastName, $pwd, $email, $avatar) {
-        $memberManager = new \OCFram\Blog\Model\MemberManager();
-        $affectedLines = $memberManager->addMember($pseudo, $firstName, $lastName, $pwd, $email, $avatar);
-        if($affectedLines === false) {
-            throw new Exception("QRY005");
-        } else {
-            header('Location: index.php?action=home');
-        }
-    }
-    function delMember() {
-        $memberManager = new \OCFram\Blog\Model\MemberManager();
-        $members = $memberManager->getMembers();
-        require('view/frontend/delMembersView.php');
-    }
-    function delMemberQry($id, $p) {
-        $memberManager =  new \OCFram\Blog\Model\MemberManager();
-        $affectedLines = $memberManager->delMember($id, $p);
-        if($affectedLines === false) {
-            throw new Exception("QRY006");
-        } else {
-            header('Location: index.php?action=delMember');
-        }
-    }
-
-    function getMember($pseudo, $password) {
-        $memberManager =  new \OCFram\Blog\Model\MemberManager();
-        $member = $memberManager->getMember($pseudo, $password);
-        if($member !== null) {
-            $_SESSION['level'] = $member['members_level'];
-            $_SESSION['userId'] = $member['members_id'];
-            $_SESSION['pseudo'] = $member['members_pseudo'];
-            $_SESSION['lastName'] = $member['members_lastName'];
-            $_SESSION['firstName'] = $member['members_firstName'];
-            $_SESSION['email'] = $member['members_email'];
-            $_SESSION['avatar'] = $member['members_avatar'];
-            header('Location: index.php?action=home');
-        } else {
-            throw new Exception("QRY007");
-        }
-    }
-    function home() {
-        require('view/home.php');
-    }
-    function deconnexion() {
-        session_destroy();
-        require('view/home.php');
-    }
-    function about() {
-        require('view/home.php');
-    }
-
-    function contact() {
-        require('view/contact.php');
-    }
-
-    function polities() {
-        require('view/polities.php');
-    }
-
-    function getError($errorId) {
-        $errorManager = new \OCFram\Blog\Model\ErrorManager();
-        $error = $errorManager->getError($errorId);
-        require('view/errorView.php');
     }
     function mailSend($name, $email, $sujet, $message, $origine) {
         $patterns = array('{NOM}', '{MESSAGE}', '{SUBJECT}','{EMAIL}', '{ORIGINE}');
