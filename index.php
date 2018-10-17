@@ -125,11 +125,11 @@
                 } else {
                     throw new Exception('APL013');
                 }
-            } elseif($_GET['action'] == 'pubComments') {
-                pubComments();
-            } elseif($_GET['action'] == 'pubCommentQry') {
+            } elseif($_GET['action'] == 'listComments') {
+                listComments();
+            } elseif($_GET['action'] == 'updComment') {
                 if(isset($_GET['p']) && $_GET['p'] > 0 && isset($_GET['c']) && $_GET['c'] > 0 && isset($_GET['t']) && in_array($_GET['t'], array(0,1))) { 
-                    pubCommentQry($_GET['p'], $_GET['c'], $_GET['t']);
+                    updComment($_GET['p'], $_GET['c'], $_GET['t']);
                 } else {
                     throw new Exception('APL012');
                 }

@@ -20,7 +20,7 @@ function getComments(chapterNum) {
                 outHtml += '<div class="col-md-12 col-sm-12 col-xs-12">';
                 outHtml += '<img src="public/images/avatars/ico0' + jsonObj[i]['avatar'] + '.png" width="15px">&nbsp;' + jsonObj[i]['author'] + ' à écrit le ' + jsonObj[i]['comment_date_fr'];
                 if(jsonObj[i]['moderated'] == 0) {
-                    outHtml += '<a href="index.php?action=modComment&post=' + jsonObj[i]['post_id'];
+                    outHtml += '<a href="index.php?action=askComment&post=' + jsonObj[i]['post_id'];
                     outHtml += '&com=' + jsonObj[i]['id'] + '&val=1" title="Demander que cet article soit modéré"><span class="glyphicon glyphicon-thumbs-up register-comment-glyph blue"></span></a>';
                 } else {
                     outHtml += '<span class="glyphicon glyphicon-thumbs-down register-comment-glyph red"></span>';

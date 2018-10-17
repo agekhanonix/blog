@@ -91,7 +91,7 @@
             header('Location: index.php?action=listPosts');
         }
     }
-    function pubComments() {
+    function listComments() {
         $postManager = new \OCFram\Blog\Model\PostManager();
         $commentManager = new \OCFram\Blog\Model\CommentManager();
         $posts = $postManager->getPosts('all');
@@ -101,26 +101,28 @@
             $array[$post['id']]['title'] = $post['title'];
             $array[$post['id']]['creation_date_fr'] = $post['creation_date_fr'];
             $array[$post['id']]['published'] = $post['published'];
-            $comments = $commentManager->getComments($post['id'], 'all');
-            $ind = 0;
-            while($comment = $comments->fetch()) {
-                $array[$post['id']]['details'][$ind]['id'] = $comment['id'];
-                $array[$post['id']]['details'][$ind]['author'] = $comment['author'];
-                $array[$post['id']]['details'][$ind]['comment'] = $comment['comment'];
-                $array[$post['id']]['details'][$ind]['comment_date_fr'] = $comment['comment_date_fr'];
-                $array[$post['id']]['details'][$ind]['publish'] = $comment['publish']; 
-                $ind++;
+            $comments = json_decode($commentManager->getComments($post['id'], 'mod'));
+            for($i=0; $i<count($comments); $i++) {
+                $array[$post['id']]['details'][$i]['id'] = $comments[$i]->id;
+                $array[$post['id']]['details'][$i]['post_id'] = $comments[$i]->post_id;
+                $array[$post['id']]['details'][$i]['author'] = $comments[$i]->author;
+                $array[$post['id']]['details'][$i]['comment'] = $comments[$i]->comment;
+                $array[$post['id']]['details'][$i]['comment_date_fr'] = $comments[$i]->comment_date_fr;
+                $array[$post['id']]['details'][$i]['published'] = $comments[$i]->published;
+                $array[$post['id']]['details'][$i]['moderated'] = $comments[$i]->moderated;
+                $array[$post['id']]['details'][$i]['avatar'] = $comments[$i]->avatar;
             }
         }
-        require('view/frontend/pubCommentView.php');
+        require('view/frontend/listComments.php');
     }
-    function pubCommentQry($postId, $commentId, $traitement) {
+
+    function updComment($postId, $commentId, $traitement) {
         $commentManager = new \OCFram\Blog\Model\CommentManager();
-        $affectedLines = $commentManager->pubComment($postId, $commentId, $traitement);
+        $affectedLines = $commentManager->updComment($postId, $commentId, $traitement);
         if($affectedLines === false) {
             throw new Eception("QRY008");
         } else {
-            header('Location: index.php?action=pubComments');
+            header('Location: index.php?action=listComments');
         }
     }
     function addMember($pseudo, $firstName, $lastName, $pwd, $email, $avatar) {

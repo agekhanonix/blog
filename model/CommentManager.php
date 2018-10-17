@@ -19,10 +19,16 @@ class CommentManager extends Manager {
                 ORDER BY comment_date");
         }
         if($publish == 'all') {
-            $q = $db->prepare("SELECT id, post_id, author, comment, DATE_FORMAT(comment_date, '%d/%m/%Y à %Hh%imin%ss') AS comment_date_fr, published, moderated avatar
+            $q = $db->prepare("SELECT id, post_id, author, comment, DATE_FORMAT(comment_date, '%d/%m/%Y à %Hh%imin%ss') AS comment_date_fr, published, moderated, avatar
                 FROM bl_comments
                 WHERE post_id = :id 
                 ORDER BY published ASC, comment_date DESC");
+        }
+        if($publish == 'mod') {
+            $q = $db->prepare("SELECT id, post_id, author, comment, DATE_FORMAT(comment_date, '%d/%m/%Y à %Hh%imin%ss') AS comment_date_fr, published, moderated, avatar
+                FROM bl_comments
+                WHERE post_id = :id 
+                ORDER BY moderated ASC, published DESC, comment_date DESC");
         }
         $q->bindValue(':id', $postId);
         $datas = $q->execute();
@@ -43,7 +49,7 @@ class CommentManager extends Manager {
         return $affectedLines;
     }
 
-    public function pubComment($postId, $comId, $val) {
+    public function updComment($postId, $comId, $val) {
         $db = $this->dbConnect();
         $q = $db->prepare("UPDATE bl_comments SET published = :val
             WHERE id = :comId AND post_id = :postId");
