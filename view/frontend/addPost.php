@@ -1,12 +1,12 @@
 <?php ob_start(); ?>
     <ol class="breadcrumb row">
         <li><a href="index.php?action=home">Accueil</a></li>
-        <li><a href="index.php?action=listPosts">Articles</a></li>
-        <li class="active">Ajouter un article</li>
+        <li><a href="index.php?action=listPosts">Chapitres</a></li>
+        <li class="active">Ajouter un chapitre</li>
     </ol>
     <div class="content">
         <header class="page-header">
-            <h4>Ajouter un article</h4>
+            <h4>Ajouter un chapitre</h4>
         </header>
         <section class="col-lg-12">
             <div class="panel panel-success">
@@ -14,7 +14,7 @@
                     <form action="index.php?action=insPost" method="post" id="form-blog">
                         <div class="input-group">
                             <span class="input-group-addon" id="title-input">Titre : </span>
-                            <input type="text" class="form-control" placeholder="Titre de l'article" name="title" id="title-input">
+                            <input type="text" class="form-control" placeholder="Titre du chapitre" name="title" id="title-input">
                         </div>
                         <div>
                             <label for="editable">Contenu :</label>
