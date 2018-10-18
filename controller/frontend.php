@@ -60,7 +60,27 @@
     }
     function delPosts() {
         $postManager = new \OCFram\Blog\Model\PostManager();
+        $commentManager = new \OCFram\Blog\Model\CommentManager();
         $posts = $postManager->getPosts('all');
+        $array = array();
+        while($post = $posts->fetch()) {
+            $array[$post['id']]['id'] = $post['id'];
+            $array[$post['id']]['no'] = $post['no'];
+            $array[$post['id']]['title'] = $post['title'];
+            $array[$post['id']]['creation_date_fr'] = $post['creation_date_fr'];
+            $array[$post['id']]['published'] = $post['published'];
+            $comments = json_decode($commentManager->getComments($post['id'], 'mod'));
+            for($i=0; $i<count($comments); $i++) {
+                $array[$post['id']]['details'][$i]['id'] = $comments[$i]->id;
+                $array[$post['id']]['details'][$i]['post_id'] = $comments[$i]->post_id;
+                $array[$post['id']]['details'][$i]['author'] = $comments[$i]->author;
+                $array[$post['id']]['details'][$i]['comment'] = $comments[$i]->comment;
+                $array[$post['id']]['details'][$i]['comment_date_fr'] = $comments[$i]->comment_date_fr;
+                $array[$post['id']]['details'][$i]['published'] = $comments[$i]->published;
+                $array[$post['id']]['details'][$i]['moderated'] = $comments[$i]->moderated;
+                $array[$post['id']]['details'][$i]['avatar'] = $comments[$i]->avatar;
+            }
+        }
         require('view/frontend/delPosts.php');
     }
 
@@ -70,7 +90,7 @@
         if($affectedLines === false) {
             throw new Exception("QRY003");
         } else {
-            header('Location: index.php?action=delPost');
+            header('Location: index.php?action=delPosts');
         }
     }
     function getComments($postId, $publish, $js=true) {
@@ -141,6 +161,11 @@
         $posts = $postManager->getPosts($publish);
         require('view/frontend/listPosts.php');
     }
+    function modPost($id) {
+        $postManager = new \OCFram\Blog\Model\PostManager();
+        $post = $postManager->getPost($_GET['id']);
+        require('view/frontend/modPost.php');
+    }
     function polities() {
         require('view/frontend/polities.php');
     }
@@ -151,19 +176,14 @@
         $post = $postManager->getPost($_GET['id']);
         $comments = $commentManager->getComments($_GET['id'], $publish);
         require('view/frontend/post.php');
-    }
-    function pubPosts() {
-        $postManager = new \OCFram\Blog\Model\PostManager();
-        $posts = $postManager->getPosts('all');
-        require('view/frontend/pubPosts.php');
-    }
+    }   
     function pubPost($id, $p) {
         $postManager =  new \OCFram\Blog\Model\PostManager();
         $affectedLines = $postManager->pubPost($id, $p);
         if($affectedLines === false) {
             throw new Exception("QRY002");
         } else {
-            header('Location: index.php?action=pubPosts');
+            header('Location: index.php?action=updPosts');
         }
     }
     function updComment($postId, $commentId, $traitement) {
@@ -174,6 +194,40 @@
         } else {
             header('Location: index.php?action=listComments');
         }
+    }
+    function updPost($id, $num, $title, $content) {
+        $postManager = new \OCFram\Blog\Model\PostManager();
+        $affectedLines = $postManager->updPost($id, $num, $title, $content);
+        if($affectedLines === false) {
+            throw new Eception("QRY014");
+        } else {
+            header('Location: index.php?action=updPosts');
+        }
+    }
+    function updPosts() {
+        $postManager = new \OCFram\Blog\Model\PostManager();
+        $commentManager = new \OCFram\Blog\Model\CommentManager();
+        $posts = $postManager->getPosts('all');
+        $array = array();
+        while($post = $posts->fetch()) {
+            $array[$post['id']]['id'] = $post['id'];
+            $array[$post['id']]['no'] = $post['no'];
+            $array[$post['id']]['title'] = $post['title'];
+            $array[$post['id']]['creation_date_fr'] = $post['creation_date_fr'];
+            $array[$post['id']]['published'] = $post['published'];
+            $comments = json_decode($commentManager->getComments($post['id'], 'mod'));
+            for($i=0; $i<count($comments); $i++) {
+                $array[$post['id']]['details'][$i]['id'] = $comments[$i]->id;
+                $array[$post['id']]['details'][$i]['post_id'] = $comments[$i]->post_id;
+                $array[$post['id']]['details'][$i]['author'] = $comments[$i]->author;
+                $array[$post['id']]['details'][$i]['comment'] = $comments[$i]->comment;
+                $array[$post['id']]['details'][$i]['comment_date_fr'] = $comments[$i]->comment_date_fr;
+                $array[$post['id']]['details'][$i]['published'] = $comments[$i]->published;
+                $array[$post['id']]['details'][$i]['moderated'] = $comments[$i]->moderated;
+                $array[$post['id']]['details'][$i]['avatar'] = $comments[$i]->avatar;
+            }
+        }
+        require('view/frontend/updPosts.php');
     }
     function mailSend($name, $email, $sujet, $message, $origine) {
         $patterns = array('{NOM}', '{MESSAGE}', '{SUBJECT}','{EMAIL}', '{ORIGINE}');

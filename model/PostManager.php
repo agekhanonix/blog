@@ -23,7 +23,7 @@ class PostManager extends Manager {
     public function getPost($postId) {
         $db = $this->dbConnect();
         // Récupération du billet
-        $q = $db->prepare("SELECT id, title, content, DATE_FORMAT(creation_date, '%d/%m/%Y à %Hh%imin%ss') AS creation_date_fr 
+        $q = $db->prepare("SELECT id, no, title, content, DATE_FORMAT(creation_date, '%d/%m/%Y à %Hh%imin%ss') AS creation_date_fr 
             FROM bl_posts 
             WHERE id = :id");
         $q->bindValue(':id', $postId);
@@ -50,7 +50,16 @@ class PostManager extends Manager {
         $q->execute();
         return $q;
     }
-
+    public function updPost($postId, $num, $title, $content) {
+        $db = $this->dbConnect();
+        $q = $db->prepare("UPDATE bl_posts SET no = :num, title = :title, content = :content, creation_date = NOW() WHERE id = :id");
+        $q->bindValue(':id', $postId);
+        $q->bindValue(':num', $num);
+        $q->bindValue(':title', $title);
+        $q->bindValue(':content', $content);
+        $q->execute();
+        return $q;
+    }
     public function delPost($postId) {
         $db = $this->dbConnect();
         $q = $db->prepare("DELETE FROM bl_posts WHERE id = :id");

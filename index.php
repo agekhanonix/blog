@@ -26,7 +26,7 @@
                 listPosts($publish);
             
             /* === ------------------------------------ === **
-            **           ARTICLES/CREATION PAGE             **
+            **           CHAPTERS/CREATION PAGE             **
             ** === ------------------------------------ === */
             } elseif($_GET['action'] == 'addPost') {
                 addPost();
@@ -38,24 +38,30 @@
                 }
             
             /* === ------------------------------------ === **
-            **        ARTICLES/MODIFICATION PAGE            **
+            **        CHAPTERS/MODIF./PUBLIC. PAGE          **
             ** === ------------------------------------ === */
-            } elseif($_GET['action'] == 'updPost') {
-            
-            /* === ------------------------------------ === **
-            **         ARTICLES/PUBLICATION PAGE            **
-            ** === ------------------------------------ === */
-            } elseif($_GET['action'] == 'pubPosts') {
-                pubPosts();
+            } elseif($_GET['action'] == 'updPosts') {
+                updPosts();
             } elseif($_GET['action'] == 'pubPost') {
                 if(isset($_GET['id']) && $_GET['id'] > 0 && isset($_GET['p']) && in_array($_GET['p'], array(0,1))) {
                     pubPost($_GET['id'], $_GET['p']);
                 } else {
                     throw new Exception('APL003');
                 }
-            
+            } elseif($_GET['action'] == 'modPost') {
+                if(isset($_GET['id']) && $_GET['id'] > 0) {
+                    modPost($_GET['id']);
+                } else {
+                    throw new Exception('APL003');
+                }
+            } elseif($_GET['action'] == 'updPost') {
+                if(isset($_GET['id']) && $_GET['id'] > 0 && !empty($_POST['no']) && !empty($_POST['title']) && !empty($_POST['content'])) {
+                    updPost($_GET['id'], $_POST['no'], $_POST['title'], $_POST['content']);
+                } else {
+                    throw new Exception('APL015');
+                }
             /* === ------------------------------------ === **
-            **         ARTICLES/SUPPRESSION PAGE            **
+            **         CHAPTERS/SUPPRESSION PAGE            **
             ** === ------------------------------------ === */
             } elseif($_GET['action'] == 'delPosts') {
                 delPosts();

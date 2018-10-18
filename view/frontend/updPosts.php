@@ -2,11 +2,11 @@
     <ol class="breadcrumb row">
         <li><a href="index.php?action=home">Accueil</a></li>
         <li><a href="#">Chapitres</a></li>
-        <li class="active">Suppression</li>
+        <li class="active">Modification - Publication</li>
     </ol>
     <div class="content">
         <header class="page-header">
-            <h4>Suppression d'un chapitre</h4>
+            <h4>Modification et/ou publication de  chapitres</h4>
         </header>
         <section class="col-lg-12">
             <div class="panel panel-info">
@@ -14,7 +14,7 @@
                     <h3 class="panel-title row">
                         <div class="col-lg-8 col-md-8 col-sm-10 col-xs-10">Les chapitres du livre</div>
                         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><small>Publification</small></div>
-                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><small>Suppression</small></div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><small>Modification</small></div>
                         <div class="col-offset-lg-2 col-offset-md-2 col-offset-sm-2 col-offset-xs-2"></div>
                     </h3>
                 </div>
@@ -36,7 +36,7 @@
                 <a href="index.php?action=pubPost&id=<?= $row['id'] ?>&p=<?= $p ?>"><span class="<?= $icon ?>"></span></a>
             </div>
             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                <a href="index.php?action=delPost&id=<?= $row['id'] ?>"<span class="glyphicon glyphicon-remove-sign red"></span></a>
+                <a href="index.php?action=updPost&id=<?= $row['id'] ?>"<span class="glyphicon glyphicon-pencil orange"></span></a>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 <?php $nbre = 0; if(isset($row['details'])) $nbre = count($row['details']); ?> 
