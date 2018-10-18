@@ -3,15 +3,14 @@
     <div class="panel panel-danger">
         <div class="panel-heading">
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                <span class="sr-only">Error:</span><?= $error['id'] ?>&nbsp;<?= $error['msg'] ?>
+                <span class="sr-only">Error:</span><?= $err->error ?>&nbsp;<?= $err->msg ?>
         </div>
         <div class="panel-content">
             <ol class="list-group">
-                <li class="list-group-item">Dans une : <?= $error['action'] ?> nommée : <?= $error['name'] ?></li>
-                <li class="list-group-item">Script : <?= $error['script'] ?></li>
-                <li class="list-group-item">Chemin : <?= $error['path'] ?></li>
+                <li class="list-group-item">Dans un(e) : <?= $err->type ?> nommée : <?= $err->name ?></li>
+                <li class="list-group-item">Script : <?= $err->script ?></li>
             </ol>
-            <p><?= $error['explanation'] ?></p>
+            <p><?= $err->explanation ?></p>
         </div>
         <div class="panel-footer">
             <div class="alert alert-info" role="alert">

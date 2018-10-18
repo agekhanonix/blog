@@ -10,7 +10,12 @@
         $commentManager = new \OCFram\Blog\Model\CommentManager();
         $affectedLines = $commentManager->addComment($postId, $avatar, $author, strip_tags($comment));
         if($affectedLines === false) {
-            throw new Exception("QRY004");
+            throw new Exception(json_encode(array('error' => "qry001",
+                'msg' => "Le commentaire n'a pas été ajouté",
+                'type' => "request", 
+                'name' => "addComment", 
+                'script' => "controller/frontend.php", 
+                'explanation' => "erreur SQL")));
         } else {
             header('Location: index.php?action=listPosts');
         }
@@ -23,7 +28,12 @@
         $memberManager = new \OCFram\Blog\Model\MemberManager();
         $affectedLines = $memberManager->addMember($pseudo, $firstName, $lastName, $pwd, $email, $avatar);
         if($affectedLines === false) {
-            throw new Exception("QRY005");
+            throw new Exception(json_encode(array('error' => "qry002",
+                'msg' => "Le membre n'a pas été ajouté",
+                'type' => "request", 
+                'name' => "addMember", 
+                'script' => "controller/frontend.php", 
+                'explanation' => "erreur SQL")));
         } else {
             header('Location: index.php?action=home');
         }
@@ -32,7 +42,12 @@
         $commentManager = new \OCFram\Blog\Model\CommentManager();
         $affectedLines = $commentManager->askComment($postId, $comId, $val);
         if($affectedLines === false) {
-            throw new Exception("QRY013");
+            throw new Exception(json_encode(array('error' => "qry003",
+                'msg' => "La demande de modération n'a pas été faite",
+                'type' => "request", 
+                'name' => "askComment", 
+                'script' => "controller/frontend.php", 
+                'explanation' => "erreur SQL")));
         } else {
             header('Location: index.php?action=listPosts');
         }
@@ -53,7 +68,12 @@
         $memberManager =  new \OCFram\Blog\Model\MemberManager();
         $affectedLines = $memberManager->delMember($id, $p);
         if($affectedLines === false) {
-            throw new Exception("QRY006");
+            throw new Exception(json_encode(array('error' => "qry004",
+                'msg' => "Le membre n'a pas été supprimé",
+                'type' => "request", 
+                'name' => "delMember", 
+                'script' => "controller/frontend.php", 
+                'explanation' => "erreur SQL || inexistance du membre")));
         } else {
             header('Location: index.php?action=delMembers');
         }
@@ -88,7 +108,12 @@
         $postManager =  new \OCFram\Blog\Model\PostManager();
         $affectedLines = $postManager->delPost($id);
         if($affectedLines === false) {
-            throw new Exception("QRY003");
+            throw new Exception(json_encode(array('error' => "qry005",
+                'msg' => "Le chapitre n'a pas été supprimé",
+                'type' => "request", 
+                'name' => "delPost", 
+                'script' => "controller/frontend.php", 
+                'explanation' => "erreur SQL || inexistance du chapitre")));
         } else {
             header('Location: index.php?action=delPosts');
         }
@@ -98,10 +123,9 @@
         $comments = $commentManager->getComments($postId, $publish);
         if($js == true) {echo $comments;} else {return $comments;}
     }
-    function getError($errorId) {
-        $errorManager = new \OCFram\Blog\Model\ErrorManager();
-        $error = $errorManager->getError($errorId);
-        require('view/errorView.php');
+    function getError($error) {
+        $err = json_decode($error);
+        require('view/error.php');
     }
     function getMember($pseudo, $password) {
         $memberManager =  new \OCFram\Blog\Model\MemberManager();
@@ -116,7 +140,12 @@
             $_SESSION['avatar'] = $member['members_avatar'];
             header('Location: index.php?action=home');
         } else {
-            throw new Exception("QRY007");
+            throw new Exception(json_encode(array('error' => "qry006",
+                'msg' => "Le membre n'a pas été trouvé",
+                'type' => "request", 
+                'name' => "getMember", 
+                'script' => "controller/frontend.php", 
+                'explanation' => "erreur SQL || inexistance du membre")));
         }
     }
     function home() {
@@ -126,7 +155,12 @@
         $postManager =  new \OCFram\Blog\Model\PostManager();
         $affectedLines = $postManager->addPost($title, $content, $no);
         if($affectedLines === false) {
-            throw new Exception("QRY001");
+            throw new Exception(json_encode(array('error' => "qry007",
+                'msg' => "Le chapitre n'a pas été ajouté",
+                'type' => "request", 
+                'name' => "insPost", 
+                'script' => "controller/frontend.php", 
+                'explanation' => "erreur SQL || inexistance du membre")));
         } else {
             header('Location: index.php?action=listPosts');
         }
@@ -181,7 +215,12 @@
         $postManager =  new \OCFram\Blog\Model\PostManager();
         $affectedLines = $postManager->pubPost($id, $p);
         if($affectedLines === false) {
-            throw new Exception("QRY002");
+            throw new Exception(json_encode(array('error' => "qry008",
+                'msg' => "Le chapitre n'a pas été publié",
+                'type' => "request", 
+                'name' => "pubPost", 
+                'script' => "controller/frontend.php", 
+                'explanation' => "erreur SQL || inexistance du chapitre")));
         } else {
             header('Location: index.php?action=updPosts');
         }
@@ -190,7 +229,12 @@
         $commentManager = new \OCFram\Blog\Model\CommentManager();
         $affectedLines = $commentManager->updComment($postId, $commentId, $traitement);
         if($affectedLines === false) {
-            throw new Eception("QRY008");
+            throw new Exception(json_encode(array('error' => "qry009",
+                'msg' => "Le commentaire n'a pas été modéré/ou l'inverse",
+                'type' => "request", 
+                'name' => "updComment", 
+                'script' => "controller/frontend.php", 
+                'explanation' => "erreur SQL || inexistance du commentaire")));
         } else {
             header('Location: index.php?action=listComments');
         }
@@ -199,7 +243,12 @@
         $postManager = new \OCFram\Blog\Model\PostManager();
         $affectedLines = $postManager->updPost($id, $num, $title, $content);
         if($affectedLines === false) {
-            throw new Eception("QRY014");
+            throw new Exception(json_encode(array('error' => "qry010",
+                'msg' => "Le chapitre n'a pas été modifié",
+                'type' => "request", 
+                'name' => "updPost", 
+                'script' => "controller/frontend.php", 
+                'explanation' => "erreur SQL || inexistance du chapitre")));
         } else {
             header('Location: index.php?action=updPosts');
         }
