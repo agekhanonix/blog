@@ -31,8 +31,8 @@
             } elseif($_GET['action'] == 'addPost') {
                 addPost();
             } elseif($_GET['action'] == 'insPost') {
-                if(!empty($_POST['title']) && !empty($_POST['content'])) {
-                    insPost($_POST['title'], $_POST['content']);
+                if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['no'])) {
+                    insPost($_POST['title'], $_POST['content'], $_POST['no']);
                 } else {
                     throw new Exception('APL002');
                 }

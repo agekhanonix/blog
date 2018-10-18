@@ -5,18 +5,17 @@ require_once('model/Manager.php');
 class PostManager extends Manager {
     public function getPosts($publish) {
         $db = $this->dbConnect();
-        // On récupère les 5 derniers billets
         if($publish == 'yes') {
-            $q = $db->query("SELECT id, title, content, DATE_FORMAT(creation_date, '%d/%m/%Y à %Hh%imin%ss') AS creation_date_fr, 
-             published FROM bl_posts WHERE published = 1 ORDER BY id ASC");
+            $q = $db->query("SELECT id, no, title, content, DATE_FORMAT(creation_date, '%d/%m/%Y à %Hh%imin%ss') AS creation_date_fr, 
+             published FROM bl_posts WHERE published = 1 ORDER BY creation_date DESC");
         }
         if($publish == 'no') {
-            $q = $db->query("SELECT id, title, content, DATE_FORMAT(creation_date, '%d/%m/%Y à %Hh%imin%ss') AS creation_date_fr, 
+            $q = $db->query("SELECT id, no, title, content, DATE_FORMAT(creation_date, '%d/%m/%Y à %Hh%imin%ss') AS creation_date_fr, 
             published FROM bl_posts WHERE published = 0 ORDER BY id ASC");
         }
         if($publish == 'all') {
-            $q = $db->query("SELECT id, title, content, DATE_FORMAT(creation_date, '%d/%m/%Y à %Hh%imin%ss') AS creation_date_fr, 
-            published FROM bl_posts ORDER BY id ASC");
+            $q = $db->query("SELECT id, no, title, content, DATE_FORMAT(creation_date, '%d/%m/%Y à %Hh%imin%ss') AS creation_date_fr, 
+            published FROM bl_posts ORDER BY no ASC");
         }
         return $q;
     }
@@ -33,9 +32,10 @@ class PostManager extends Manager {
         return $data;
     }
 
-    public function addPost($title, $content) {
+    public function addPost($title, $content, $num) {
         $db = $this->dbConnect();
-        $q = $db->prepare("INSERT INTO bl_posts (title, content, creation_date) VALUES (:title, :content, NOW())");
+        $q = $db->prepare("INSERT INTO bl_posts (no, title, content, creation_date) VALUES (:num, :title, :content, NOW())");
+        $q->bindValue(':num', $num);
         $q->bindValue(':title', $title);
         $q->bindValue(':content', $content);
         $q->execute();

@@ -12,13 +12,13 @@
         <dl>
             <dt class="row">
                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                    <?= $post['title'] ?>&nbsp;
+                    Chap.&nbsp;<?= $post['no'] ?>&nbsp;:&nbsp;<?= $post['title'] ?>&nbsp;
                     <small>publi&eacute; le <?= $post['creation_date_fr'] ?></small>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <a href="javascript:getComments(<?= $post['id'] ?>)">
                         <button data-toggle="modal" href="#infos<?= $post['id'] ?>" class="btn btn-default">
-                            <span class="glyphicon glyphicon-leaf glyph orange" title="Voir les commentaires pour ce chapitre"></span>
+                        <span class="glyphicon glyphicon-leaf glyph orange" title="Voir les commentaires pour le chapitre <?= $post['no'] ?>"></span>
                             Commentaires
                         </button>
                     </a>
@@ -32,7 +32,7 @@
                                 <button type="button" class="close" data-dismiss="modal">
                                     <span class="glyphicon glyphicon-remove-circle"></span>
                                 </button>
-                                <h4 class="modal-title">Les commentaires sur le chapitre : <?= arab2rom($post['id']) ?></h4>
+                                <h4 class="modal-title">Les commentaires sur le chapitre : <?= arab2rom($post['no']) ?></h4>
                             </div>
                             <div class="modal-body">
                                 <div class="row">

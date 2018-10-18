@@ -102,9 +102,9 @@
     function home() {
         require('view/frontend/home.php');
     }
-    function insPost($title, $content) {
+    function insPost($title, $content, $no) {
         $postManager =  new \OCFram\Blog\Model\PostManager();
-        $affectedLines = $postManager->addPost($title, $content);
+        $affectedLines = $postManager->addPost($title, $content, $no);
         if($affectedLines === false) {
             throw new Exception("QRY001");
         } else {
@@ -118,6 +118,7 @@
         $array = array();
         while($post = $posts->fetch()) {
             $array[$post['id']]['id'] = $post['id'];
+            $array[$post['id']]['no'] = $post['no'];
             $array[$post['id']]['title'] = $post['title'];
             $array[$post['id']]['creation_date_fr'] = $post['creation_date_fr'];
             $array[$post['id']]['published'] = $post['published'];

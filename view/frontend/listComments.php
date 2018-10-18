@@ -18,7 +18,7 @@
     <div class="list-group-item">
         <div class="row">
             <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
-                <small><span class="blue"><?= mb_strtoupper($row['title']) ?></span> <span class="green">publi&eacute; le<?= $row['creation_date_fr'] ?></span></small>
+                <small><?= mb_strtoupper('chap. '. $row['no'])?> : <span class="blue"><?= mb_strtoupper($row['title']) ?></span> <span class="green">publi&eacute; le<?= $row['creation_date_fr'] ?></span></small>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 <?php $nbre = 0; if(isset($row['details'])) $nbre = count($row['details']); ?> 
@@ -31,7 +31,7 @@
                                 <button type="button" class="close" data-dismiss="modal">
                                     <span class="glyphicon glyphicon-remove-circle"></span>
                                 </button>
-                                <h5 class="modal-title">Les commentaires du chapitre <?= $post['id'] ?></h5>
+                                <h5 class="modal-title">Les commentaires du chapitre <?= $row['no'] ?></h5>
                             </div>
                             <div class="modal-body">
                                 <dl>

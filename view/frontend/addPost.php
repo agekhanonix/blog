@@ -12,14 +12,23 @@
             <div class="panel panel-success">
                 <div class="panel-content">
                     <form action="index.php?action=insPost" method="post" id="form-blog">
-                        <div class="input-group">
-                            <span class="input-group-addon" id="title-input">Titre : </span>
-                            <input type="text" class="form-control" placeholder="Titre du chapitre" name="title" id="title-input">
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="no-input">No : </span>
+                                    <input type="text" class="form-control" placeholder="No chapitre" name="no" id="no-input">
+                                </div>
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="title-input">Titre : </span>
+                                    <input type="text" class="form-control" placeholder="Titre du chapitre" name="title" id="title-input">
+                                </div>
+                            </div>
                         </div>
                         <div>
-                            <label for="editable">Contenu :</label>
-                            <textarea id="editable" class="form-control" name="content"></textarea>
-                        </div>
+                        <span class="input-group-addon">Contenu :</span>
+                        <textarea id="editable" class="form-control" name="content"></textarea>
                         <button type="submit" class="btn btn-success btn-sm" aria-label="Left Align">
                             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp;Enregister
                         </button>
