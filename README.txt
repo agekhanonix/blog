@@ -19,10 +19,10 @@
 #     |>library.php         Bibliothèque de fonctions
 # []>model
 #   |>CommentManager.php    Gestion des accès à la table bl_comments
-#   |>ErrorManager.php      Gestion des accès à la table bl_errors
 #   |>Manager.php           Manager générique
 #   |>MemberManager.php     Gestion des accès à la table bl_members
-#   |>PostManager.php       Gestion des accès à la table bl_posts    
+#   |>PostManager.php       Gestion des accès à la table bl_posts
+#   |>VisitManager.php      Gestion des accès à la table bl_visits    
 # []>public                  
 #   []>bootstrap            L'implémentaion du CMS Bootstrap
 #   []>css

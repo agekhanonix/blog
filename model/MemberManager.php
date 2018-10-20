@@ -27,7 +27,6 @@ class MemberManager extends Manager {
         } else {
             $password = $this->encrypt($pwd, $pseudo);
             if($data['members_pwd'] == $password) {
-                $this->lastVisit($data['members_id']);
                 return $data;
             } else {
                 return null;
@@ -44,19 +43,14 @@ class MemberManager extends Manager {
     }
     public function getMembers() {
         $db = $this->dbConnect();
-        $q = $db->query("SELECT members_id, members_pseudo, members_lastName, members_firstName, members_level, DATE_FORMAT(members_creationDate, '%d/%m/%Y à %Hh%imin%ss') AS creation_date_fr,DATE_FORMAT(members_lastVisit, '%d/%m/%Y à %Hh%imin%ss') AS lastVisit_fr, members_registred FROM bl_members");
-        return $q;
+        $q = $db->query("SELECT members_id, members_pseudo, members_lastName, members_firstName, members_level, DATE_FORMAT(members_creationDate, '%d/%m/%Y à %Hh%imin%ss') AS creation_date_fr,members_registred, members_avatar 
+            FROM bl_members
+            ORDER BY members_pseudo ASC");
+        $jsonCode = json_encode($q->fetchAll(\PDO::FETCH_ASSOC));
+        return $jsonCode;
     }
     protected function encrypt($pwd, $pseudo) {
         $encrypted_string = hash_hmac('sha512', $pseudo . $pwd, '6Tune7+?2fred');
         return $encrypted_string;
-    }
-
-    protected function lastVisit($id) {
-        $db = $this->dbConnect();
-        $q = $db->prepare("UPDATE bl_members SET members_lastVisit = NOW() WHERE members_id = :id");
-        $q->bindValue(':id', $id);
-        $q->execute();
-        return $q;
     }
 }

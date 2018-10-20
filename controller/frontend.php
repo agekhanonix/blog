@@ -3,7 +3,7 @@
     require_once('model/PostManager.php');
     require_once('model/CommentManager.php');
     require_once('model/MemberManager.php');
-    require_once('model/ErrorManager.php');
+    require_once('model/VisitManager.php');
     require_once('libs/OCFram/Cmail.php');
 
     function addComment($postId, $avatar, $author, $comment) {
@@ -61,7 +61,23 @@
     }
     function delMembers() {
         $memberManager = new \OCFram\Blog\Model\MemberManager();
-        $members = $memberManager->getMembers();
+        $visitManager = new \OCFram\Blog\Model\VisitManager();
+        $members = json_decode($memberManager->getMembers());
+        $array = array();
+        foreach($members as $member) {
+            $array[$member->members_id]['id'] = $member->members_id;
+            $array[$member->members_id]['pseudo'] = $member->members_pseudo;
+            $array[$member->members_id]['lastName'] = $member->members_lastName;
+            $array[$member->members_id]['firstName'] = $member->members_firstName;
+            $array[$member->members_id]['registred'] = $member->members_registred;
+            $array[$member->members_id]['creationDate'] = $member->creation_date_fr;
+            $array[$member->members_id]['avatar'] = $member->members_avatar;
+            $visits = json_decode($visitManager->getVisits($member->members_id));
+            $ind=0;
+            foreach($visits as $visit) {
+                $array[$member->members_id]['visits'][$ind++]['date'] = $visit->visit_date_fr;   
+            }
+        }
         require('view/frontend/delMembers.php');
     }
     function delMember($id, $p) {
@@ -138,7 +154,18 @@
             $_SESSION['firstName'] = $member['members_firstName'];
             $_SESSION['email'] = $member['members_email'];
             $_SESSION['avatar'] = $member['members_avatar'];
-            header('Location: index.php?action=home');
+            $visitManager = new \OCFram\Blog\Model\VisitManager();
+            $affectedLines = $visitManager->addVisit($member['members_id'], getIp(), $member['members_pseudo']);
+            if($affectedLines === false) {
+                throw new Exception(json_encode(array('error' => "qry011",
+                    'msg' => "La visite n'a pas été ajoutee",
+                    'type' => "request", 
+                    'name' => "addVisit", 
+                    'script' => "controller/frontend.php", 
+                    'explanation' => "erreur SQL")));
+            } else {
+                header('Location: index.php?action=home');
+            }
         } else {
             throw new Exception(json_encode(array('error' => "qry006",
                 'msg' => "Le membre n'a pas été trouvé",
