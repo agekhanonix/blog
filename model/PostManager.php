@@ -19,7 +19,20 @@ class PostManager extends Manager {
         }
         return $q;
     }
-
+    public function getPostsNo($publish) {
+        $db = $this->dbConnect();
+        if($publish == 'yes') {
+            $q = $db->query("SELECT no FROM bl_posts WHERE published = 1 ORDER BY creation_date DESC");
+        }
+        if($publish == 'no') {
+            $q = $db->query("SELECT no FROM bl_posts WHERE published = 0 ORDER BY id ASC");
+        }
+        if($publish == 'all') {
+            $q = $db->query("SELECT no FROM bl_posts ORDER BY no ASC");
+        }
+        $jsonCode = json_encode($q->fetchAll(\PDO::FETCH_ASSOC));
+        return $jsonCode;
+    }
     public function getPost($postId) {
         $db = $this->dbConnect();
         // Récupération du billet

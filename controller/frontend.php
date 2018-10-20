@@ -179,6 +179,11 @@
             header('Location: index.php?action=delPosts');
         }
     }
+    function getPostsNo($publish, $js=true) {
+        $postManager =  new \OCFram\Blog\Model\PostManager();
+        $nos = $postManager->getPostsNo($publish);
+        if($js == true) {echo $nos;} else {return $nos;}
+    }
     function getComments($postId, $publish, $js=true) {
         $commentManager = new \OCFram\Blog\Model\CommentManager();
         $comments = $commentManager->getComments($postId, $publish);

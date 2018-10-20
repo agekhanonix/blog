@@ -6,7 +6,7 @@
 *  Version   : V1R0                                             *
 * ============================================================ */
 var showPerPage = 1;
-var currentPage = 0;
+var currentPage = -1;
 var numberOfPages = 0;
 function setDisplay(first, last) {
     $('#chapter').children().css('display', 'none');
@@ -28,15 +28,17 @@ function showChapter(pageNum) {
 }
 $(document).ready(function(){
     numberOfPages = Math.ceil($('#chapter').children().length / showPerPage);
-    var nav = '<ul class="pager pagination-sm"><li><a href="javascript:showPrevious();"><span class="glyphicon glyphicon-backward btn-icon"></span>Precedent</a></li>';
-    var i = -1;
-    while(numberOfPages > ++i) {
-        nav += '<li class="page_link'
-        if(!i) nav += ' active';
-        nav += '" id="id' + (i) + '">';
-        nav += '<a href="javascript:showChapter(' + (i-1) + ');">' + (i+1) + '</a></li>';
-    }
-    nav += '<li><a href="javascript:showNext();">Suivant<span class="glyphicon glyphicon-forward btn-icon"></span></a></li></ul>';
-    $('#tabs-chapter').html(nav);
+    downloadUrl('index.php?action=getPostsNo&publish=yes', function(data){
+        var jsonObj = JSON.parse(data);
+        var nav = '<ul class="pager pagination-sm"><li><a href="javascript:showPrevious();"><span class="glyphicon glyphicon-backward btn-icon"></span>Precedent</a></li>';
+        for(var i=0; i<jsonObj.length; i++) {
+            nav += '<li class="page_link'
+            if(!i) nav += ' active';
+            nav += ' " id="id' + (i-1) + '">';
+            nav += '<a href="javascript:showChapter(' + (i-1) + ');">' + AtoR(jsonObj[i]['no']) + '</a></li>';
+        }
+        nav += '<li><a href="javascript:showNext();">Suivant<span class="glyphicon glyphicon-forward btn-icon"></span></a></li></ul>';
+        $('#tabs-chapter').html(nav);
+    });
     setDisplay(0, showPerPage);
 });

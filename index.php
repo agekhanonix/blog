@@ -39,7 +39,9 @@
                         'type' => "action", 
                         'name' => "insPost", 
                         'script' => "index.php", 
-                        'explanation' => "erreur dans le paramétrage du script")));
+                        'explanation' => "erreur dans le paramétrage du script",
+                        'usage' => 'insPost([title],[content],[no])'
+                    )));
                 }
             
             /* === ------------------------------------ === **
@@ -56,7 +58,9 @@
                         'type' => "action", 
                         'name' => "pubPost", 
                         'script' => "index.php", 
-                        'explanation' => "erreur dans le paramétrage du script")));
+                        'explanation' => "erreur dans le paramétrage du script",
+                        'usage' => 'pubPost([id],[p])'
+                    )));
                 }
             } elseif($_GET['action'] == 'modPost') {
                 if(isset($_GET['id']) && $_GET['id'] > 0) {
@@ -67,7 +71,9 @@
                         'type' => "action", 
                         'name' => "modPost", 
                         'script' => "index.php", 
-                        'explanation' => "erreur dans le paramétrage du script")));
+                        'explanation' => "erreur dans le paramétrage du script",
+                        'usage' => 'modPost([id])'
+                    )));
                 }
             } elseif($_GET['action'] == 'updPost') {
                 if(isset($_GET['id']) && $_GET['id'] > 0 && !empty($_POST['no']) && !empty($_POST['title']) && !empty($_POST['content'])) {
@@ -78,7 +84,9 @@
                         'type' => "action", 
                         'name' => "updPost", 
                         'script' => "index.php", 
-                        'explanation' => "erreur dans le paramétrage du script")));
+                        'explanation' => "erreur dans le paramétrage du script",
+                        'usage' => "updPost([id],[no],[title],[content]"
+                    )));
                 }
             /* === ------------------------------------ === **
             **         CHAPTERS/SUPPRESSION PAGE            **
@@ -94,7 +102,9 @@
                         'type' => "action", 
                         'name' => "delPost", 
                         'script' => "index.php", 
-                        'explanation' => "erreur dans le paramétrage du script")));
+                        'explanation' => "erreur dans le paramétrage du script",
+                        'usage' => "delPost([id])"
+                    )));
                 }
             
             /* === ------------------------------------ === **
@@ -111,7 +121,9 @@
                         'type' => "action", 
                         'name' => "updComment", 
                         'script' => "index.php", 
-                        'explanation' => "erreur dans le paramétrage du script")));
+                        'explanation' => "erreur dans le paramétrage du script",
+                        'usage' => "updComment([p],[c][t])"
+                    )));
                 }
             
             /* === ------------------------------------ === **
@@ -128,7 +140,9 @@
                         'type' => "action", 
                         'name' => "delMember", 
                         'script' => "index.php", 
-                        'explanation' => "erreur dans le paramétrage du script")));
+                        'explanation' => "erreur dans le paramétrage du script",
+                        'usage' => "delMember([id],[p])"
+                    )));
                 }
             
             /* === ------------------------------------ === **
@@ -144,7 +158,9 @@
                             'type' => "action", 
                             'name' => "addComment", 
                             'script' => "index.php", 
-                            'explanation' => "erreur dans le paramétrage du script")));
+                            'explanation' => "erreur dans le paramétrage du script",
+                            'usage' => "addComment([id],[avatar],[pseudo+id],[comment+id])"
+                        )));
                     }
                 } else {
                     throw new Exception(json_encode(array('error' => "act009",
@@ -152,7 +168,9 @@
                         'type' => "action", 
                         'name' => "addComment", 
                         'script' => "index.php", 
-                        'explanation' => "erreur dans le paramétrage du script")));
+                        'explanation' => "erreur dans le paramétrage du script",
+                        'usage' => "index.php?action=addComment&id=x&avatar=x"
+                    )));
                 }
 
             /* === ------------------------------------ === **
@@ -261,7 +279,17 @@
                         'script' => "index.php", 
                         'explanation' => "erreur dans le paramétrage du script")));
                 }
-
+            } elseif($_GET['action'] == 'getPostsNo') {
+                if(isset($_GET['publish']) && in_array($_GET['publish'], array('all', 'yes', 'no'))) {
+                    getPostsNo($_GET['publish']);
+                } else {
+                    throw new Exception(json_encode(array('error' => "act015",
+                        'msg' => "Toutes les infos nécéssaires n'ont pas été renseignées",
+                        'type' => "action", 
+                        'name' => "getPostsNo", 
+                        'script' => "index.php", 
+                        'explanation' => "erreur dans le paramétrage du script")));
+                }
             /* === ------------------------------------ === **
             **                 LOGOUT: ACTION               **
             ** === ------------------------------------ === */
