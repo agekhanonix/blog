@@ -9,8 +9,8 @@
             <ol class="list-group">
                 <li class="list-group-item">Dans un(e) : <?= $err->type ?> nommée : <?= $err->name ?></li>
                 <li class="list-group-item">Script : <?= $err->script ?></li>
+                <li class="list-group-item">Explication : <?= $err->explanation ?></li>
             </ol>
-            <p><?= $err->explanation ?></p>
         </div>
         <div class="panel-footer">
             <div class="alert alert-info" role="alert">

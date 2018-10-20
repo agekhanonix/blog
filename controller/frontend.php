@@ -21,7 +21,16 @@
         }
     }
     function addPost() {
-        require('view/frontend/addPost.php');
+        if(isset($_SESSION['pseudo']) && isset($_SESSION['level']) && $_SESSION['level'] == 4) {
+            require('view/frontend/addPost.php');
+        } else {
+            throw new Exception(json_encode(array('error' => "sec001",
+                'msg' => "L'accès direct à un page d'administration est interdit",
+                'type' => "affichage", 
+                'name' => "", 
+                'script' => "controller/frontend.php", 
+                'explanation' => "Vous avez tenté d'acceder a cette page sans vous être authentifié")));
+        }
     }
     
     function addMember($pseudo, $firstName, $lastName, $pwd, $email, $avatar) {
@@ -78,11 +87,29 @@
                 $array[$member->members_id]['visits'][$ind++]['date'] = $visit->visit_date_fr;   
             }
         }
-        require('view/frontend/delMembers.php');
+        if(isset($_SESSION['pseudo']) && isset($_SESSION['level']) && $_SESSION['level'] == 4) {
+            require('view/frontend/delMembers.php');
+        } else {
+            throw new Exception(json_encode(array('error' => "sec001",
+                'msg' => "L'accès direct à un page d'administration est interdit",
+                'type' => "affichage", 
+                'name' => "", 
+                'script' => "controller/frontend.php", 
+                'explanation' => "Vous avez tenté d'acceder a cette page sans vous être authentifié")));
+        }
     }
     function delMember($id, $p) {
         $memberManager =  new \OCFram\Blog\Model\MemberManager();
-        $affectedLines = $memberManager->delMember($id, $p);
+        if(isset($_SESSION['pseudo']) && isset($_SESSION['level']) && $_SESSION['level'] == 4) {
+            $affectedLines = $memberManager->delMember($id, $p);
+        } else {
+            throw new Exception(json_encode(array('error' => "sec002",
+                'msg' => "L'accès direct à une requête d'administration est interdit",
+                'type' => "request", 
+                'name' => "", 
+                'script' => "controller/frontend.php", 
+                'explanation' => "Vous avez tenté d'acceder a cette requête sans vous être authentifié")));
+        }
         if($affectedLines === false) {
             throw new Exception(json_encode(array('error' => "qry004",
                 'msg' => "Le membre n'a pas été supprimé",
@@ -117,12 +144,30 @@
                 $array[$post['id']]['details'][$i]['avatar'] = $comments[$i]->avatar;
             }
         }
-        require('view/frontend/delPosts.php');
+        if(isset($_SESSION['pseudo']) && isset($_SESSION['level']) && $_SESSION['level'] == 4) {
+            require('view/frontend/delPosts.php');
+        } else {
+            throw new Exception(json_encode(array('error' => "sec001",
+                'msg' => "L'accès direct à un page d'administration est interdit",
+                'type' => "affichage", 
+                'name' => "", 
+                'script' => "controller/frontend.php", 
+                'explanation' => "Vous avez tenté d'acceder a cette page sans vous être authentifié")));
+        }
     }
 
     function delPost($id) {
         $postManager =  new \OCFram\Blog\Model\PostManager();
-        $affectedLines = $postManager->delPost($id);
+        if(isset($_SESSION['pseudo']) && isset($_SESSION['level']) && $_SESSION['level'] == 4) {
+            $affectedLines = $postManager->delPost($id);
+        } else {
+            throw new Exception(json_encode(array('error' => "sec002",
+                'msg' => "L'accès direct à une requête d'administration est interdit",
+                'type' => "request", 
+                'name' => "", 
+                'script' => "controller/frontend.php", 
+                'explanation' => "Vous avez tenté d'acceder a cette requête sans vous être authentifié")));
+        }
         if($affectedLines === false) {
             throw new Exception(json_encode(array('error' => "qry005",
                 'msg' => "Le chapitre n'a pas été supprimé",
@@ -180,7 +225,16 @@
     }
     function insPost($title, $content, $no) {
         $postManager =  new \OCFram\Blog\Model\PostManager();
-        $affectedLines = $postManager->addPost($title, $content, $no);
+        if(isset($_SESSION['pseudo']) && isset($_SESSION['level']) && $_SESSION['level'] == 4) {
+            $affectedLines = $postManager->addPost($title, $content, $no);
+        } else {
+            throw new Exception(json_encode(array('error' => "sec002",
+                'msg' => "L'accès direct à une requête d'administration est interdit",
+                'type' => "request", 
+                'name' => "", 
+                'script' => "controller/frontend.php", 
+                'explanation' => "Vous avez tenté d'acceder a cette requête sans vous être authentifié")));
+        }
         if($affectedLines === false) {
             throw new Exception(json_encode(array('error' => "qry007",
                 'msg' => "Le chapitre n'a pas été ajouté",
@@ -215,7 +269,16 @@
                 $array[$post['id']]['details'][$i]['avatar'] = $comments[$i]->avatar;
             }
         }
-        require('view/frontend/listComments.php');
+        if(isset($_SESSION['pseudo']) && isset($_SESSION['level']) && $_SESSION['level'] == 4) {
+            require('view/frontend/listComments.php');
+        } else {
+            throw new Exception(json_encode(array('error' => "sec001",
+                'msg' => "L'accès direct à un page d'administration est interdit",
+                'type' => "affichage", 
+                'name' => "", 
+                'script' => "controller/frontend.php", 
+                'explanation' => "Vous avez tenté d'acceder a cette page sans vous être authentifié")));
+        }
     }
     function listPosts($publish) {
         $postManager = new \OCFram\Blog\Model\PostManager();
@@ -224,8 +287,17 @@
     }
     function modPost($id) {
         $postManager = new \OCFram\Blog\Model\PostManager();
-        $post = $postManager->getPost($_GET['id']);
-        require('view/frontend/modPost.php');
+        if(isset($_SESSION['pseudo']) && isset($_SESSION['level']) && $_SESSION['level'] == 4) {
+            $post = $postManager->getPost($_GET['id']);
+            require('view/frontend/modPost.php');
+        } else {
+            throw new Exception(json_encode(array('error' => "sec002",
+                'msg' => "L'accès direct à une requête d'administration est interdit",
+                'type' => "request", 
+                'name' => "", 
+                'script' => "controller/frontend.php", 
+                'explanation' => "Vous avez tenté d'acceder a cette requête sans vous être authentifié")));
+        }
     }
     function polities() {
         require('view/frontend/polities.php');
@@ -233,14 +305,22 @@
     function post($publish) {
         $postManager = new \OCFram\Blog\Model\PostManager();
         $commentManager = new \OCFram\Blog\Model\CommentManager();
-
         $post = $postManager->getPost($_GET['id']);
         $comments = $commentManager->getComments($_GET['id'], $publish);
         require('view/frontend/post.php');
     }   
     function pubPost($id, $p) {
         $postManager =  new \OCFram\Blog\Model\PostManager();
-        $affectedLines = $postManager->pubPost($id, $p);
+        if(isset($_SESSION['pseudo']) && isset($_SESSION['level']) && $_SESSION['level'] == 4) {
+            $affectedLines = $postManager->pubPost($id, $p);
+        } else {
+            throw new Exception(json_encode(array('error' => "sec002",
+                'msg' => "L'accès direct à une requête d'administration est interdit",
+                'type' => "request", 
+                'name' => "", 
+                'script' => "controller/frontend.php", 
+                'explanation' => "Vous avez tenté d'acceder a cette requête sans vous être authentifié")));
+        }
         if($affectedLines === false) {
             throw new Exception(json_encode(array('error' => "qry008",
                 'msg' => "Le chapitre n'a pas été publié",
@@ -254,7 +334,16 @@
     }
     function updComment($postId, $commentId, $traitement) {
         $commentManager = new \OCFram\Blog\Model\CommentManager();
-        $affectedLines = $commentManager->updComment($postId, $commentId, $traitement);
+        if(isset($_SESSION['pseudo']) && isset($_SESSION['level']) && $_SESSION['level'] == 4) {
+            $affectedLines = $commentManager->updComment($postId, $commentId, $traitement);
+        } else {
+            throw new Exception(json_encode(array('error' => "sec002",
+                'msg' => "L'accès direct à une requête d'administration est interdit",
+                'type' => "request", 
+                'name' => "", 
+                'script' => "controller/frontend.php", 
+                'explanation' => "Vous avez tenté d'acceder a cette requête sans vous être authentifié")));
+        }
         if($affectedLines === false) {
             throw new Exception(json_encode(array('error' => "qry009",
                 'msg' => "Le commentaire n'a pas été modéré/ou l'inverse",
@@ -268,7 +357,16 @@
     }
     function updPost($id, $num, $title, $content) {
         $postManager = new \OCFram\Blog\Model\PostManager();
-        $affectedLines = $postManager->updPost($id, $num, $title, $content);
+        if(isset($_SESSION['pseudo']) && isset($_SESSION['level']) && $_SESSION['level'] == 4) {
+            $affectedLines = $postManager->updPost($id, $num, $title, $content);
+        } else {
+            throw new Exception(json_encode(array('error' => "sec002",
+                'msg' => "L'accès direct à une requête d'administration est interdit",
+                'type' => "request", 
+                'name' => "", 
+                'script' => "controller/frontend.php", 
+                'explanation' => "Vous avez tenté d'acceder a cette requête sans vous être authentifié")));
+        }
         if($affectedLines === false) {
             throw new Exception(json_encode(array('error' => "qry010",
                 'msg' => "Le chapitre n'a pas été modifié",
@@ -303,7 +401,16 @@
                 $array[$post['id']]['details'][$i]['avatar'] = $comments[$i]->avatar;
             }
         }
-        require('view/frontend/updPosts.php');
+        if(isset($_SESSION['pseudo']) && isset($_SESSION['level']) && $_SESSION['level'] == 4) {
+            require('view/frontend/updPosts.php');
+        } else {
+            throw new Exception(json_encode(array('error' => "sec001",
+                'msg' => "L'accès direct à un page d'administration est interdit",
+                'type' => "affichage", 
+                'name' => "", 
+                'script' => "controller/frontend.php", 
+                'explanation' => "Vous avez tenté d'acceder a cette page sans vous être authentifié")));
+        }
     }
     function mailSend($name, $email, $sujet, $message, $origine) {
         $patterns = array('{NOM}', '{MESSAGE}', '{SUBJECT}','{EMAIL}', '{ORIGINE}');
