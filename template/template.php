@@ -56,7 +56,7 @@
      === IF IT IS NOT THE ADMINISTRATOR OF THE SITE                        ===
      === ----------------------------------------------------------------- === -->
 <?php if(!isset($_SESSION['userId']) || (int) $_SESSION['userId'] !== 8) { ?>
-        <section class="col-md-3 col-sm-6 col-xs-12"><!-- Contact -->
+        <section class="col-md-3 col-sm-12 col-xs-12"><!-- Contact -->
 <?php
     include 'view/frontend/contact.php';
 ?>
