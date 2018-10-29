@@ -66,7 +66,7 @@
             <div class="form-group has-error has-feedback col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="message" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label">Message</label>
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                    <textarea class="form-control has-error has-feedback" id="message" name="message" row="4"></textarea>
+                    <textarea class="form-control has-error has-feedback" id="message" name="message" rows="4"></textarea>
                     <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
                 </div>
             </div>

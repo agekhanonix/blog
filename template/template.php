@@ -1,4 +1,3 @@
-
 <?php 
     /*= ----------------------------------------------------------------- ===
     === LOADING OF THE “HEADER”                                           ===
@@ -28,35 +27,42 @@
 ?>
     </header>
     <div class="row">
-<!-- === ----------------------------------------------------------------- ===
-     === IF IT IS NOT THE ADMINISTRATOR OF THE SITE ALL THE WIDTH IS USED  ===
-     === ----------------------------------------------------------------- === --> 
-<?php if(isset($_SESSION['userId']) && (int) $_SESSION['userId'] == 8) { ?>
-        <section class="col-md-12 col-sm-12 col-xs-12">
 
-<!-- === ----------------------------------------------------------------- ===
-     === IF NOT ONE DISPLAYS ON TWO COLUMNS                                ===
-     === ----------------------------------------------------------------- === --> 
-<?php } else { ?>
-        <section class="col-md-9 col-sm-12 col-xs-12">
+<?php if(isset($_SESSION['userId']) && (int) $_SESSION['userId'] == 8) { 
+    /*= ----------------------------------------------------------------- ===
+    === IF IT IS NOT THE ADMINISTRATOR OF THE SITE ALL THE WIDTH IS USED  ===
+    === ----------------------------------------------------------------- =*/     
+?>
+        <section class="col-md-12 col-sm-12 col-xs-12"><h6>&nbsp;</h6>
+
+
+<?php } else {
+    /*= ----------------------------------------------------------------- ===
+    === IF NOT ONE DISPLAYS ON TWO COLUMNS                                ===
+    === ----------------------------------------------------------------- =*/
+?>
+        <section class="col-md-9 col-sm-12 col-xs-12"><h6>&nbsp;</h6>
 <?php } ?>
             <?= $content ?>
         </section>
-<?php if(!isset($_SESSION['userId'])) { ?>
-<!-- === ----------------------------------------------------------------- ===
-     === IF THE USER IS NOT CONNECTS                                       ===
-     === ----------------------------------------------------------------- === -->
-        <section class="col-md-3 col-sm-6 col-xs-12"><!-- Enregistrement -->
+<?php if(!isset($_SESSION['userId'])) { 
+    /*= ----------------------------------------------------------------- ===
+    === IF THE USER IS NOT CONNECTS                                       ===
+    === ----------------------------------------------------------------- =*/  
+?>
+        <section class="col-md-3 col-sm-6 col-xs-12"><h6>&nbsp;</h6><!-- Enregistrement -->
 <?php
     include 'view/frontend/registering.php';
 ?>
         </section>
 <?php } ?>
-<!-- === ----------------------------------------------------------------- ===
-     === IF IT IS NOT THE ADMINISTRATOR OF THE SITE                        ===
-     === ----------------------------------------------------------------- === -->
-<?php if(!isset($_SESSION['userId']) || (int) $_SESSION['userId'] !== 8) { ?>
-        <section class="col-md-3 col-sm-12 col-xs-12"><!-- Contact -->
+
+<?php if(!isset($_SESSION['userId']) || (int) $_SESSION['userId'] !== 8) {
+    /*= ----------------------------------------------------------------- ===
+    === IF IT IS NOT THE ADMINISTRATOR OF THE SITE                        ===
+    === ----------------------------------------------------------------- =*/
+    ?>
+        <section class="col-md-3 col-sm-12 col-xs-12"><h6>&nbsp;</h6><!-- Contact -->
 <?php
     include 'view/frontend/contact.php';
 ?>

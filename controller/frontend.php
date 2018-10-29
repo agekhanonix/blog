@@ -4,10 +4,13 @@
     require_once('model/CommentManager.php');
     require_once('model/MemberManager.php');
     require_once('model/VisitManager.php');
+    /*require_once('libs/SplClassLoader.php');*/
     require_once('libs/OCFram/Cmail.php');
+    //SplClassLoader::register();
 
     function addComment($postId, $avatar, $author, $comment) {
         $commentManager = new \OCFram\Blog\Model\CommentManager();
+        //$commentManager = new CommentManager();
         $affectedLines = $commentManager->addComment($postId, $avatar, $author, strip_tags($comment));
         if($affectedLines === false) {
             throw new Exception(json_encode(array('error' => "qry001",
@@ -35,6 +38,7 @@
     
     function addMember($pseudo, $firstName, $lastName, $pwd, $email, $avatar) {
         $memberManager = new \OCFram\Blog\Model\MemberManager();
+        //$memberManager = new MemberManager();
         $affectedLines = $memberManager->addMember($pseudo, $firstName, $lastName, $pwd, $email, $avatar);
         if($affectedLines === false) {
             throw new Exception(json_encode(array('error' => "qry002",
@@ -49,6 +53,7 @@
     }
     function askComment($postId, $comId, $val) {
         $commentManager = new \OCFram\Blog\Model\CommentManager();
+        //$commentManager = new CommentManager();
         $affectedLines = $commentManager->askComment($postId, $comId, $val);
         if($affectedLines === false) {
             throw new Exception(json_encode(array('error' => "qry003",
@@ -71,6 +76,8 @@
     function delMembers() {
         $memberManager = new \OCFram\Blog\Model\MemberManager();
         $visitManager = new \OCFram\Blog\Model\VisitManager();
+        //$memberManager = new MemberManager();
+        //$visitManager = new VisitManager();
         $members = json_decode($memberManager->getMembers());
         $array = array();
         foreach($members as $member) {
@@ -100,6 +107,7 @@
     }
     function delMember($id, $p) {
         $memberManager =  new \OCFram\Blog\Model\MemberManager();
+        //$memberManager =  new MemberManager();
         if(isset($_SESSION['pseudo']) && isset($_SESSION['level']) && $_SESSION['level'] == 4) {
             $affectedLines = $memberManager->delMember($id, $p);
         } else {
@@ -124,6 +132,8 @@
     function delPosts() {
         $postManager = new \OCFram\Blog\Model\PostManager();
         $commentManager = new \OCFram\Blog\Model\CommentManager();
+        //$postManager = new PostManager();
+        //$commentManager = new CommentManager();
         $posts = $postManager->getPosts('all');
         $array = array();
         while($post = $posts->fetch()) {
@@ -158,6 +168,7 @@
 
     function delPost($id) {
         $postManager =  new \OCFram\Blog\Model\PostManager();
+        //$postManager =  new PostManager();
         if(isset($_SESSION['pseudo']) && isset($_SESSION['level']) && $_SESSION['level'] == 4) {
             $affectedLines = $postManager->delPost($id);
         } else {
@@ -181,11 +192,13 @@
     }
     function getPostsNo($publish, $js=true) {
         $postManager =  new \OCFram\Blog\Model\PostManager();
+        //$postManager =  new PostManager();
         $nos = $postManager->getPostsNo($publish);
         if($js == true) {echo $nos;} else {return $nos;}
     }
     function getComments($postId, $publish, $js=true) {
         $commentManager = new \OCFram\Blog\Model\CommentManager();
+        //$commentManager = new CommentManager();
         $comments = $commentManager->getComments($postId, $publish);
         if($js == true) {echo $comments;} else {return $comments;}
     }
@@ -195,6 +208,7 @@
     }
     function getMember($pseudo, $password) {
         $memberManager =  new \OCFram\Blog\Model\MemberManager();
+        //$memberManager =  new MemberManager();
         $member = $memberManager->getMember($pseudo, $password);
         if($member !== null) {
             $_SESSION['level'] = $member['members_level'];
@@ -205,6 +219,7 @@
             $_SESSION['email'] = $member['members_email'];
             $_SESSION['avatar'] = $member['members_avatar'];
             $visitManager = new \OCFram\Blog\Model\VisitManager();
+            //$visitManager = new VisitManager();
             $affectedLines = $visitManager->addVisit($member['members_id'], getIp(), $member['members_pseudo']);
             if($affectedLines === false) {
                 throw new Exception(json_encode(array('error' => "qry011",
@@ -230,6 +245,7 @@
     }
     function insPost($title, $content, $no) {
         $postManager =  new \OCFram\Blog\Model\PostManager();
+        //$postManager =  new PostManager();
         if(isset($_SESSION['pseudo']) && isset($_SESSION['level']) && $_SESSION['level'] == 4) {
             $affectedLines = $postManager->addPost($title, $content, $no);
         } else {
@@ -254,6 +270,8 @@
     function listComments() {
         $postManager = new \OCFram\Blog\Model\PostManager();
         $commentManager = new \OCFram\Blog\Model\CommentManager();
+        //$postManager = new PostManager();
+        //$commentManager = new CommentManager();
         $posts = $postManager->getPosts('all');
         $array = array();
         while($post = $posts->fetch()) {
@@ -287,11 +305,13 @@
     }
     function listPosts($publish) {
         $postManager = new \OCFram\Blog\Model\PostManager();
+        //$postManager = new PostManager();
         $posts = $postManager->getPosts($publish);
         require('view/frontend/listPosts.php');
     }
     function modPost($id) {
         $postManager = new \OCFram\Blog\Model\PostManager();
+        //$postManager = new PostManager();
         if(isset($_SESSION['pseudo']) && isset($_SESSION['level']) && $_SESSION['level'] == 4) {
             $post = $postManager->getPost($_GET['id']);
             require('view/frontend/modPost.php');
@@ -310,12 +330,15 @@
     function post($publish) {
         $postManager = new \OCFram\Blog\Model\PostManager();
         $commentManager = new \OCFram\Blog\Model\CommentManager();
+        //$postManager = new PostManager();
+        //$commentManager = new CommentManager();
         $post = $postManager->getPost($_GET['id']);
         $comments = $commentManager->getComments($_GET['id'], $publish);
         require('view/frontend/post.php');
     }   
     function pubPost($id, $p) {
         $postManager =  new \OCFram\Blog\Model\PostManager();
+        //$postManager =  new PostManager();
         if(isset($_SESSION['pseudo']) && isset($_SESSION['level']) && $_SESSION['level'] == 4) {
             $affectedLines = $postManager->pubPost($id, $p);
         } else {
@@ -339,6 +362,7 @@
     }
     function updComment($postId, $commentId, $traitement) {
         $commentManager = new \OCFram\Blog\Model\CommentManager();
+        //$commentManager = new CommentManager();
         if(isset($_SESSION['pseudo']) && isset($_SESSION['level']) && $_SESSION['level'] == 4) {
             $affectedLines = $commentManager->updComment($postId, $commentId, $traitement);
         } else {
@@ -362,6 +386,7 @@
     }
     function updPost($id, $num, $title, $content) {
         $postManager = new \OCFram\Blog\Model\PostManager();
+        //$postManager = new PostManager();
         if(isset($_SESSION['pseudo']) && isset($_SESSION['level']) && $_SESSION['level'] == 4) {
             $affectedLines = $postManager->updPost($id, $num, $title, $content);
         } else {
@@ -386,6 +411,8 @@
     function updPosts() {
         $postManager = new \OCFram\Blog\Model\PostManager();
         $commentManager = new \OCFram\Blog\Model\CommentManager();
+        //$postManager = new PostManager();
+        //$commentManager = new CommentManager();
         $posts = $postManager->getPosts('all');
         $array = array();
         while($post = $posts->fetch()) {

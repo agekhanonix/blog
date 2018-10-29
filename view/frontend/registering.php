@@ -61,21 +61,21 @@
             <div class="row">
                 <div class="col-offset-md-1 col-md-11">
                     <input type="radio" name="avatar" value="1" id="ico01">
-                    <img src="public/images/avatars/ico01.png" class="register">
+                    <img src="public/images/avatars/ico01.png" alt="" class="register">
                     <input type="radio" name="avatar" value="2" id="ico02">
-                    <img src="public/images/avatars/ico02.png" class="register">
+                    <img src="public/images/avatars/ico02.png" alt="" class="register">
                     <input type="radio" name="avatar" value="3" id="ico03">
-                    <img src="public/images/avatars/ico03.png" class="register">
+                    <img src="public/images/avatars/ico03.png" alt="" class="register">
                     <input type="radio" name="avatar" value="4" id="ico04">
-                    <img src="public/images/avatars/ico04.png" class="register">
+                    <img src="public/images/avatars/ico04.png" alt="" class="register">
                 </div>
                 <div class="col-offset-md-1 col-md-10 col-offset-md-1">
                     <input type="radio" name="avatar" value="5" id="ico05">
-                    <img src="public/images/avatars/ico05.png" class="register">
+                    <img src="public/images/avatars/ico05.png" alt="" class="register">
                     <input type="radio" name="avatar" value="6" id="ico06">
-                    <img src="public/images/avatars/ico06.png" class="register">
+                    <img src="public/images/avatars/ico06.png" alt="" class="register">
                     <input type="radio" name="avatar" value="7" id="ico07">
-                    <img src="public/images/avatars/ico07.png" class="register">
+                    <img src="public/images/avatars/ico07.png" alt="" class="register">
                 </div>
             </div>
         </fieldset>     

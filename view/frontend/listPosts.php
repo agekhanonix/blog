@@ -8,7 +8,7 @@
         <div id="chapter" class="row">
 
 <?php foreach($posts as $post) { ?>
-    <section class="chapter col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <section class="chapter col-lg-12 col-md-12 col-sm-12 col-xs-12"><h6>&nbsp;</h6>
         <dl>
             <dt class="row">
                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
@@ -47,7 +47,7 @@
                                                     <label for="pseudo<?= $post['id'] ?>" class="col-lg-2 col-md-2 col-sm-2 col-xs-2 control-label">Pseudo</label>
                                                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
 <?php $pseudo = '';if(isset($_SESSION['pseudo'])) $pseudo = $_SESSION['pseudo']; ?>
-                                                        <input type="text" class="form-control has-error has-feedback" name="pseudo<?= $post['id'] ?>" id="pseudo<?= $post['id'] ?>" require placeholder="Votre pseudo" value="<?= $pseudo ?>">
+                                                        <input type="text" class="form-control has-error has-feedback" name="pseudo<?= $post['id'] ?>" id="pseudo<?= $post['id'] ?>" required placeholder="Votre pseudo" value="<?= $pseudo ?>">
                                                         <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
                                                     </div>
                                                 </div>
@@ -77,8 +77,7 @@
 <?php $posts->closeCursor(); ?>   
             </div>
         </div>
-        <script src="public/js/gestShowChapters.js" type="text/javascript"></script>
-        <script src="public/js/getComments.js" type="text/javascript"></script>
+        <script src="public/js/gestShowChapters.js"></script>
+        <script src="public/js/getComments.js"></script>
 <?php $content = ob_get_clean(); ?>
-    </div><!-- END (content) -->
 <?php require('template/template.php'); ?>

@@ -1,7 +1,7 @@
 <?php
 namespace OCFram\Blog\Model;
-
-class Manager  {
+require_once('model/Instance.php');
+class Manager extends Instance {
     private static $instance = null;                    // Hold the class instance
 
     private $dbType = "mysql";                          // SGBD type
@@ -19,13 +19,6 @@ class Manager  {
             $this->dbUser,
             $this->dbPass,
             array(\PDO::ATTR_PERSISTENT => true, \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
-    }
-
-    public static function getInstance() {
-        if(!self::$instance instanceof self) {
-            self::$instance = new self;
-        }
-        return self::$instance;
     }
     public function getConnexion() {
         return $this->dbConn;
