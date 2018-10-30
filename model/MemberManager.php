@@ -1,7 +1,6 @@
 <?php
 namespace OCFram\Blog\Model;
 require_once('model/Manager.php');
-
 class MemberManager extends Manager {
     public function addMember($pseudo, $firstName, $lastName, $pwd, $email, $avatar) {
         $db = $this->dbConnect();

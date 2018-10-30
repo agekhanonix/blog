@@ -1,9 +1,8 @@
 <?php
 namespace OCFram\Blog\Model;
 require_once('model/Manager.php');
-
 class CommentManager extends Manager {
-
+    
     public function getComments($postId, $publish) {
         $db = $this->dbConnect();
         if($publish == 'yes') {
@@ -60,8 +59,8 @@ class CommentManager extends Manager {
         return $affectedLines;
     }
      public function askComment($postId, $comId, $val) {
-         $db = $this->dbConnect();
-         $q = $db->prepare("UPDATE bl_comments SET moderated = :val
+        $db = $this->dbConnect();
+        $q = $db->prepare("UPDATE bl_comments SET moderated = :val
             WHERE id = :comId AND post_id = :postId");
         $q->bindValue(':comId', $comId);
         $q->bindValue(':postId', $postId);

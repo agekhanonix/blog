@@ -1,7 +1,6 @@
 <?php
 namespace OCFram\Blog\Model;
 require_once('model/Manager.php');
-
 class PostManager extends Manager {
     public function getPosts($publish) {
         $db = $this->dbConnect();
@@ -35,7 +34,6 @@ class PostManager extends Manager {
     }
     public function getPost($postId) {
         $db = $this->dbConnect();
-        // Récupération du billet
         $q = $db->prepare("SELECT id, no, title, content, DATE_FORMAT(creation_date, '%d/%m/%Y à %Hh%imin%ss') AS creation_date_fr 
             FROM bl_posts 
             WHERE id = :id");

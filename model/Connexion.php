@@ -7,14 +7,14 @@
 *  Version   : V1R0                                     *
 * ==================================================== */
 namespace OCFram\Blog\Model;
-class Instance {
-    /* =============================================== **
+class Connexion {
+    private static $instance = null;
+   /* =============================================== **
     **      CALL THIS METHOD TO GET SINGLETON          **
     ** =============================================== */
     public static function getInstance() {
-        static $instance = false;
-        if($instance === false) $instance = new static();
-        return $instance;
+        if(self::$instance === null) self::$instance = new static();
+        return self::$instance;
     }
     /* =============================================== **
     **          MAKE CONSTRUCTOR PRIVATE               **

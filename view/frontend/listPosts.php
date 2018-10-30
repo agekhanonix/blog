@@ -16,12 +16,10 @@
                     <small>publi&eacute; le <?= $post['creation_date_fr'] ?></small>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                    <a href="javascript:getComments(<?= $post['id'] ?>)">
-                        <button data-toggle="modal" href="#infos<?= $post['id'] ?>" class="btn btn-default">
+                    <button data-toggle="modal" data-target="#infos<?= $post['id'] ?>" class="btn btn-default"  onclick="getComments(<?= $post['id'] ?>)">
                         <span class="glyphicon glyphicon-leaf glyph orange" title="Voir les commentaires pour le chapitre <?= $post['no'] ?>"></span>
-                            Commentaires
-                        </button>
-                    </a>
+                        Commentaires
+                    </button>
                 </div>
             </dt>
             <dd>

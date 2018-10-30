@@ -1,7 +1,6 @@
 <?php
 namespace OCFram\Blog\Model;
 require_once('model/Manager.php');
-
 class VisitManager extends Manager {
     public function addVisit($memberId, $remoteAddr, $pseudo) {
         $db = $this->dbConnect();
