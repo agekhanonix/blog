@@ -73,6 +73,7 @@
     }
     function delMembers() {
         $memberManager = new \OCFram\Blog\Model\MemberManager();
+        $visitManager = new \OCFram\Blog\Model\VisitManager();
         $members = json_decode($memberManager->getMembers());
         $array = array();
         foreach($members as $member) {

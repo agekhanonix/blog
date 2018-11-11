@@ -377,10 +377,7 @@ fieldset.register-comment {
     margin-top: 5px;
     margin-left: 30px;
     background: #4e9fd2;
-    background: -moz-linear-gradient(top, #4e9fd2 0%, #366f92 64%, #1a3546 80%, #1a3546 80%, #1f3f53 100%);
-    background: -webkit-linear-gradient(top, #4e9fd2 0%,#366f92 64%,#1a3546 80%,#1a3546 80%,#1f3f53 100%);
     background: linear-gradient(to bottom, #4e9fd2 0%,#366f92 64%,#1a3546 80%,#1a3546 80%,#1f3f53 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4e9fd2', endColorstr='#1f3f53',GradientType=0 );
     color: #ffffff;
     font-size: 0.7rem;
     text-transform: uppercase;
@@ -393,10 +390,7 @@ fieldset.register-comment {
     padding-top: 2px;
     padding-bottom: 2px;
     background: #505f7f;
-    background: -moz-linear-gradient(top, #9190e5 0%, #51507f 64%, #282840 80%, #282840 80%, #505f7f 100%);
-    background: -webkit-linear-gradient(top, #9190e5 0%,#51507f 64%,#282840 80%,#282840 80%,#505f7f 100%);
     background: linear-gradient(to bottom, #9190e5 0%,#51507f 64%,#282840 80%,#282840 80%,#505f7f 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9190e5', endColorstr='#505f7f',GradientType=0 );
     color: #ffffff;
     box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7),
         -1px 2px 20px rgba(255, 255, 255, 0.6) inset;
@@ -409,20 +403,8 @@ fieldset.register-comment {
     border:         1px solid #C1C1C1;
     background:     #ffffff;
     /* CSS3 effects */
-    background:     -webkit-linear-gradient(#ffffff, #ffffff 20%, #d8d8d8 80%, #C1C1C1);
-    background:     -moz-linear-gradient(#ffffff, #ffffff 20%, #d8d8d8 80%, #C1C1C1);
-    background:     -ms-linear-gradient(#ffffff, #ffffff 20%, #d8d8d8 80%, #C1C1C1);
-    background:     -o-linear-gradient(#ffffff, #ffffff 20%, #d8d8d8 80%, #C1C1C1);
-    background:     linear-gradient(#ffffff, #ffffff 20%, #d8d8d8 80%, #C1C1C1);
-    -webkit-border-radius:  2px 2px 2px 2px;
-    -moz-border-radius:  2px 2px 2px 2px;
-    -ms-border-radius:  2px 2px 2px 2px;
-    -o-border-radius:  2px 2px 2px 2px;
+   background:     linear-gradient(#ffffff, #ffffff 20%, #d8d8d8 80%, #C1C1C1);
     border-radius:  2px 2px 2px 2px;
-    -webkit-box-shadow:     0 0 3px rgba(0,0,0, 0.2);
-    -moz-box-shadow:     0 0 3px rgba(0,0,0, 0.2);
-    -ms-box-shadow:     0 0 3px rgba(0,0,0, 0.2);
-    -o-box-shadow:     0 0 3px rgba(0,0,0, 0.2);
     box-shadow:     0 0 3px rgba(0,0,0, 0.2);
 }
 input[type=text],

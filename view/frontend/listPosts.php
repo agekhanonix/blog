@@ -1,7 +1,7 @@
 <?php ob_start(); ?>
     <div data-loading>
-        <span><span id="g"><img src="public/images/bg.png"></span></span>
-        <span><span id="d"><img src="public/images/bd.png"></span></span>
+        <span><span id="g"><img src="public/images/bg.png" alt="Bg"></span></span>
+        <span><span id="d"><img src="public/images/bd.png" alt="Bd"></span></span>
     </div>
     <ol class="breadcrumb row" id="sitemap">
         <li><a href="index.php?action=home">Accueil</a></li>
