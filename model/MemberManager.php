@@ -17,19 +17,15 @@ class MemberManager extends Manager {
     }
     public function getMember($pseudo, $pwd) {
         $db = $this->dbConnect();
-        $q = $db->prepare("SELECT members_id, members_pseudo, members_pwd, members_lastName, members_firstName, members_level, members_email, members_avatar FROM bl_members WHERE members_pseudo = :pseudo AND members_registred = 0  LIMIT 0,1");
+        $q = $db->prepare("SELECT members_id, members_pseudo, members_pwd, members_lastName, members_firstName, members_level, members_email, members_avatar FROM bl_members WHERE members_pseudo = :pseudo AND members_pwd = :pwd AND members_registred = 0  LIMIT 0,1");
         $q->bindValue(':pseudo', $pseudo);
+        $q->bindValue(':pwd',$this->encrypt($pwd, $pseudo));
         $q->execute();
         $data = $q->fetch();
         if(count($data) == 0) {
             return false;
         } else {
-            $password = $this->encrypt($pwd, $pseudo);
-            if($data['members_pwd'] == $password) {
-                return $data;
-            } else {
-                return null;
-            }
+            return $data;
         }
     }
     public function delMember($id, $register) {

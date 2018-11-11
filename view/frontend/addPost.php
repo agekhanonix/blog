@@ -16,7 +16,7 @@
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                                 <div class="input-group">
                                     <span class="input-group-addon" id="no-input">No : </span>
-                                    <input type="text" class="form-control" placeholder="No chapitre" name="no" id="no-input">
+                                    <input type="number" class="form-control" placeholder="No chapitre" name="no" id="no-input" min="1">
                                 </div>
                             </div>
                             <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">

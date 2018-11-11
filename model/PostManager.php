@@ -6,11 +6,11 @@ class PostManager extends Manager {
         $db = $this->dbConnect();
         if($publish == 'yes') {
             $q = $db->query("SELECT id, no, title, content, DATE_FORMAT(creation_date, '%d/%m/%Y à %Hh%imin%ss') AS creation_date_fr, 
-             published FROM bl_posts WHERE published = 1 ORDER BY creation_date DESC");
+             published FROM bl_posts WHERE published = 1 ORDER BY no ASC");
         }
         if($publish == 'no') {
             $q = $db->query("SELECT id, no, title, content, DATE_FORMAT(creation_date, '%d/%m/%Y à %Hh%imin%ss') AS creation_date_fr, 
-            published FROM bl_posts WHERE published = 0 ORDER BY id ASC");
+            published FROM bl_posts WHERE published = 0 ORDER BY no ASC");
         }
         if($publish == 'all') {
             $q = $db->query("SELECT id, no, title, content, DATE_FORMAT(creation_date, '%d/%m/%Y à %Hh%imin%ss') AS creation_date_fr, 
@@ -21,10 +21,10 @@ class PostManager extends Manager {
     public function getPostsNo($publish) {
         $db = $this->dbConnect();
         if($publish == 'yes') {
-            $q = $db->query("SELECT no FROM bl_posts WHERE published = 1 ORDER BY creation_date DESC");
+            $q = $db->query("SELECT no FROM bl_posts WHERE published = 1 ORDER BY no ASC");
         }
         if($publish == 'no') {
-            $q = $db->query("SELECT no FROM bl_posts WHERE published = 0 ORDER BY id ASC");
+            $q = $db->query("SELECT no FROM bl_posts WHERE published = 0 ORDER BY no ASC");
         }
         if($publish == 'all') {
             $q = $db->query("SELECT no FROM bl_posts ORDER BY no ASC");

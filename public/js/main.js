@@ -5,6 +5,10 @@
 *  Date      : 05.09.2018                                       *
 *  Version   : V1R0                                             *
 * ============================================================ */
+window.addEventListener("load", function() {
+    var node = document.querySelector("[data-loading]");
+    node.setAttribute("data-loading", "complete");
+});
 window.onload = preloader;
 var show_per_page = 3;
 var current_page = 0;
@@ -20,7 +24,7 @@ function next() {
 }
 function go_to_page(page_num) {
     current_page = page_num;
-    start_from = current_page + show_per_page;
+    start_from = current_page * show_per_page;
     end_on = start_from + show_per_page;
     set_display(start_from, end_on);
     $('.active').removeClass('active');

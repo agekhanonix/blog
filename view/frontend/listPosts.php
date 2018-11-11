@@ -1,4 +1,8 @@
 <?php ob_start(); ?>
+    <div data-loading>
+        <span><span id="g"><img src="public/images/bg.png"></span></span>
+        <span><span id="d"><img src="public/images/bd.png"></span></span>
+    </div>
     <ol class="breadcrumb row" id="sitemap">
         <li><a href="index.php?action=home">Accueil</a></li>
         <li class="active">Les chapitres du livre</li>
@@ -17,7 +21,7 @@
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <button data-toggle="modal" data-target="#infos<?= $post['id'] ?>" class="btn btn-default"  onclick="getComments(<?= $post['id'] ?>)">
-                        <span class="glyphicon glyphicon-leaf glyph orange" title="Voir les commentaires pour le chapitre <?= $post['no'] ?>"></span>
+                        <span class="glyphicon glyphicon-leaf glyph btn-icon" title="Voir les commentaires pour le chapitre <?= $post['no'] ?>"></span>
                         Commentaires
                     </button>
                 </div>
@@ -68,7 +72,36 @@
                     </div>
                 </div>
             </dd>
-            <dd><?= $post['content'] ?></dd>
+<?php
+    if(strlen($post['content']) > 9000) {
+        $string = wordwrap($post['content'], 9000, "{cesure}", false);
+        $array = explode("{cesure}", $string);
+        $resume = $array[0];
+        unset($array[0]);
+        $suite = implode('', array_values($array)); 
+?>
+            <dd><?= $resume ?>
+                <button data-toggle="modal" data-target="#suite<?= $post['id'] ?>" class="btn btn-default">
+                    <span class="glyphicon glyphicon-zoom-in glyph btn-icon" title="Lire la suite du chapitre <?= $post['no'] ?>"></span>
+                        Lire la suite
+                </button>
+                <div class="modal fade" id="suite<?= $post['id'] ?>">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">
+                                    <span class="glyphicon glyphicon-remove-circle btn-icon"></span>
+                                </button>
+                                <h4 class="modal-title">La suite du chapitre : <?= arab2rom($post['no']) ?></h4>
+                            </div>
+                            <div class="modal-body"><?= $suite ?></div>
+                        </div>
+                    </div>
+                </div>   
+            </dd>
+<?php } else { ?>
+            <dd><?= $post['content'] ?>
+<?php } ?>
         </dl>
     </section>  
 <?php } ?>

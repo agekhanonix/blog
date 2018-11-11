@@ -20,18 +20,109 @@ body {
     padding-right: 5px;
 }
 /* ---                                             --- **
-**          LAUNCHING OF AN ANIMATION DURING           **
-**          LOADING OF THE CARROUSEL IMAGES            **
+**      LAUNCHING OF AN ANIMATION DURING LOADING       **
 ** ---                                             --- */
+[data-loading] {
+    position: fixed;
+    display: block;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 500;
+}
+[data-loading] > * {
+    display: block;
+    position: absolute;
+    width: 50vw;
+    height: 100vh;
+    overflow: hidden;
+}
+[data-loading] > *:first-child {
+    top: 0;
+    left: 0;
+    background: #1a3546;
+}
+[data-loading] > *:last-child {
+    bottom: 0;
+    right: 0;
+    transform: rotate(180deg);
+    background: #bdcde6;
+}
+[data-loading] > * > * {
+    display: block;
+    position: absolute;
+    width: 13.1vw;
+    height: 13.1vh;
+    top: 42.90vh;
+    right: 0;
+    background: #bdcde6;
+}
+[data-loading] > *:last-child > * {
+    background: #1a3546;
+}
+[data-loading="complete"] {
+    animation: ldclose 0s forwards;
+    animation-delay: 2s;
+}
+[data-loading="complete"] > * {
+    animation: ldopen 1s forwards;
+    animation-delay: 0.5s;
+}
+@keyframes ldopen {
+    from{ height: 100vh;}
+    to { height: 0;}
+}
+@keyframes ldclose {
+    to{z-index: -100;}
+}
+#g, #d {
+    width: 110px;
+    height: 110px;
+    margin: 0 0 0 0;
+    padding: 5px 5px 5px 5px;
+    border: 1px solid #1a3546;
+    border-radius: 10px 10px 10px 10px;
+}
 #preload {
-    height:         200px;
+    height:         160px;
     width:          100%;
     top: 0;
     z-index:        100;
     visibility:     hidden;
 }
+@media only screen and (min-width: 240px) and (max-width: 319px) { /* -- e.g. Mobile -- */
+    #preload {height: 20px;}
+}
+@media only screen and (min-width: 320px) and (max-width: 479px) { /* -- e.g. Apple Iphone (Portrait) -- */
+    #preload {height: 20px;}
+}
+@media only screen and (min-width: 480px) and (max-width: 567px) { /* -- e.g. Apple Iphone (Landscape) -- */
+    #preload {height: 30px;}
+}
+@media only screen and (min-width: 568px) and (max-width: 599px) { /* -- e.g. Apple Iphone 5 (Landscape) -- */
+    #preload {height: 40px;}
+}
+@media only screen and (min-width: 600px) and (max-width: 767px) { /* -- e.g. Small Tablet -- */
+    #preload { height: 50px;}
+}
+@media only screen and (min-width: 768px) and (max-width: 1023px) { /* -- e.g. Apple IPAD 2-3rd -- */
+    #preload {height: 75px;}     
+}
+@media only screen and (min-width: 1024px) and (max-width: 1279px) { /* -- e.g. 17" -- */ 
+    #preload {height: 110px;} 
+}
+@media only screen and (min-width: 1280px) and (max-width: 1439px) { /* -- e.g. Widescreen -- */ 
+    #preload {height: 140px;} 
+}
+@media only screen and (min-width: 1440px) and (max-width: 2559px) { /* --  -- */ 
+    #preload {height: 160px;} 
+}
+@media only screen and (min-width: 2560px) { /* -- e.g. 30" Apple Cinema Display -- */ 
+    #preload {height: 300px;} 
+}
 div#loading {
-    top: 20px;
+    top: 3px;
     left: 30px;
     position: absolute;
     z-index: 1000;
@@ -53,7 +144,7 @@ div#loading img {
     text-align:     center;
     color:          #cacbcc;
     font-family:    'Mr Dafoe', cursive;
-    font-size:      1.1rem;
+    font-size:      1.2rem;
     text-shadow: -1px 0 0 rgba(158, 20, 13, 0.8), 
         1px 0 0 rgba(158, 20, 13, 0.8),
         0 -1px 0 rgba(158, 20, 13, 0.8),
@@ -107,7 +198,7 @@ footer {
     padding-right: 5px;
 }
 .page-footer {
-    background-color: #ffd5f7;
+    background-color: #bdcde6;
     border: 1px solid #97007a;
     border-radius: 0px 0px 20px 20px;
     padding-bottom: 5px;
@@ -127,7 +218,7 @@ footer {
 **                     CONTACT FORM                    **
 ** ---                                             --- */
 .form {
-    background-color: #f8e7ed;
+    background-color: #bdcde6;
     padding: 5px;
     margin-bottom:2px;
 }
@@ -149,13 +240,20 @@ li.form {
     margin-left: 20px;
     padding-top: 1px;
     padding-bottom: 1px;
+    font-size: 0.75rem;
+}
+span.form {
+    font-size: 0.75rem;
+}
+.form .form-horizontal .radio {
+    padding-top: 3px;
 }
 /* ---                                             --- **
 **                    REGISTER FORM                    **
 ** ---                                             --- */
 .register,
 .register-comment {
-    background-color: #dfffe1;
+    background-color: #bdcde6;
     padding: 5px;
     margin-bottom:2px;
 }
@@ -248,7 +346,7 @@ fieldset.register-comment {
 ** ---                                             --- */
 .chapter dt {
     color: #97007a;
-    background-color: #ffcdf5;
+    background-color: #bdcde6;
     font-size: 1.2rem;
     border: 1px dotted #97007a;
     border-radius: 5px 5px 0px 0px;
@@ -278,11 +376,11 @@ fieldset.register-comment {
 .btn-default {
     margin-top: 5px;
     margin-left: 30px;
-    background: #bfd255;
-    background: -moz-linear-gradient(top, #bfd255 0%, #8eb92a 64%, #72aa00 80%, #72aa00 80%, #9ecb2d 100%);
-    background: -webkit-linear-gradient(top, #bfd255 0%,#8eb92a 64%,#72aa00 80%,#72aa00 80%,#9ecb2d 100%);
-    background: linear-gradient(to bottom, #bfd255 0%,#8eb92a 64%,#72aa00 80%,#72aa00 80%,#9ecb2d 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfd255', endColorstr='#9ecb2d',GradientType=0 );
+    background: #4e9fd2;
+    background: -moz-linear-gradient(top, #4e9fd2 0%, #366f92 64%, #1a3546 80%, #1a3546 80%, #1f3f53 100%);
+    background: -webkit-linear-gradient(top, #4e9fd2 0%,#366f92 64%,#1a3546 80%,#1a3546 80%,#1f3f53 100%);
+    background: linear-gradient(to bottom, #4e9fd2 0%,#366f92 64%,#1a3546 80%,#1a3546 80%,#1f3f53 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4e9fd2', endColorstr='#1f3f53',GradientType=0 );
     color: #ffffff;
     font-size: 0.7rem;
     text-transform: uppercase;
@@ -331,7 +429,7 @@ input[type=text],
 input[type=email],
 input[type=password],
 textarea {
-    font-size: 0.6rem; 
+    font-size: 0.75rem; 
 }
 input[type=text],
 input[type=email],
@@ -373,8 +471,11 @@ input[type=password] {
 .blue {
     color: #337ab7;
 }
+.alaska {
+    color: #bdcde6;
+}
 .pager li a {
-    background-color: #ffcdf5;
+    background-color: #bdcde6;
     color: #337ab7;
     font-weight: bold;
 }
