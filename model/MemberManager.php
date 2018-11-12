@@ -45,7 +45,7 @@ class MemberManager extends Manager {
         return $jsonCode;
     }
     protected function encrypt($pwd) {
-        $encrypted_string = password_hash($pwd, PASSWORD_ARGON2I);
+        $encrypted_string = password_hash($pwd, PASSWORD_DEFAULT);
         return $encrypted_string;
     }
     protected function decrypt($pwd, $hash) {
