@@ -78,12 +78,11 @@
         $array = explode("{cesure}", $string);
         $resume = $array[0];
         unset($array[0]);
-        $suite = implode('', array_values($array)); 
+        $suite = '<p>' . implode('', array_values($array)); 
 ?>
             <dd><?= $resume ?>
-                <button data-toggle="modal" data-target="#suite<?= $post['id'] ?>" class="btn btn-default">
-                    <span class="glyphicon glyphicon-zoom-in glyph btn-icon" title="Lire la suite du chapitre <?= $post['no'] ?>"></span>
-                        Lire la suite
+                <button data-toggle="modal" data-target="#suite<?= $post['id'] ?>" class="btn btn-suite">
+                    [...]
                 </button>
                 <div class="modal fade" id="suite<?= $post['id'] ?>">
                     <div class="modal-dialog modal-lg">

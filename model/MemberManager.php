@@ -9,7 +9,8 @@ class MemberManager extends Manager {
         $q->bindValue(':pseudo', $pseudo);
         $q->bindValue(':lastName', $lastName);
         $q->bindValue(':firstName', $firstName);
-        $q->bindValue(':pwd', $this->encrypt($pwd, $pseudo));
+        //$q->bindValue(':pwd', $this->encrypt($pwd, $pseudo));
+        $q->bindValue(':pwd', $this->encrypt($pwd));
         $q->bindValue(':email', $email);
         $q->bindValue(':avatar', $avatar);
         $affectedLines = $q->execute();
@@ -17,12 +18,11 @@ class MemberManager extends Manager {
     }
     public function getMember($pseudo, $pwd) {
         $db = $this->dbConnect();
-        $q = $db->prepare("SELECT members_id, members_pseudo, members_pwd, members_lastName, members_firstName, members_level, members_email, members_avatar FROM bl_members WHERE members_pseudo = :pseudo AND members_pwd = :pwd AND members_registred = 0  LIMIT 0,1");
+        $q = $db->prepare("SELECT members_id, members_pseudo, members_pwd, members_lastName, members_firstName, members_level, members_email, members_avatar FROM bl_members WHERE members_pseudo = :pseudo AND members_registred = 0  LIMIT 0,1");
         $q->bindValue(':pseudo', $pseudo);
-        $q->bindValue(':pwd',$this->encrypt($pwd, $pseudo));
         $q->execute();
         $data = $q->fetch();
-        if(count($data) == 0) {
+        if(count($data) == 0 || !$this->decrypt($pwd, $data['members_pwd'])) {
             return false;
         } else {
             return $data;
@@ -44,8 +44,12 @@ class MemberManager extends Manager {
         $jsonCode = json_encode($q->fetchAll(\PDO::FETCH_ASSOC));
         return $jsonCode;
     }
-    protected function encrypt($pwd, $pseudo) {
-        $encrypted_string = hash_hmac('sha512', $pseudo . $pwd, '6Tune7+?2fred');
+    protected function encrypt($pwd) {
+        $encrypted_string = password_hash($pwd, PASSWORD_ARGON2I);
         return $encrypted_string;
     }
+    protected function decrypt($pwd, $hash) {
+        return password_verify($pwd, $hash);
+    }
+
 }

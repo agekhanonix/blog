@@ -382,6 +382,10 @@ fieldset.register-comment {
     font-size: 0.7rem;
     text-transform: uppercase;
 }
+.btn-suite {
+    background: transparent;
+    color: #97007a;
+}
 .btn-badge {
     margin-top: 1px;
     margin-left: 10px;
